@@ -9,7 +9,7 @@
 </head>
 <body>
             <form id="form1" runat="server" method="post">      
-        <header class="phan-dau-trang">
+       <header class="phan-dau-trang">
             <div class="noi-dung-phan-dau">
                 <a href="#" class="chu-logo">
                     MOBILE EDUCATION
@@ -23,8 +23,16 @@
                     <a href="#">Liên hệ</a>
                 </nav>
 
-                <div class="thanh-tim-kiem">
-                    <input type="text" placeholder="Tìm kiếm sản phẩm..." />
+                <div class="cum-phai-header">
+                    <div class="thanh-tim-kiem">
+                        <input type="text" placeholder="Tìm kiếm sản phẩm..." />
+                    </div>
+
+                    <div class="khu-vuc-tai-khoan">
+                        <a href="DangNhap.aspx" title="Đăng nhập / Đăng ký">
+                            <img src="Anh/taikhoan.png" alt="Tài khoản" class="icon-tai-khoan" />
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
@@ -73,6 +81,7 @@
     </ItemTemplate>
 </asp:Repeater>
                 </div>
+                
 
             </section>
         </main>
