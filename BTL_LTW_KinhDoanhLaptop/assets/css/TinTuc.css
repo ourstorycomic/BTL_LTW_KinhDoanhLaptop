@@ -1,0 +1,98 @@
+.trang-tin-tuc {
+    padding: 40px 0;
+}
+
+.tieu-de-tin-tuc {
+    font-size: 28px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #8bc34a;
+    display: inline-block;
+    padding-bottom: 10px;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+}
+
+.luoi-tin-tuc {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.the-tin-tuc {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+    .the-tin-tuc:hover {
+        transform: translateY(-5px);
+    }
+
+.anh-tin-tuc {
+    height: 200px;
+    overflow: hidden;
+    background-color: #eee;
+}
+
+    .anh-tin-tuc img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+
+.the-tin-tuc:hover .anh-tin-tuc img {
+    transform: scale(1.05);
+}
+
+.noi-dung-tin {
+    padding: 20px;
+}
+
+.ngay-dang {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.noi-dung-tin h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+    .noi-dung-tin h3 a {
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+        .noi-dung-tin h3 a:hover {
+            color: #8bc34a;
+        }
+
+.noi-dung-tin p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.btn-doc-tiep {
+    display: inline-block;
+    font-size: 14px;
+    color: #e3001b;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+    .btn-doc-tiep:hover {
+        color: #8bc34a;
+    }
