@@ -1,0 +1,128 @@
+﻿.banner-gioi-thieu {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+    margin-bottom: 40px;
+    border-radius: 8px;
+}
+
+    .banner-gioi-thieu h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .banner-gioi-thieu p {
+        font-size: 18px;
+        color: #ecf0f1;
+    }
+
+.icon-ten-lua {
+    font-size: 40px;
+    display: block;
+    margin-top: 20px;
+}
+
+.su-menh-section {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 40px;
+    margin-bottom: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.cot-trai-hinh-anh {
+    width: 40%;
+    text-align: center;
+}
+
+    .cot-trai-hinh-anh img {
+        max-width: 100%;
+        height: auto;
+    }
+
+.cot-phai-noi-dung {
+    width: 60%;
+    padding-left: 40px;
+}
+
+    .cot-phai-noi-dung h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .cot-phai-noi-dung p {
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: #555;
+    }
+
+.cam-ket-section {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.tieu-de-do {
+    color: #e3001b;
+    font-size: 28px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.khung-chua-cam-ket {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.cam-ket-trai, .cam-ket-phai {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 30%;
+}
+
+.cam-ket-giua {
+    width: 30%;
+}
+
+    .cam-ket-giua img {
+        width: 100%;
+        max-width: 250px;
+    }
+
+.hop-cam-ket {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    position: relative;
+    font-size: 15px;
+    color: #444;
+    text-align: left;
+}
+.cam-ket-trai .hop-cam-ket::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    transform: translateY(-50%);
+    border-width: 10px 0 10px 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent white;
+}
+
+.cam-ket-phai .hop-cam-ket::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    transform: translateY(-50%);
+    border-width: 10px 10px 10px 0;
+    border-style: solid;
+    border-color: transparent white transparent transparent;
+}
