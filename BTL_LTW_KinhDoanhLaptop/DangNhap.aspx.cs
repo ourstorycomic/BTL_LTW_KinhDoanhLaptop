@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -59,6 +59,13 @@ namespace BTL_LTW_KinhDoanhLaptop
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["logout"] == "true")
+            {
+                Session.Remove("TaiKhoan");
+                Response.Redirect("DangNhap.aspx");
+                return;
+            }
+
             HienThiTaiKhoan();
             lblThongBaoLoi.Text = "";
 
