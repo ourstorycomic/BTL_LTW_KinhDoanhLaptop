@@ -5,11 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="TrangChu.css" />
+    <link rel="stylesheet" type="text/css" href="TrangChu.css" />   
 </head>
 <body>
-            <form id="form1" runat="server" method="post">      
-        <header class="phan-dau-trang">
+    <form id="form1" runat="server" method="post">
+                <header class="phan-dau-trang">
             <div class="noi-dung-phan-dau">
                 <a href="#" class="chu-logo">
                     MOBILE EDUCATION
@@ -33,13 +33,14 @@
             
             <aside class="menu-trai">
                 <div class="tieu-de-menu">
-                    IMAC & MAC MINI
+                   LAPTOP TIÊU BIỂU
                 </div>
                 <ul class="danh-sach-menu">
-                    <li><a href="#">▸ Macbook Pro Retina</a></li>
-                    <li><a href="#">▸ Macbook Air</a></li>
-                    <li><a href="#">▸ Macbook 12 inch</a></li>
-                    <li><a href="#">▸ Macbook Pro Touch</a></li>
+                    <li><a href="#">▸ ASUS</a></li>
+                    <li><a href="#">▸ Lenovo</a></li>
+                    <li><a href="#">▸ Dell</a></li>
+                    <li><a href="#">▸ Macbook</a></li>
+                    <li><a href="#">▸ Acer</a></li>
                     <li><a href="#">▸ Phụ kiện</a></li>
                 </ul>
             </aside>
@@ -66,7 +67,7 @@
             <div class="gia-tien"><%# String.Format("{0:N0} ₫", Eval("GiaTien")) %></div>
             
             <div class="hanh-dong-san-pham">
-                <a href="#" class="btn-chi-tiet">Chi tiết</a>
+                <a href="ChiTietSanPham.aspx?id=<%# Eval("Id") %>" class="btn-chi-tiet">Chi tiết</a>
                 <a href="#" class="btn-gio-hang">Giỏ hàng</a>
             </div>
         </div>

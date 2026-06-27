@@ -16,7 +16,7 @@ namespace BTL_LTW_KinhDoanhLaptop
             {
         new Laptop { Id = 1, TenSanPham = "Laptop Lenovo IdeaPad Slim 3", GiaTien = 19490000, HinhAnh = "~/Anh/lenovo.png" },
         new Laptop { Id = 2, TenSanPham = "Laptop HP 15", GiaTien = 17290000, HinhAnh = "~/Anh/acer.png" },
-        new Laptop { Id = 3, TenSanPham = "Laptop Acer Aspire 7", GiaTien = 22990000, HinhAnh = "~/Anh/dell1.png" },
+        new Laptop { Id = 3, TenSanPham = "Laptop Acer Aspire 7", GiaTien = 22990000, HinhAnh = "~/Anh/dell.png" },
         new Laptop { Id = 4, TenSanPham = "Laptop MSI Katana 15", GiaTien = 31990000, HinhAnh = "~/Anh/dell2.png" },
 
         new Laptop { Id = 5, TenSanPham = "MacBook Air M1 2020", GiaTien = 18990000, HinhAnh = "~/Anh/lenovo.png" },

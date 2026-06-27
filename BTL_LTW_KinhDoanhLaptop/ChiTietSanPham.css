@@ -1,0 +1,119 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.chi-tiet-layout {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.cot-trai {
+    flex: 4;
+    text-align: center;
+}
+
+.cot-phai {
+    flex: 6;
+}
+
+.anh-lon {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.ten-sp {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.gia-sp {
+    color: #d70018;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.khung-thong-so {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+    .khung-thong-so h3 {
+        margin-top: 0;
+        font-size: 16px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+    }
+
+    .khung-thong-so ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        line-height: 1.8;
+        font-size: 14px;
+    }
+.btn-mua {
+    background-color: #d70018;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+.btn-them {
+    background-color: greenyellow;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+    .btn-mua:hover {
+        background-color: #b50014;
+    }
+.mo-ta-sp {
+    margin-top: 40px;
+    border-top: 2px solid #eee;
+    padding-top: 20px;
+    line-height: 1.6;
+}
+
+.link-trang-chu {
+    color: blue;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.link-trang-chu:hover {
+    color: #e3001b; 
+    transform: translateY(-3px);
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: bold; 
+}   

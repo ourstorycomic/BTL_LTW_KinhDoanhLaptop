@@ -11,13 +11,16 @@ namespace BTL_LTW_KinhDoanhLaptop
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Application["DanhSachLaptop"] != null)
+            if (!IsPostBack)
             {
 
-                rptLaptops.DataSource = (List<Laptop>)Application["DanhSachLaptop"];
-                rptLaptops.DataBind();
-            }
+                if (Application["DanhSachLaptop"] != null)
+                {
 
+                    rptLaptops.DataSource = (List<Laptop>)Application["DanhSachLaptop"];
+                    rptLaptops.DataBind();
+                }
+            }
         }
     }
 }
