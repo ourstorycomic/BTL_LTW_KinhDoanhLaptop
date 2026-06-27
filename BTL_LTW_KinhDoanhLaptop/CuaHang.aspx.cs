@@ -31,7 +31,6 @@ namespace BTL_LTW_KinhDoanhLaptop
         }
             protected void BoLoc_Changed(object sender, EventArgs e)
         {
-            // 1. Lấy dữ liệu gốc từ Global.asax
             List<Laptop> danhSachGoc = Application["DanhSachLaptop"] as List<Laptop>;
             if (danhSachGoc == null) return;
             IEnumerable<Laptop> ketQuaLoc = danhSachGoc;
@@ -74,8 +73,6 @@ namespace BTL_LTW_KinhDoanhLaptop
             {
                 ketQuaLoc = ketQuaLoc.OrderByDescending(sp => sp.Id);
             }
-
-
             rptLaptops.DataSource = ketQuaLoc.ToList();
             rptLaptops.DataBind();
         }
