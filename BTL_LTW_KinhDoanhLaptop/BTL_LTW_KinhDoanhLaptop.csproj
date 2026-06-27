@@ -69,6 +69,8 @@
   <ItemGroup>
     <Content Include="ChiTietSanPham.aspx" />
     <Content Include="ChiTietSanPham.css" />
+    <Content Include="CuaHang.aspx" />
+    <Content Include="CuaHang.css" />
     <Content Include="GioiThieu.aspx" />
     <Content Include="GioiThieu.css" />
     <Content Include="Global.asax" />
@@ -85,6 +87,13 @@
     </Compile>
     <Compile Include="ChiTietSanPham.aspx.designer.cs">
       <DependentUpon>ChiTietSanPham.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CuaHang.aspx.cs">
+      <DependentUpon>CuaHang.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CuaHang.aspx.designer.cs">
+      <DependentUpon>CuaHang.aspx</DependentUpon>
     </Compile>
     <Compile Include="GioiThieu.aspx.cs">
       <DependentUpon>GioiThieu.aspx</DependentUpon>

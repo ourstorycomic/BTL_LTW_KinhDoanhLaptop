@@ -18,7 +18,7 @@
                 <nav class="menu-ngang">
                     <a href="TrangChu.aspx">Trang chủ</a> 
                     <a href="GioiThieu.aspx">Giới thiệu</a>
-                    <a href="#">Cửa hàng</a>
+                    <a href="CuaHang.aspx">Cửa hàng</a>
                     <a href="TinTuc.aspx">Tin tức</a>
                     <a href="#">Liên hệ</a>
                 </nav>
