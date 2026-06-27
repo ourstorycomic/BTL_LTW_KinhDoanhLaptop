@@ -24,8 +24,11 @@
                 </nav>
 
                 <div class="thanh-tim-kiem">
-                    <input type="text" placeholder="Tìm kiếm sản phẩm..." />
+                    <asp:TextBox ID="txtTimKiem" runat="server" placeholder="Tìm kiếm sản phẩm..." CssClass="o-nhap-tim-kiem"></asp:TextBox>
+    
+                    <asp:Button ID="btnTimKiem" runat="server" Text="Tìm" OnClick="btnTimKiem_Click" CssClass="btn-search" />
                 </div>
+
             </div>
         </header>
 
@@ -48,7 +51,11 @@
             <section class="noi-dung-phai">
                 
                 <div class="banner-quang-cao">
-                    <img src="Anh/banner.jpg" alt="Banner Khuyến Mãi" onerror="this.style.display='none'" />
+                <button type="button" class="nut-chuyen prev" onclick="chuyenSlide(-1)">❮</button>
+    
+                <img id="imgBanner" src="Anh/Anhnen1.png" alt="Banner Laptop" />
+    
+                <button type="button" class="nut-chuyen next" onclick="chuyenSlide(1)">❯</button>
                 </div>
 
                 <div class="khung-chua-cac-san-pham">
@@ -78,5 +85,27 @@
             </section>
         </main>
     </form>
+    <script type="text/javascript">
+        var vitrihientai = 1;
+        function chuyenSlide(buoc){
+            vitrihientai += buoc;
+            if (vitrihientai < 1) {
+                vitrihientai = 3;
+            }
+            if (vitrihientai > 3) {
+                vitrihientai = 1;
+            }
+            var anh = document.getElementById("imgBanner");
+            if (vitrihientai == 1) {
+                anh.src = "Anh/Anhnen1.png"
+            }
+            else if (vitrihientai == 2) {
+                anh.src = "Anh/Anhnen2.png"
+            }
+            else if (vitrihientai == 3) {
+                anh.src = "Anh/Anhnen3.png"
+            }
+        }
+    </script>
 </body>
 </html>

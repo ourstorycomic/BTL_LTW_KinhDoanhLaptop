@@ -22,5 +22,29 @@ namespace BTL_LTW_KinhDoanhLaptop
                 }
             }
         }
+        protected void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string tuKhoa = txtTimKiem.Text.Trim();
+            LoadDanhSachLaptop(tuKhoa);
+        }
+        private void LoadDanhSachLaptop(string tuKhoa)
+        {
+            List<Laptop> danhSachGoc = Application["DanhSachLaptop"] as List<Laptop>;
+
+            if (danhSachGoc != null)
+            {
+                if (!string.IsNullOrEmpty(tuKhoa))
+                {
+                    tuKhoa = tuKhoa.ToLower(); 
+                    var danhSachDaLoc = danhSachGoc.Where(sp => sp.TenSanPham.ToLower().Contains(tuKhoa)).ToList();
+                    rptLaptops.DataSource = danhSachDaLoc;
+                }
+                else
+                {
+                    rptLaptops.DataSource = danhSachGoc;
+                }
+                rptLaptops.DataBind();
+            }
+        }
     }
 }
