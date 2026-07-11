@@ -11,7 +11,7 @@ namespace BTL_LTW_KinhDoanhLaptop
 {
 
 
-    public partial class DangNhap
+    public partial class ChiTietSanPham
     {
 
         /// <summary>
@@ -22,8 +22,6 @@ namespace BTL_LTW_KinhDoanhLaptop
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-<<<<<<< Updated upstream
-=======
 
         /// <summary>
         /// lblSoLuongGio control.
@@ -33,7 +31,6 @@ namespace BTL_LTW_KinhDoanhLaptop
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSoLuongGio;
->>>>>>> Stashed changes
 
         /// <summary>
         /// divTaiKhoan control.
@@ -45,48 +42,21 @@ namespace BTL_LTW_KinhDoanhLaptop
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTaiKhoan;
 
         /// <summary>
-        /// txtTaiKhoan control.
+        /// btnMuaNgay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTaiKhoan;
+        protected global::System.Web.UI.WebControls.Button btnMuaNgay;
 
         /// <summary>
-        /// txtMatKhau control.
+        /// btnThemVaoGio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMatKhau;
-
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-
-        /// <summary>
-        /// lblThongBaoLoi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblThongBaoLoi;
-
-        /// <summary>
-        /// btnDangNhap control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDangNhap;
+        protected global::System.Web.UI.WebControls.Button btnThemVaoGio;
     }
 }

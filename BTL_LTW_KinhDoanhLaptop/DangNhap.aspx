@@ -41,14 +41,18 @@
         <main class="vung-dang-nhap">
             <div class="khung-dang-nhap">
                 <h2 class="tieu-de-dang-nhap">ĐĂNG NHẬP</h2>
-                
-                <div class="nhom-nhap-lieu">
-                    <asp:TextBox ID="txtTaiKhoan" runat="server" CssClass="o-nhap-lieu" Placeholder="Tên đăng nhập hoặc Email"></asp:TextBox>
+
+                <div class="nhom-nhap-lieu floating-group">
+                    <asp:TextBox ID="txtTaiKhoan" runat="server" CssClass="o-nhap-lieu floating-input" Placeholder=" "></asp:TextBox>
+                    <label class="floating-label">Tên đăng nhập hoặc Email</label>
                 </div>
-                
-                <div class="nhom-nhap-lieu">
-                    <asp:TextBox ID="txtMatKhau" runat="server" CssClass="o-nhap-lieu" TextMode="Password" Placeholder="Mật khẩu"></asp:TextBox>
+               
+                <div class="nhom-nhap-lieu floating-group">
+                    <asp:TextBox ID="txtMatKhau" runat="server" CssClass="o-nhap-lieu floating-input" TextMode="Password" Placeholder=" "></asp:TextBox>
+                    <label class="floating-label">Mật khẩu</label>
                 </div>
+
+                <asp:Label ID="Label1" runat="server" ForeColor="Red" Font-Size="13px"></asp:Label>
 
                 <asp:Label ID="lblThongBaoLoi" runat="server" ForeColor="Red" Font-Size="13px"></asp:Label>
 

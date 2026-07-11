@@ -37,28 +37,35 @@
             <div class="khung-dang-nhap">
                 <h2 class="tieu-de-dang-nhap">ĐĂNG KÝ TÀI KHOẢN</h2>
                 
-                <div class="nhom-nhap-lieu">
-                    <asp:TextBox ID="txtTaiKhoanDK" runat="server" CssClass="o-nhap-lieu" Placeholder="Tên đăng nhập"></asp:TextBox>
+                <!-- Đã thêm class floating-group và floating-input, đổi Placeholder thành " ", thêm thẻ label -->
+                <div class="nhom-nhap-lieu floating-group">
+                    <asp:TextBox ID="txtTaiKhoanDK" runat="server" CssClass="o-nhap-lieu floating-input" Placeholder=" "></asp:TextBox>
+                    <label class="floating-label">Tên đăng nhập</label>
                 </div>
 
-                <div class="nhom-nhap-lieu">
-                    <asp:TextBox ID="txtHoTenDK" runat="server" CssClass="o-nhap-lieu" Placeholder="Họ và tên"></asp:TextBox>
+                <div class="nhom-nhap-lieu floating-group">
+                    <asp:TextBox ID="txtHoTenDK" runat="server" CssClass="o-nhap-lieu floating-input" Placeholder=" "></asp:TextBox>
+                    <label class="floating-label">Họ và tên</label>
                 </div>
 
-                <div class="nhom-nhap-lieu">
-                    <asp:TextBox ID="txtSDTDK" runat="server" CssClass="o-nhap-lieu" Placeholder="Số điện thoại"></asp:TextBox>
+                <div class="nhom-nhap-lieu floating-group">
+                    <asp:TextBox ID="txtSDTDK" runat="server" CssClass="o-nhap-lieu floating-input" Placeholder=" "></asp:TextBox>
+                    <label class="floating-label">Số điện thoại</label>
                 </div>
                 
-                <div class="nhom-nhap-lieu">
-                    <asp:TextBox ID="txtEmailDK" runat="server" CssClass="o-nhap-lieu" Placeholder="Email (Ví dụ: abc@gmail.com)"></asp:TextBox>
+                <div class="nhom-nhap-lieu floating-group">
+                    <asp:TextBox ID="txtEmailDK" runat="server" CssClass="o-nhap-lieu floating-input" Placeholder=" "></asp:TextBox>
+                    <label class="floating-label">Email (Ví dụ: abc@gmail.com)</label>
                 </div>
                 
-                <div class="nhom-nhap-lieu">
-                    <asp:TextBox ID="txtMatKhauDK" runat="server" CssClass="o-nhap-lieu" TextMode="Password" Placeholder="Mật khẩu"></asp:TextBox>
+                <div class="nhom-nhap-lieu floating-group">
+                    <asp:TextBox ID="txtMatKhauDK" runat="server" CssClass="o-nhap-lieu floating-input" TextMode="Password" Placeholder=" "></asp:TextBox>
+                    <label class="floating-label">Mật khẩu</label>
                 </div>
 
-                <div class="nhom-nhap-lieu">
-                    <asp:TextBox ID="txtXacNhanMatKhau" runat="server" CssClass="o-nhap-lieu" TextMode="Password" Placeholder="Nhập lại mật khẩu"></asp:TextBox>
+                <div class="nhom-nhap-lieu floating-group">
+                    <asp:TextBox ID="txtXacNhanMatKhau" runat="server" CssClass="o-nhap-lieu floating-input" TextMode="Password" Placeholder=" "></asp:TextBox>
+                    <label class="floating-label">Nhập lại mật khẩu</label>
                 </div>
 
                 <asp:Label ID="lblThongBaoDK" runat="server" Font-Size="13px" Font-Bold="true"></asp:Label>

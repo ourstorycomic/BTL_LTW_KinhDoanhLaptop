@@ -57,11 +57,36 @@ namespace BTL_LTW_KinhDoanhLaptop
             // Bạn có thể lưu thêm Họ tên hoặc SĐT vào Application nếu sau này muốn dùng ở trang chủ:
             // Application[taiKhoan + "_HoTen"] = hoTen;
 
+<<<<<<< Updated upstream
             // 5. ĐĂNG KÝ THÀNH CÔNG -> TỰ ĐỘNG CHUYỂN VỀ TRANG ĐĂNG NHẬP
             // Sử dụng một đoạn Javascript nhỏ để hiển thị thông báo "Đăng ký thành công" trước, 
             // sau khi người dùng bấm OK thì nó sẽ tự chuyển hướng về DangNhap.aspx
             string script = "alert('Đăng ký tài khoản thành công! Hệ thống sẽ tự động chuyển bạn về trang Đăng nhập.'); window.location='DangNhap.aspx';";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "RedirectScript", script, true);
+=======
+            if (dsTaiKhoan.ContainsKey(taiKhoan))
+            {
+                lblThongBaoDK.Text = "Tên đăng nhập này đã tồn tại. Vui lòng chọn tên khác!";
+                lblThongBaoDK.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            NguoiDung nd = new NguoiDung {
+                TaiKhoan = taiKhoan,
+                MatKhau = matKhau,
+                HoTen = hoTen,
+                SDT = sdt,
+                Email = email,
+                DiaChi = ""
+            };
+
+            dsTaiKhoan.Add(taiKhoan, nd);
+            Application["DanhSachTaiKhoan"] = dsTaiKhoan;
+
+            // Hiển thị thông báo và chuyển hướng
+            string script = "alert('Đăng ký tài khoản thành công!'); window.location.href='DangNhap.aspx';";
+            ClientScript.RegisterStartupScript(this.GetType(), "RedirectScript", script, true);
+>>>>>>> Stashed changes
         }
     }
 }
