@@ -11,11 +11,8 @@ namespace BTL_LTW_KinhDoanhLaptop
         public string TenSanPham { get; set; }
         public decimal GiaTien { get; set; }
         public string HinhAnh { get; set; }
-<<<<<<< Updated upstream
-=======
         public int SoLuongTon { get; set; }
         public int SoLuongBan { get; set; }
-
     }
     
     public class NguoiDung
@@ -27,6 +24,5 @@ namespace BTL_LTW_KinhDoanhLaptop
         public string Email { get; set; }
         public string DiaChi { get; set; }
         public string Avatar { get; set; }
->>>>>>> Stashed changes
     }
 }

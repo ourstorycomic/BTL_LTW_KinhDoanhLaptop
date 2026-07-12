@@ -1,4 +1,4 @@
-﻿* {
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -436,7 +436,6 @@ ul {
     to {bottom: 0; opacity: 0;}
 }
 
-/* Profile Dropdown */
 .user-dropdown {
     position: relative;
     cursor: pointer;
@@ -486,7 +485,6 @@ ul {
 .btn-save { background: #8bc34a; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; transition: background 0.3s; }
 .btn-save:hover { background: #7cb342; }
 
-/* Extracted from inline styles */
 .login-link {
     color: white;
     text-decoration: none;
@@ -562,7 +560,6 @@ ul {
     padding: 20px;
 }
 
-/* Semantic extractions */
 .flex-1 {
     flex: 1;
 }
@@ -655,65 +652,148 @@ ul {
     font-size: 1.2rem;
     margin-right: 5px;
 }
-
-
-.nhom-nhap-lieu {
-    margin-bottom: 20px;
-    text-align: left; /* Căn trái để chữ tiêu đề nằm thẳng hàng */
-    width: 100%;
+.khung-thanh-toan {
+    background: white;
+    padding: 30px;
+    border: 1px solid #e0e0e0;
 }
 
-.tieu-de-nhap {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-}
-
-
-/* Container bao bọc ô nhập */
-.floating-group {
-    position: relative;
-    margin-bottom: 25px;
-    width: 100%;
-}
-
-/* Ô nhập liệu */
-.floating-input {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 14px;
-    border: 1px solid #ccc;
+.cart-img {
+    width: 80px;
+    height: auto;
     border-radius: 5px;
-    box-sizing: border-box;
-    background-color: transparent;
-    outline: none;
 }
 
-    .floating-input:focus {
-        border-color: #007bff; /* Màu viền khi click vào */
+.qty-input {
+    width: 60px;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.btn-update {
+    padding: 10px 20px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+    .btn-update:hover {
+        background: #1976D2;
     }
 
-/* Chữ tiêu đề nổi (mặc định nằm giữa ô) */
-.floating-label {
-    position: absolute;
-    top: 12px;
-    left: 15px;
-    font-size: 14px;
-    color: #999;
-    pointer-events: none;
-    transition: all 0.2s ease; /* Hiệu ứng chuyển động */
-    background-color: white; /* Nền trắng để đè lên viền */
-    padding: 0 5px;
+.text-red {
+    color: #e3001b;
+    font-weight: bold;
 }
 
-/* Hiệu ứng khi click vào (focus) HOẶC khi ô đã có chữ (:not(:placeholder-shown)) */
-.floating-input:focus ~ .floating-label,
-.floating-input:not(:placeholder-shown) ~ .floating-label {
-    top: -10px; /* Nhảy lên viền */
-    left: 10px;
-    font-size: 12px; /* Thu nhỏ chữ */
-    color: #007bff; /* Đổi màu chữ (màu xanh dương) */
+.btn-delete {
+    color: red;
+    text-decoration: none;
     font-weight: bold;
+}
+
+    .btn-delete:hover {
+        text-decoration: underline;
+    }
+
+.cart-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.total-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e3001b;
+}
+
+.thong-tin-nhan-hang {
+    background: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.btn-thanh-toan {
+    padding: 12px 35px;
+    background: #8bc34a;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Modal Confirm */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: zoomIn 0.3s ease;
+    max-width: 400px;
+    width: 90%;
+}
+.modal-content p {
+    font-size: 16px;
+    margin-bottom: 25px;
+    color: #555;
+}
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.modal-buttons button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+.btn-yes {
+    background-color: #f44336;
+    color: white;
+}
+.btn-yes:hover {
+    background-color: #d32f2f;
+}
+.btn-no {
+    background-color: #e0e0e0;
+    color: #333;
+}
+.btn-no:hover {
+    background-color: #bdbdbd;
+}
+@keyframes zoomIn {
+    from {transform: scale(0.8); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
 }

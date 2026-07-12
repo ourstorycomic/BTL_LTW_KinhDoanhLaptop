@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0" DefaultTargets="Build">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -124,6 +124,7 @@
     </Compile>
     <Compile Include="HoSo.aspx.cs">
       <DependentUpon>HoSo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="HoSo.aspx.designer.cs">
       <DependentUpon>HoSo.aspx</DependentUpon>
@@ -137,30 +138,35 @@
     </Compile>
     <Compile Include="GioiThieu.aspx.cs">
       <DependentUpon>GioiThieu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="GioiThieu.aspx.designer.cs">
       <DependentUpon>GioiThieu.aspx</DependentUpon>
     </Compile>
     <Compile Include="QuanTri.aspx.cs">
       <DependentUpon>QuanTri.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="QuanTri.aspx.designer.cs">
       <DependentUpon>QuanTri.aspx</DependentUpon>
     </Compile>
     <Compile Include="BaoCao.aspx.cs">
       <DependentUpon>BaoCao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BaoCao.aspx.designer.cs">
       <DependentUpon>BaoCao.aspx</DependentUpon>
     </Compile>
     <Compile Include="TinTuc.aspx.cs">
       <DependentUpon>TinTuc.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="TinTuc.aspx.designer.cs">
       <DependentUpon>TinTuc.aspx</DependentUpon>
     </Compile>
     <Compile Include="CuaHang.aspx.cs">
       <DependentUpon>CuaHang.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CuaHang.aspx.designer.cs">
       <DependentUpon>CuaHang.aspx</DependentUpon>

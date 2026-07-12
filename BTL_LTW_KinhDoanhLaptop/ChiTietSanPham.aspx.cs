@@ -115,7 +115,6 @@ namespace BTL_LTW_KinhDoanhLaptop
                 gioHang.Columns.Add("SoLuong", typeof(int));
                 gioHang.Columns.Add("DonGia", typeof(decimal));
                 gioHang.Columns.Add("ThanhTien", typeof(decimal));
-                gioHang.Columns.Add("HinhAnh", typeof(string));
             }
             else
             {
@@ -136,7 +135,7 @@ namespace BTL_LTW_KinhDoanhLaptop
 
             if (!daCo)
             {
-                gioHang.Rows.Add(spHienTai.Id, spHienTai.TenSanPham, 1, spHienTai.GiaTien, spHienTai.GiaTien,spHienTai.HinhAnh);
+                gioHang.Rows.Add(spHienTai.Id, spHienTai.TenSanPham, 1, spHienTai.GiaTien, spHienTai.GiaTien);
             }
 
             Session["GioHang"] = gioHang;
@@ -169,9 +168,8 @@ namespace BTL_LTW_KinhDoanhLaptop
             dtMuaNgay.Columns.Add("SoLuong", typeof(int));
             dtMuaNgay.Columns.Add("DonGia", typeof(decimal));
             dtMuaNgay.Columns.Add("ThanhTien", typeof(decimal));
-            dtMuaNgay.Columns.Add("HinhAnh", typeof(string));
 
-            dtMuaNgay.Rows.Add(spHienTai.Id, spHienTai.TenSanPham, 1, spHienTai.GiaTien, spHienTai.GiaTien, spHienTai.HinhAnh);
+            dtMuaNgay.Rows.Add(spHienTai.Id, spHienTai.TenSanPham, 1, spHienTai.GiaTien, spHienTai.GiaTien);
             Session["MuaNgay"] = dtMuaNgay;
 
             Response.Redirect("ThanhToan.aspx?type=buynow");
