@@ -40,39 +40,77 @@
             </div>
         </header>
 
-        <main class="khung-chinh">
-            
+       <main class="khung-chinh" style="display: block;">
+    <div class="banner-quang-cao">
+        <img src="assets/img/banner.jpg" alt="Banner Khuyến Mãi" onerror="this.style.display='none'" />
+    </div>
 
-            <section class="noi-dung-phai w-100">
-                <div class="banner-quang-cao">
-                    <img src="assets/img/banner.jpg" alt="Banner Khuyến Mãi" onerror="this.style.display='none'" />
-                </div>
+    <div class="danh-muc-block" id="divVanPhong" runat="server">
+        <div class="danh-muc-header">
+            <h2 class="danh-muc-title">HỌC TẬP - VĂN PHÒNG</h2>
+        </div>
+        <div class="khung-chua-cac-san-pham border-none">
+            <asp:Repeater ID="rptVanPhong" runat="server">
+                <ItemTemplate>
+                    <div class="mot-san-pham">
+                        <img src='<%# ResolveUrl(Eval("HinhAnh").ToString()) %>' alt='<%# Eval("TenSanPham") %>' class="hinh-anh-san-pham" />
+                        <div class="loai-san-pham">LAPTOP CHÍNH HÃNG</div>
+                        <div class="ten-san-pham"><%# Eval("TenSanPham") %></div>
+                        <div class="gia-tien"><%# String.Format("{0:N0} ₫", Eval("GiaTien")) %></div>
+                        <div class="hanh-dong-san-pham">
+                            <a href="ChiTietSanPham.aspx?id=<%# Eval("Id") %>" class="btn-chi-tiet">Chi tiết</a>
+                            <asp:LinkButton ID="btnThemGio1" runat="server" CssClass="btn-gio-hang" CommandArgument='<%# Eval("Id") %>' OnClick="btnThemGio_Click">Giỏ hàng</asp:LinkButton>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+    </div>
 
-                <div class="khung-chua-cac-san-pham">
-                    <asp:Repeater ID="rptLaptops" runat="server">
-                        <ItemTemplate>
-                            <div class="mot-san-pham">
-                                <img src='<%# ResolveUrl(Eval("HinhAnh").ToString()) %>' alt='<%# Eval("TenSanPham") %>' class="hinh-anh-san-pham" />
-                                
-                                <div class="loai-san-pham">LAPTOP CHÍNH HÃNG</div>
-                                <div class="ten-san-pham"><%# Eval("TenSanPham") %></div>
-                                
-                                <div class="danh-gia">
-                                    <span class="sao-vang">★★★★★</span> <span class="so-danh-gia">(12)</span>
-                                </div>
-                                
-                                <div class="gia-tien"><%# String.Format("{0:N0} ₫", Eval("GiaTien")) %></div>
-                                
-                                <div class="hanh-dong-san-pham">
-                                    <a href="ChiTietSanPham.aspx?id=<%# Eval("Id") %>" class="btn-chi-tiet">Chi tiết</a>
-                                    <asp:LinkButton ID="btnThemGio" runat="server" CssClass="btn-gio-hang" CommandArgument='<%# Eval("Id") %>' OnClick="btnThemGio_Click">Giỏ hàng</asp:LinkButton>
-                                </div>
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </div>
-            </section>
-        </main>
+    <div class="danh-muc-block" id="divMongNhe" runat="server">
+        <div class="danh-muc-header">
+            <h2 class="danh-muc-title">MỎNG NHẸ - CAO CẤP</h2>
+        </div>
+        <div class="khung-chua-cac-san-pham border-none">
+            <asp:Repeater ID="rptMongNhe" runat="server">
+                <ItemTemplate>
+                    <div class="mot-san-pham">
+                        <img src='<%# ResolveUrl(Eval("HinhAnh").ToString()) %>' alt='<%# Eval("TenSanPham") %>' class="hinh-anh-san-pham" />
+                        <div class="loai-san-pham">LAPTOP CHÍNH HÃNG</div>
+                        <div class="ten-san-pham"><%# Eval("TenSanPham") %></div>
+                        <div class="gia-tien"><%# String.Format("{0:N0} ₫", Eval("GiaTien")) %></div>
+                        <div class="hanh-dong-san-pham">
+                            <a href="ChiTietSanPham.aspx?id=<%# Eval("Id") %>" class="btn-chi-tiet">Chi tiết</a>
+                            <asp:LinkButton ID="btnThemGio2" runat="server" CssClass="btn-gio-hang" CommandArgument='<%# Eval("Id") %>' OnClick="btnThemGio_Click">Giỏ hàng</asp:LinkButton>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+    </div>
+
+    <div class="danh-muc-block" id="divGaming" runat="server">
+        <div class="danh-muc-header">
+            <h2 class="danh-muc-title">LAPTOP GAMING</h2>
+        </div>
+        <div class="khung-chua-cac-san-pham border-none">
+            <asp:Repeater ID="rptGaming" runat="server">
+                <ItemTemplate>
+                    <div class="mot-san-pham">
+                        <img src='<%# ResolveUrl(Eval("HinhAnh").ToString()) %>' alt='<%# Eval("TenSanPham") %>' class="hinh-anh-san-pham" />
+                        <div class="loai-san-pham">LAPTOP CHÍNH HÃNG</div>
+                        <div class="ten-san-pham"><%# Eval("TenSanPham") %></div>
+                        <div class="gia-tien"><%# String.Format("{0:N0} ₫", Eval("GiaTien")) %></div>
+                        <div class="hanh-dong-san-pham">
+                            <a href="ChiTietSanPham.aspx?id=<%# Eval("Id") %>" class="btn-chi-tiet">Chi tiết</a>
+                            <asp:LinkButton ID="btnThemGio4" runat="server" CssClass="btn-gio-hang" CommandArgument='<%# Eval("Id") %>' OnClick="btnThemGio_Click">Giỏ hàng</asp:LinkButton>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+    </div>
+</main>
         <footer class="footer-chuyen-nghiep">
             <div class="footer-container">
                 <div class="footer-col">

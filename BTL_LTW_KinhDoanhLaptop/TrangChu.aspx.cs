@@ -69,22 +69,62 @@ namespace BTL_LTW_KinhDoanhLaptop
                 {
                     List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
                     string search = Request.QueryString["search"];
-                    string brand = Request.QueryString["brand"];
-                    
+
                     if (!string.IsNullOrEmpty(search))
                     {
-                        search = search.ToLower();
-                        danhSach = danhSach.Where(x => x.TenSanPham.ToLower().Contains(search)).ToList();
+                        danhSach = danhSach.Where(x => x.TenSanPham.ToLower().Contains(search.ToLower())).ToList();
+
+                        rptVanPhong.DataSource = danhSach;
+                        rptVanPhong.DataBind();
+                        divVanPhong.Visible = danhSach.Count > 0;
+                        divMongNhe.Visible = false;
+                        divGaming.Visible = false;
                     }
-                    
-                    if (!string.IsNullOrEmpty(brand))
+                    else
                     {
-                        brand = brand.ToLower();
-                        danhSach = danhSach.Where(x => x.TenSanPham.ToLower().Contains(brand)).ToList();
+
+                        var listGaming = danhSach.Where(x =>
+                            x.TenSanPham.ToLower().Contains("gaming") ||
+                            x.TenSanPham.ToLower().Contains("nitro") ||
+                            x.TenSanPham.ToLower().Contains("legion") ||
+                            x.TenSanPham.ToLower().Contains("tuf") ||
+                            x.TenSanPham.ToLower().Contains("rog") ||
+                            x.TenSanPham.ToLower().Contains("msi") ||
+                            x.TenSanPham.ToLower().Contains("predator")
+                        ).ToList();
+
+                        var listMongNhe = danhSach.Where(x =>
+                            x.TenSanPham.ToLower().Contains("macbook") ||
+                            x.TenSanPham.ToLower().Contains("zenbook") ||
+                            x.TenSanPham.ToLower().Contains("xps") ||
+                            x.TenSanPham.ToLower().Contains("envy") ||
+                            x.TenSanPham.ToLower().Contains("swift") ||
+                            x.TenSanPham.ToLower().Contains("gram")
+                        ).ToList();
+
+                        var cacMayDaPhanLoai = listGaming.Concat(listMongNhe).Select(m => m.Id).ToList();
+                        var listVanPhong = danhSach.Where(x =>
+                            x.TenSanPham.ToLower().Contains("vivobook") ||
+                            x.TenSanPham.ToLower().Contains("inspiron") ||
+                            x.TenSanPham.ToLower().Contains("vostro") ||
+                            x.TenSanPham.ToLower().Contains("ideapad") ||
+                            x.TenSanPham.ToLower().Contains("pavilion") ||
+                            x.TenSanPham.ToLower().Contains("expertbook") ||
+                            !cacMayDaPhanLoai.Contains(x.Id)
+                        ).ToList();
+
+                        rptGaming.DataSource = listGaming;
+                        rptGaming.DataBind();
+                        divGaming.Visible = listGaming.Count > 0;
+
+                        rptMongNhe.DataSource = listMongNhe;
+                        rptMongNhe.DataBind();
+                        divMongNhe.Visible = listMongNhe.Count > 0;
+
+                        rptVanPhong.DataSource = listVanPhong;
+                        rptVanPhong.DataBind();
+                        divVanPhong.Visible = listVanPhong.Count > 0;
                     }
-                    
-                    rptLaptops.DataSource = danhSach;
-                    rptLaptops.DataBind();
                 }
             }
         }

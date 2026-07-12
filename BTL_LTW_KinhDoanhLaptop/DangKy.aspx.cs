@@ -130,9 +130,8 @@ namespace BTL_LTW_KinhDoanhLaptop
             dsTaiKhoan.Add(taiKhoan, nd);
             Application["DanhSachTaiKhoan"] = dsTaiKhoan;
 
-            string script = "showToast('Đăng ký tài khoản thành công!', 'success'); setTimeout(function(){ window.location='DangNhap.aspx'; }, 1500);";
-            //window.location='DangNhap.aspx';";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "RedirectScript", script, true);
+            string script = "alert('Đăng ký tài khoản thành công!'); window.location.href='DangNhap.aspx';";
+            ClientScript.RegisterStartupScript(this.GetType(), "RedirectScript", script, true);
         }
     }
 }

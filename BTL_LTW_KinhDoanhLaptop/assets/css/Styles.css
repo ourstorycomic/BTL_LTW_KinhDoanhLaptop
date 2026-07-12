@@ -743,7 +743,6 @@ ul {
     text-align: right;
 }
 
-/* Modal Confirm */
 .modal {
     display: none;
     position: fixed;
@@ -968,3 +967,61 @@ ul {
 .user-dropdown:hover .dropdown-content {
     display: block;
 }
+.danh-muc-block {
+    background: #fff;
+    margin-bottom: 40px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.danh-muc-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #3b82f6; 
+    background: #fff;
+}
+
+.danh-muc-title {
+    background-color: #3b82f6; 
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 40px 10px 20px;
+    margin: 0;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
+    min-width: 250px;
+}
+
+.danh-muc-filters {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.filter-label {
+    font-weight: bold;
+    font-size: 13px;
+    color: #333;
+}
+
+.danh-muc-filters a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+    .danh-muc-filters a:hover {
+        text-decoration: underline;
+        color: #1d4ed8;
+    }
+
+.khung-chua-cac-san-pham.border-none {
+    border-top: none;
+    border-left: none;
+}
+
+    .khung-chua-cac-san-pham.border-none .mot-san-pham {
+        border-left: 1px solid #e0e0e0;
+    }
