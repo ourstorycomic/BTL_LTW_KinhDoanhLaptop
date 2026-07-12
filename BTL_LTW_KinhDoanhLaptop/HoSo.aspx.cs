@@ -132,9 +132,6 @@ namespace BTL_LTW_KinhDoanhLaptop
                     Application["DanhSachTaiKhoan"] = dict;
                     lblMessage.Text = "Cập nhật hồ sơ thành công!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "toast", "showToast('Cập nhật hồ sơ thành công!');", true);
-                    
-                    // Reload header avatar by redirecting or it will reload on postback anyway
-                    // but since the image might be cached, it's fine.
                 }
             }
         }

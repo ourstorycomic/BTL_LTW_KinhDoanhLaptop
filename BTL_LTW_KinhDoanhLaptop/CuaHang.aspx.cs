@@ -1,4 +1,4 @@
-﻿using BTL_LTW_KinhDoanhLaptop;
+using BTL_LTW_KinhDoanhLaptop;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -66,7 +66,36 @@ namespace BTL_LTW_KinhDoanhLaptop
 
             if (!IsPostBack)
             {
+                SetFilterControlsFromQueryString();
                 LoadTatCaSanPham();
+            }
+        }
+
+        private void SetFilterControlsFromQueryString()
+        {
+            string brandQs = Request.QueryString["brand"];
+            if (!string.IsNullOrEmpty(brandQs))
+            {
+                string[] brands = brandQs.Split(',');
+                foreach (ListItem item in cblThuongHieu.Items)
+                {
+                    if (brands.Contains(item.Value))
+                    {
+                        item.Selected = true;
+                    }
+                }
+            }
+
+            string priceQs = Request.QueryString["price"];
+            if (!string.IsNullOrEmpty(priceQs))
+            {
+                rblMucGia.SelectedValue = priceQs;
+            }
+
+            string sortQs = Request.QueryString["sort"];
+            if (!string.IsNullOrEmpty(sortQs))
+            {
+                ddlSapXep.SelectedValue = sortQs;
             }
         }
 
@@ -76,74 +105,111 @@ namespace BTL_LTW_KinhDoanhLaptop
 
             if (danhSachGoc != null)
             {
+                IEnumerable<Laptop> ketQuaLoc = danhSachGoc;
+
                 string tuKhoa = Request.QueryString["search"];
                 if (!string.IsNullOrEmpty(tuKhoa))
                 {
-                    danhSachGoc = danhSachGoc.Where(x => x.TenSanPham.ToLower().Contains(tuKhoa.ToLower())).ToList();
+                    ketQuaLoc = ketQuaLoc.Where(x => x.TenSanPham.ToLower().Contains(tuKhoa.ToLower()));
                 }
-                rptLaptops.DataSource = danhSachGoc;
+
+                string brandQs = Request.QueryString["brand"];
+                if (!string.IsNullOrEmpty(brandQs))
+                {
+                    string[] brands = brandQs.Split(',');
+                    ketQuaLoc = ketQuaLoc.Where(sp => brands.Any(b => sp.TenSanPham.ToLower().Contains(b.ToLower())));
+                }
+
+                string priceQs = Request.QueryString["price"];
+                if (!string.IsNullOrEmpty(priceQs))
+                {
+                    if (priceQs == "1")
+                        ketQuaLoc = ketQuaLoc.Where(sp => sp.GiaTien < 15000000);
+                    else if (priceQs == "2")
+                        ketQuaLoc = ketQuaLoc.Where(sp => sp.GiaTien >= 15000000 && sp.GiaTien <= 25000000);
+                    else if (priceQs == "3")
+                        ketQuaLoc = ketQuaLoc.Where(sp => sp.GiaTien > 25000000);
+                }
+
+                string sortQs = Request.QueryString["sort"];
+                if (sortQs == "asc")
+                    ketQuaLoc = ketQuaLoc.OrderBy(sp => sp.GiaTien);
+                else if (sortQs == "desc")
+                    ketQuaLoc = ketQuaLoc.OrderByDescending(sp => sp.GiaTien);
+                else
+                    ketQuaLoc = ketQuaLoc.OrderByDescending(sp => sp.Id);
+
+                // --- Phân trang ---
+                int pageSize = 6; 
+                int currentPage = 1;
+                string pageQs = Request.QueryString["page"];
+                if (!string.IsNullOrEmpty(pageQs))
+                {
+                    int.TryParse(pageQs, out currentPage);
+                }
+                if (currentPage < 1) currentPage = 1;
+
+                int totalItems = ketQuaLoc.Count();
+                int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+                if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+
+                var pagedData = ketQuaLoc.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+                rptLaptops.DataSource = pagedData;
                 rptLaptops.DataBind();
+
+                GeneratePaginationHtml(currentPage, totalPages);
             }
         }
 
-        protected void BoLoc_Changed(object sender, EventArgs e)
+        private void GeneratePaginationHtml(int currentPage, int totalPages)
         {
-            List<Laptop> danhSachGoc = Application["DanhSachLaptop"] as List<Laptop>;
-            if (danhSachGoc == null) return;
-            IEnumerable<Laptop> ketQuaLoc = danhSachGoc;
-
-            List<string> cacHangDuocChon = new List<string>();
-            foreach (ListItem item in cblThuongHieu.Items)
+            if (totalPages <= 1)
             {
-                if (item.Selected)
+                litPhanTrang.Text = "";
+                return;
+            }
+
+            string urlTemplate = Request.Url.AbsolutePath + "?";
+            foreach (string key in Request.QueryString.AllKeys)
+            {
+                if (key != null && key.ToLower() != "page")
                 {
-                    cacHangDuocChon.Add(item.Value);
+                    urlTemplate += key + "=" + HttpUtility.UrlEncode(Request.QueryString[key]) + "&";
                 }
             }
-            if (cacHangDuocChon.Count > 0)
-            {
-                ketQuaLoc = ketQuaLoc.Where(sp => cacHangDuocChon.Any(hang => sp.TenSanPham.ToLower().Contains(hang)));
-            }
+            urlTemplate += "page={0}";
+
+            string html = "<div class='phan-trang'>";
             
-            string mucGia = rblMucGia.SelectedValue;
-            if (mucGia == "1") 
+            if (currentPage > 1)
             {
-                ketQuaLoc = ketQuaLoc.Where(sp => sp.GiaTien < 15000000);
-            }
-            else if (mucGia == "2")
-            {
-                ketQuaLoc = ketQuaLoc.Where(sp => sp.GiaTien >= 15000000 && sp.GiaTien <= 25000000);
-            }
-            else if (mucGia == "3") 
-            {
-                ketQuaLoc = ketQuaLoc.Where(sp => sp.GiaTien > 25000000);
-            }
-            
-            string kieuSapXep = ddlSapXep.SelectedValue;
-            if (kieuSapXep == "asc") 
-            {
-                ketQuaLoc = ketQuaLoc.OrderBy(sp => sp.GiaTien);
-            }
-            else if (kieuSapXep == "desc") 
-            {
-                ketQuaLoc = ketQuaLoc.OrderByDescending(sp => sp.GiaTien);
-            }
-            else 
-            {
-                ketQuaLoc = ketQuaLoc.OrderByDescending(sp => sp.Id);
+                html += $"<a href='{string.Format(urlTemplate, currentPage - 1)}'>❮ Trước</a>";
             }
 
-            rptLaptops.DataSource = ketQuaLoc.ToList();
-            rptLaptops.DataBind();
+            for (int i = 1; i <= totalPages; i++)
+            {
+                if (i == currentPage)
+                {
+                    html += $"<a href='#' class='active'>{i}</a>";
+                }
+                else
+                {
+                    html += $"<a href='{string.Format(urlTemplate, i)}'>{i}</a>";
+                }
+            }
+
+            if (currentPage < totalPages)
+            {
+                html += $"<a href='{string.Format(urlTemplate, currentPage + 1)}'>Tiếp ❯</a>";
+            }
+
+            html += "</div>";
+            litPhanTrang.Text = html;
         }
 
         protected void btnMua_Click(object sender, EventArgs e)
         {
-            if (Session["TaiKhoan"] == null)
-            {
-                Response.Redirect("DangNhap.aspx");
-                return;
-            }
             int maSP = int.Parse(((LinkButton)sender).CommandArgument);
             List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
             Laptop spChon = danhSach.FirstOrDefault(x => x.Id == maSP);

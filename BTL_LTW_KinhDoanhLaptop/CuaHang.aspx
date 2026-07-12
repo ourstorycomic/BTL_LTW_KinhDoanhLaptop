@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CuaHang.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.CuaHang" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CuaHang.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.CuaHang" %>
 
 <!DOCTYPE html>
 
@@ -46,7 +46,7 @@
             <aside class="bo-loc-trai">
                 <div class="khoi-loc">
                     <h3>THƯƠNG HIỆU</h3>
-                    <asp:CheckBoxList ID="cblThuongHieu" runat="server" AutoPostBack="true" OnSelectedIndexChanged="BoLoc_Changed">
+                    <asp:CheckBoxList ID="cblThuongHieu" runat="server" ClientIDMode="Static">
                         <asp:ListItem Text="ASUS" Value="asus"></asp:ListItem>
                         <asp:ListItem Text="Lenovo" Value="lenovo"></asp:ListItem>
                         <asp:ListItem Text="Dell" Value="dell"></asp:ListItem>
@@ -59,7 +59,7 @@
 
                 <div class="khoi-loc">
                     <h3>MỨC GIÁ</h3>
-                    <asp:RadioButtonList ID="rblMucGia" runat="server" AutoPostBack="true" OnSelectedIndexChanged="BoLoc_Changed">
+                    <asp:RadioButtonList ID="rblMucGia" runat="server" ClientIDMode="Static">
                         <asp:ListItem Text="Tất cả các giá" Value="0" Selected="True"></asp:ListItem>
                         <asp:ListItem Text="Dưới 15 triệu" Value="1"></asp:ListItem>
                         <asp:ListItem Text="15 - 25 triệu" Value="2"></asp:ListItem>
@@ -74,7 +74,7 @@
                     <span>Hiển thị kết quả lọc</span>
                     <div class="sap-xep">
                         <label>Sắp xếp theo: </label>
-                        <asp:DropDownList ID="ddlSapXep" runat="server" AutoPostBack="true" OnSelectedIndexChanged="BoLoc_Changed">
+                        <asp:DropDownList ID="ddlSapXep" runat="server" ClientIDMode="Static">
                             <asp:ListItem Text="Mới nhất" Value="new"></asp:ListItem>
                             <asp:ListItem Text="Giá: Thấp đến Cao" Value="asc"></asp:ListItem>
                             <asp:ListItem Text="Giá: Cao đến Thấp" Value="desc"></asp:ListItem>
@@ -105,12 +105,7 @@
                     </asp:Repeater>
                 </div>
 
-                <div class="phan-trang">
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">Tiếp ❯</a>
-                </div>
+                <asp:Literal ID="litPhanTrang" runat="server"></asp:Literal>
 
             </section>
         </main>
@@ -154,6 +149,40 @@
 
     <div id="toast"></div>
     <script src="assets/js/main.js"></script>
+    <script>
+        function applyFilters() {
+            var brands = [];
+            var brandInputs = document.querySelectorAll('#cblThuongHieu input[type="checkbox"]:checked');
+            brandInputs.forEach(function(input) {
+                // In CheckBoxList, value is not rendered directly on input in some .NET versions,
+                // but since ASP.NET generates a specific structure, we can grab the value attribute if present,
+                // or we grab the label text. Wait, ASP.NET renders the Value attribute.
+                brands.push(input.value);
+            });
+            
+            var price = "0";
+            var priceInput = document.querySelector('#rblMucGia input[type="radio"]:checked');
+            if (priceInput) price = priceInput.value;
+            
+            var sort = document.getElementById('ddlSapXep').value;
+            var search = new URLSearchParams(window.location.search).get('search') || '';
+            
+            var url = 'CuaHang.aspx?';
+            if (search) url += 'search=' + encodeURIComponent(search) + '&';
+            if (brands.length > 0) url += 'brand=' + brands.join(',') + '&';
+            if (price && price !== "0") url += 'price=' + price + '&';
+            if (sort && sort !== "new") url += 'sort=' + sort;
+            
+            window.location.href = url;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var inputs = document.querySelectorAll('#cblThuongHieu input, #rblMucGia input, #ddlSapXep');
+            inputs.forEach(function(input) {
+                input.addEventListener('change', applyFilters);
+            });
+        });
+    </script>
 
 </body>
 </html>

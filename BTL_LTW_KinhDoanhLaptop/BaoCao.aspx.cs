@@ -128,8 +128,6 @@ namespace BTL_LTW_KinhDoanhLaptop
                 var tk = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
                 TongTaiKhoan = tk.Count;
             }
-
-            // Also update cart info in header just like TrangChu
             if (Session["GioHang"] != null)
             {
                 DataTable dt = (DataTable)Session["GioHang"];

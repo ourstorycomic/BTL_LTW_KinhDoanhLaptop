@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -143,11 +143,6 @@ namespace BTL_LTW_KinhDoanhLaptop
 
         protected void btnThemVaoGio_Click(object sender, EventArgs e)
         {
-            if (Session["TaiKhoan"] == null)
-            {
-                Response.Redirect("DangNhap.aspx");
-                return;
-            }
             ThemVaoGio();
             CapNhatSoLuongGio();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "toast", "showToast('Thêm giỏ hàng thành công!');", true);
@@ -155,11 +150,6 @@ namespace BTL_LTW_KinhDoanhLaptop
 
         protected void btnMuaNgay_Click(object sender, EventArgs e)
         {
-            if (Session["TaiKhoan"] == null)
-            {
-                Response.Redirect("DangNhap.aspx");
-                return;
-            }
             if (spHienTai == null) return;
 
             DataTable dtMuaNgay = new DataTable();

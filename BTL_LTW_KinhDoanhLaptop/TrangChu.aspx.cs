@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -105,11 +105,6 @@ namespace BTL_LTW_KinhDoanhLaptop
 
         protected void btnThemGio_Click(object sender, EventArgs e)
         {
-            if (Session["TaiKhoan"] == null)
-            {
-                Response.Redirect("DangNhap.aspx");
-                return;
-            }
             int maSP = int.Parse(((LinkButton)sender).CommandArgument);
             List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
             Laptop spChon = danhSach.FirstOrDefault(x => x.Id == maSP);
