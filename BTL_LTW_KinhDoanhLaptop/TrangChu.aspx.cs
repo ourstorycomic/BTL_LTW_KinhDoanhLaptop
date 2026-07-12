@@ -11,49 +11,38 @@ namespace BTL_LTW_KinhDoanhLaptop
     public partial class TrangChu : System.Web.UI.Page
     {
         
-        
         private void HienThiTaiKhoan()
         {
             if (Session["TaiKhoan"] == null)
             {
-                divTaiKhoan.InnerHtml = "<a href='DangNhap.aspx' class='login-link'><i class='fa-solid fa-user'></i> Đăng nhập</a>";
+                divChuaDangNhap.Visible = true;
+                divDaDangNhap.Visible = false;
             }
             else
             {
-                string avatar = "assets/img/lenovo.png";
+                divChuaDangNhap.Visible = false;
+                divDaDangNhap.Visible = true;
+                
+                string tk = Session["TaiKhoan"].ToString();
+                lblTenTaiKhoan.InnerText = tk;
+
                 if (Application["DanhSachTaiKhoan"] != null)
                 {
                     Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung> dict = (Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung>)Application["DanhSachTaiKhoan"];
-                    string tk = Session["TaiKhoan"].ToString();
                     if (dict.ContainsKey(tk))
                     {
                         if (dict[tk].Avatar != null && dict[tk].Avatar != "")
                         {
-                            avatar = dict[tk].Avatar;
+                            imgAvatar.Src = dict[tk].Avatar;
                         }
                     }
                 }
 
-                string adminLinks = "";
-                if (Session["TaiKhoan"].ToString() == "admin")
+                if (tk == "admin")
                 {
-                    adminLinks = "<a href='QuanTri.aspx'><i class='fa-solid fa-gear'></i> Quản trị</a>" +
-                                 "<a href='BaoCao.aspx'><i class='fa-solid fa-chart-pie'></i> Thống kê</a>";
+                    linkQuanTri.Visible = true;
+                    linkThongKe.Visible = true;
                 }
-
-                string html = "";
-                html += "<div class='user-dropdown'>";
-                html += "<img src='" + avatar + "' class='user-avatar' />";
-                html += "<span>" + Session["TaiKhoan"].ToString() + "</span>";
-                html += "<i class='fa-solid fa-caret-down'></i>";
-                html += "<div class='dropdown-content'>";
-                html += "<a href='HoSo.aspx'><i class='fa-solid fa-address-card'></i> Hồ sơ cá nhân</a>";
-                html += adminLinks;
-                html += "<a href='DangNhap.aspx?logout=true' class='logout-link'><i class='fa-solid fa-right-from-bracket'></i> Đăng xuất</a>";
-                html += "</div>";
-                html += "</div>";
-                
-                divTaiKhoan.InnerHtml = html;
             }
         }
 
@@ -65,65 +54,138 @@ namespace BTL_LTW_KinhDoanhLaptop
 
             if (!IsPostBack)
             {
+                string addcart = Request.QueryString["addcart"];
+                if (addcart != null && addcart != "")
+                {
+                    int idSP = int.Parse(addcart);
+                    ThemVaoGioHang(idSP);
+                    
+                    string urlTemplate = Request.Url.AbsolutePath + "?";
+                    for (int i = 0; i < Request.QueryString.Count; i++)
+                    {
+                        string key = Request.QueryString.Keys[i];
+                        if (key != null && key.ToLower() != "addcart")
+                        {
+                            urlTemplate += key + "=" + HttpUtility.UrlEncode(Request.QueryString[key]) + "&";
+                        }
+                    }
+                    urlTemplate += "added=1";
+                    Response.Redirect(urlTemplate);
+                }
+
+                if (Request.QueryString["added"] == "1")
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "toast", "showToast('Thêm giỏ hàng thành công!');", true);
+                }
+
                 if (Application["DanhSachLaptop"] != null)
                 {
                     List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
                     string search = Request.QueryString["search"];
 
-                    if (!string.IsNullOrEmpty(search))
+                    if (search != null && search != "")
                     {
-                        danhSach = danhSach.Where(x => x.TenSanPham.ToLower().Contains(search.ToLower())).ToList();
+                        List<Laptop> danhSachTimKiem = new List<Laptop>();
+                        for (int i = 0; i < danhSach.Count; i++)
+                        {
+                            if (danhSach[i].TenSanPham.ToLower().Contains(search.ToLower()))
+                            {
+                                danhSachTimKiem.Add(danhSach[i]);
+                            }
+                        }
 
-                        rptVanPhong.DataSource = danhSach;
-                        rptVanPhong.DataBind();
-                        divVanPhong.Visible = danhSach.Count > 0;
+                        string htmlTimKiem = "";
+                        for (int i = 0; i < danhSachTimKiem.Count; i++)
+                        {
+                            htmlTimKiem += "<div class='mot-san-pham'>";
+                            htmlTimKiem += "<img src='" + ResolveUrl(danhSachTimKiem[i].HinhAnh) + "' alt='" + danhSachTimKiem[i].TenSanPham + "' class='hinh-anh-san-pham' />";
+                            htmlTimKiem += "<div class='loai-san-pham'>LAPTOP CHÍNH HÃNG</div>";
+                            htmlTimKiem += "<div class='ten-san-pham'>" + danhSachTimKiem[i].TenSanPham + "</div>";
+                            htmlTimKiem += "<div class='gia-tien'>" + danhSachTimKiem[i].GiaTien.ToString("N0") + " ₫</div>";
+                            htmlTimKiem += "<div class='hanh-dong-san-pham'>";
+                            htmlTimKiem += "<a href='ChiTietSanPham.aspx?id=" + danhSachTimKiem[i].Id + "' class='btn-chi-tiet'>Chi tiết</a>";
+                            htmlTimKiem += "<a href='TrangChu.aspx?addcart=" + danhSachTimKiem[i].Id + "' class='btn-gio-hang'>Giỏ hàng</a>";
+                            htmlTimKiem += "</div></div>";
+                        }
+                        khungVanPhong.InnerHtml = htmlTimKiem;
+
+                        if (danhSachTimKiem.Count > 0) divVanPhong.Visible = true; else divVanPhong.Visible = false;
                         divMongNhe.Visible = false;
                         divGaming.Visible = false;
                     }
                     else
                     {
+                        List<Laptop> listGaming = new List<Laptop>();
+                        List<Laptop> listMongNhe = new List<Laptop>();
+                        List<Laptop> listVanPhong = new List<Laptop>();
 
-                        var listGaming = danhSach.Where(x =>
-                            x.TenSanPham.ToLower().Contains("gaming") ||
-                            x.TenSanPham.ToLower().Contains("nitro") ||
-                            x.TenSanPham.ToLower().Contains("legion") ||
-                            x.TenSanPham.ToLower().Contains("tuf") ||
-                            x.TenSanPham.ToLower().Contains("rog") ||
-                            x.TenSanPham.ToLower().Contains("msi") ||
-                            x.TenSanPham.ToLower().Contains("predator")
-                        ).ToList();
+                        for (int i = 0; i < danhSach.Count; i++)
+                        {
+                            string ten = danhSach[i].TenSanPham.ToLower();
+                            bool isGaming = ten.Contains("gaming") || ten.Contains("nitro") || ten.Contains("legion") || ten.Contains("tuf") || ten.Contains("rog") || ten.Contains("msi") || ten.Contains("predator");
+                            bool isMongNhe = ten.Contains("macbook") || ten.Contains("zenbook") || ten.Contains("xps") || ten.Contains("envy") || ten.Contains("swift") || ten.Contains("gram");
 
-                        var listMongNhe = danhSach.Where(x =>
-                            x.TenSanPham.ToLower().Contains("macbook") ||
-                            x.TenSanPham.ToLower().Contains("zenbook") ||
-                            x.TenSanPham.ToLower().Contains("xps") ||
-                            x.TenSanPham.ToLower().Contains("envy") ||
-                            x.TenSanPham.ToLower().Contains("swift") ||
-                            x.TenSanPham.ToLower().Contains("gram")
-                        ).ToList();
+                            if (isGaming)
+                            {
+                                listGaming.Add(danhSach[i]);
+                            }
+                            else if (isMongNhe)
+                            {
+                                listMongNhe.Add(danhSach[i]);
+                            }
+                            else
+                            {
+                                listVanPhong.Add(danhSach[i]);
+                            }
+                        }
 
-                        var cacMayDaPhanLoai = listGaming.Concat(listMongNhe).Select(m => m.Id).ToList();
-                        var listVanPhong = danhSach.Where(x =>
-                            x.TenSanPham.ToLower().Contains("vivobook") ||
-                            x.TenSanPham.ToLower().Contains("inspiron") ||
-                            x.TenSanPham.ToLower().Contains("vostro") ||
-                            x.TenSanPham.ToLower().Contains("ideapad") ||
-                            x.TenSanPham.ToLower().Contains("pavilion") ||
-                            x.TenSanPham.ToLower().Contains("expertbook") ||
-                            !cacMayDaPhanLoai.Contains(x.Id)
-                        ).ToList();
+                        string htmlGaming = "";
+                        for (int i = 0; i < listGaming.Count; i++)
+                        {
+                            htmlGaming += "<div class='mot-san-pham'>";
+                            htmlGaming += "<img src='" + ResolveUrl(listGaming[i].HinhAnh) + "' alt='" + listGaming[i].TenSanPham + "' class='hinh-anh-san-pham' />";
+                            htmlGaming += "<div class='loai-san-pham'>LAPTOP CHÍNH HÃNG</div>";
+                            htmlGaming += "<div class='ten-san-pham'>" + listGaming[i].TenSanPham + "</div>";
+                            htmlGaming += "<div class='gia-tien'>" + listGaming[i].GiaTien.ToString("N0") + " ₫</div>";
+                            htmlGaming += "<div class='hanh-dong-san-pham'>";
+                            htmlGaming += "<a href='ChiTietSanPham.aspx?id=" + listGaming[i].Id + "' class='btn-chi-tiet'>Chi tiết</a>";
+                            htmlGaming += "<a href='TrangChu.aspx?addcart=" + listGaming[i].Id + "' class='btn-gio-hang'>Giỏ hàng</a>";
+                            htmlGaming += "</div></div>";
+                        }
+                        khungGaming.InnerHtml = htmlGaming;
+                        if (listGaming.Count > 0) divGaming.Visible = true; else divGaming.Visible = false;
 
-                        rptGaming.DataSource = listGaming;
-                        rptGaming.DataBind();
-                        divGaming.Visible = listGaming.Count > 0;
+                        string htmlMongNhe = "";
+                        for (int i = 0; i < listMongNhe.Count; i++)
+                        {
+                            htmlMongNhe += "<div class='mot-san-pham'>";
+                            htmlMongNhe += "<img src='" + ResolveUrl(listMongNhe[i].HinhAnh) + "' alt='" + listMongNhe[i].TenSanPham + "' class='hinh-anh-san-pham' />";
+                            htmlMongNhe += "<div class='loai-san-pham'>LAPTOP CHÍNH HÃNG</div>";
+                            htmlMongNhe += "<div class='ten-san-pham'>" + listMongNhe[i].TenSanPham + "</div>";
+                            htmlMongNhe += "<div class='gia-tien'>" + listMongNhe[i].GiaTien.ToString("N0") + " ₫</div>";
+                            htmlMongNhe += "<div class='hanh-dong-san-pham'>";
+                            htmlMongNhe += "<a href='ChiTietSanPham.aspx?id=" + listMongNhe[i].Id + "' class='btn-chi-tiet'>Chi tiết</a>";
+                            htmlMongNhe += "<a href='TrangChu.aspx?addcart=" + listMongNhe[i].Id + "' class='btn-gio-hang'>Giỏ hàng</a>";
+                            htmlMongNhe += "</div></div>";
+                        }
+                        khungMongNhe.InnerHtml = htmlMongNhe;
+                        if (listMongNhe.Count > 0) divMongNhe.Visible = true; else divMongNhe.Visible = false;
 
-                        rptMongNhe.DataSource = listMongNhe;
-                        rptMongNhe.DataBind();
-                        divMongNhe.Visible = listMongNhe.Count > 0;
-
-                        rptVanPhong.DataSource = listVanPhong;
-                        rptVanPhong.DataBind();
-                        divVanPhong.Visible = listVanPhong.Count > 0;
+                        string htmlVanPhong = "";
+                        for (int i = 0; i < listVanPhong.Count; i++)
+                        {
+                            htmlVanPhong += "<div class='mot-san-pham'>";
+                            htmlVanPhong += "<img src='" + ResolveUrl(listVanPhong[i].HinhAnh) + "' alt='" + listVanPhong[i].TenSanPham + "' class='hinh-anh-san-pham' />";
+                            htmlVanPhong += "<div class='loai-san-pham'>LAPTOP CHÍNH HÃNG</div>";
+                            htmlVanPhong += "<div class='ten-san-pham'>" + listVanPhong[i].TenSanPham + "</div>";
+                            htmlVanPhong += "<div class='gia-tien'>" + listVanPhong[i].GiaTien.ToString("N0") + " ₫</div>";
+                            htmlVanPhong += "<div class='hanh-dong-san-pham'>";
+                            htmlVanPhong += "<a href='ChiTietSanPham.aspx?id=" + listVanPhong[i].Id + "' class='btn-chi-tiet'>Chi tiết</a>";
+                            htmlVanPhong += "<a href='TrangChu.aspx?addcart=" + listVanPhong[i].Id + "' class='btn-gio-hang'>Giỏ hàng</a>";
+                            htmlVanPhong += "</div></div>";
+                        }
+                        khungVanPhong.InnerHtml = htmlVanPhong;
+                        if (listVanPhong.Count > 0) divVanPhong.Visible = true; else divVanPhong.Visible = false;
                     }
                 }
             }
@@ -135,19 +197,30 @@ namespace BTL_LTW_KinhDoanhLaptop
             {
                 DataTable dt = (DataTable)Session["GioHang"];
                 int tong = 0;
-                foreach (DataRow dr in dt.Rows)
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    tong += int.Parse(dr["SoLuong"].ToString());
+                    tong = tong + int.Parse(dt.Rows[i]["SoLuong"].ToString());
                 }
                 lblSoLuongGio.Text = tong.ToString();
             }
         }
 
-        protected void btnThemGio_Click(object sender, EventArgs e)
+        private void ThemVaoGioHang(int maSP)
         {
-            int maSP = int.Parse(((LinkButton)sender).CommandArgument);
             List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
-            Laptop spChon = danhSach.FirstOrDefault(x => x.Id == maSP);
+            if (danhSach == null) return;
+            
+            Laptop spChon = null;
+            for (int i = 0; i < danhSach.Count; i++)
+            {
+                if (danhSach[i].Id == maSP)
+                {
+                    spChon = danhSach[i];
+                    break;
+                }
+            }
+            
+            if (spChon == null) return;
 
             DataTable gioHang;
             if (Session["GioHang"] == null)
@@ -165,25 +238,23 @@ namespace BTL_LTW_KinhDoanhLaptop
             }
 
             bool daCo = false;
-            foreach (DataRow dr in gioHang.Rows)
+            for (int i = 0; i < gioHang.Rows.Count; i++)
             {
-                if (int.Parse(dr["MaSanPham"].ToString()) == maSP)
+                if (int.Parse(gioHang.Rows[i]["MaSanPham"].ToString()) == maSP)
                 {
-                    dr["SoLuong"] = int.Parse(dr["SoLuong"].ToString()) + 1;
-                    dr["ThanhTien"] = int.Parse(dr["SoLuong"].ToString()) * spChon.GiaTien;
+                    gioHang.Rows[i]["SoLuong"] = int.Parse(gioHang.Rows[i]["SoLuong"].ToString()) + 1;
+                    gioHang.Rows[i]["ThanhTien"] = int.Parse(gioHang.Rows[i]["SoLuong"].ToString()) * spChon.GiaTien;
                     daCo = true;
                     break;
                 }
             }
 
-            if (!daCo)
+            if (daCo == false)
             {
                 gioHang.Rows.Add(maSP, spChon.TenSanPham, 1, spChon.GiaTien, spChon.GiaTien);
             }
 
             Session["GioHang"] = gioHang;
-            CapNhatSoLuongGio();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "toast", "showToast('Thêm giỏ hàng thành công!');", true);
         }
     }
 }

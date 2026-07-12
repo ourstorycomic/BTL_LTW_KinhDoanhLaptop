@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BaoCao.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.BaoCao" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BaoCao.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.BaoCao" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <title>Báo cáo thống kê</title>
     <link href="assets/css/Styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/font/fontawesome-free-6.4.0/css/all.css" />
 </head>
@@ -35,7 +35,21 @@
                         <i class="fa-solid fa-cart-shopping" ></i> (<asp:Label ID="lblSoLuongGio" runat="server" Text="0"></asp:Label>)
                     </a>
 
-                    <div class="khu-vuc-tai-khoan account-area" id="divTaiKhoan" runat="server"></div>
+                    <div id="divChuaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area">
+                        <a href="DangNhap.aspx" class="login-link"><i class="fa-solid fa-user"></i> Đăng nhập</a>
+                    </div>
+
+                    <div id="divDaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area user-dropdown" visible="false">
+                        <img id="imgAvatar" runat="server" src="assets/img/lenovo.png" class="user-avatar" />
+                        <span id="lblTenTaiKhoan" runat="server"></span>
+                        <i class="fa-solid fa-caret-down"></i>
+                        <div class="dropdown-content">
+                            <a href="HoSo.aspx"><i class="fa-solid fa-address-card"></i> Hồ sơ cá nhân</a>
+                            <a id="linkQuanTri" runat="server" href="QuanTri.aspx" visible="false"><i class="fa-solid fa-gear"></i> Quản trị</a>
+                            <a id="linkThongKe" runat="server" href="BaoCao.aspx" visible="false"><i class="fa-solid fa-chart-pie"></i> Thống kê</a>
+                            <a href="DangNhap.aspx?logout=true" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -48,7 +62,7 @@
                 <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: space-between;">
                     <div>
                         <h3 style="margin: 0; color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Tổng Sản Phẩm</h3>
-                        <p style="font-size: 24px; font-weight: 700; color: #0f172a; margin: 8px 0 0 0;"><%= TongSanPham %></p>
+                        <p style="font-size: 24px; font-weight: 700; color: #0f172a; margin: 8px 0 0 0;" id="pTongSanPham" runat="server"></p>
                     </div>
                     
                 </div>
@@ -56,7 +70,7 @@
                 <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: space-between;">
                     <div>
                         <h3 style="margin: 0; color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Tổng Số Lượng Tồn</h3>
-                        <p style="font-size: 24px; font-weight: 700; color: #0f172a; margin: 8px 0 0 0;"><%= TongSoLuongTon %></p>
+                        <p style="font-size: 24px; font-weight: 700; color: #0f172a; margin: 8px 0 0 0;" id="pTongSoLuongTon" runat="server"></p>
                     </div>
                     
                 </div>
@@ -64,7 +78,7 @@
                 <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: space-between;">
                     <div>
                         <h3 style="margin: 0; color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Tổng Giá Trị Kho</h3>
-                        <p style="font-size: 24px; font-weight: 700; color: #0f172a; margin: 8px 0 0 0;"><%= String.Format("{0:N0} ₫", TongGiaTriKho) %></p>
+                        <p style="font-size: 24px; font-weight: 700; color: #0f172a; margin: 8px 0 0 0;" id="pTongGiaTriKho" runat="server"></p>
                     </div>
                     
                 </div>
@@ -72,7 +86,7 @@
                 <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: space-between;">
                     <div>
                         <h3 style="margin: 0; color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Người Dùng Đăng Ký</h3>
-                        <p style="font-size: 24px; font-weight: 700; color: #0f172a; margin: 8px 0 0 0;"><%= TongTaiKhoan %></p>
+                        <p style="font-size: 24px; font-weight: 700; color: #0f172a; margin: 8px 0 0 0;" id="pTongTaiKhoan" runat="server"></p>
                     </div>
                     
                 </div>
@@ -81,7 +95,7 @@
                       <div style="display: flex; align-items: center; gap: 20px;">
                           <div>
                             <h3 style="margin: 0; color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Sản Phẩm Bán Chạy Nhất</h3>
-                            <p style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 5px 0 0 0;"><%= SanPhamBanChay %></p>
+                            <p style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 5px 0 0 0;" id="pSanPhamBanChay" runat="server"></p>
                         </div>
                     </div>
                 </div>

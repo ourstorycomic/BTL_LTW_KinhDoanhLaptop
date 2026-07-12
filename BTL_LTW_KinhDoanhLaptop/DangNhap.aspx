@@ -1,4 +1,4 @@
-﻿﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DangNhap.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.DangNhap" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DangNhap.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.DangNhap" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <title>Đăng nhập</title>
     <link href="assets/css/Styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/font/fontawesome-free-6.4.0/css/all.css" />
 </head>
@@ -35,7 +35,21 @@
                         <i class="fa-solid fa-cart-shopping" ></i> (<asp:Label ID="lblSoLuongGio" runat="server" Text="0"></asp:Label>)
                     </a>
 
-                    <div class="khu-vuc-tai-khoan account-area" id="divTaiKhoan" runat="server"></div>
+                    <div id="divChuaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area">
+                        <a href="DangNhap.aspx" class="login-link"><i class="fa-solid fa-user"></i> Đăng nhập</a>
+                    </div>
+
+                    <div id="divDaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area user-dropdown" visible="false">
+                        <img id="imgAvatar" runat="server" src="assets/img/lenovo.png" class="user-avatar" />
+                        <span id="lblTenTaiKhoan" runat="server"></span>
+                        <i class="fa-solid fa-caret-down"></i>
+                        <div class="dropdown-content">
+                            <a href="HoSo.aspx"><i class="fa-solid fa-address-card"></i> Hồ sơ cá nhân</a>
+                            <a id="linkQuanTri" runat="server" href="QuanTri.aspx" visible="false"><i class="fa-solid fa-gear"></i> Quản trị</a>
+                            <a id="linkThongKe" runat="server" href="BaoCao.aspx" visible="false"><i class="fa-solid fa-chart-pie"></i> Thống kê</a>
+                            <a href="DangNhap.aspx?logout=true" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -45,16 +59,16 @@
                 <h2 class="tieu-de-dang-nhap">ĐĂNG NHẬP</h2>
                 
                 <div class="nhom-nhap-lieu">
-                    <asp:TextBox ID="txtTaiKhoan" runat="server" CssClass="o-nhap-lieu" Placeholder="Tên đăng nhập hoặc Email"></asp:TextBox>
+                    <input type="text" name="txtTaiKhoan" class="o-nhap-lieu" placeholder="Tên đăng nhập hoặc Email" />
                 </div>
                 
                 <div class="nhom-nhap-lieu">
-                    <asp:TextBox ID="txtMatKhau" runat="server" CssClass="o-nhap-lieu" TextMode="Password" Placeholder="Mật khẩu"></asp:TextBox>
+                    <input type="password" name="txtMatKhau" class="o-nhap-lieu" placeholder="Mật khẩu" />
                 </div>
 
-                <asp:Label ID="lblThongBaoLoi" runat="server" ForeColor="Red" Font-Size="13px"></asp:Label>
+                <div id="divThongBaoLoi" runat="server" style="color: red; font-size: 13px; font-weight: bold; margin-bottom: 10px;"></div>
 
-                <asp:Button ID="btnDangNhap" runat="server" Text="ĐĂNG NHẬP" CssClass="nut-dang-nhap" OnClick="btnDangNhap_Click" />
+                <button type="submit" id="btnDangNhap" runat="server" class="nut-dang-nhap" onserverclick="btnDangNhap_Click">ĐĂNG NHẬP</button>
 
                 <div class="link-ho-tro">
                     <a href="#">Quên mật khẩu?</a>
@@ -62,7 +76,8 @@
                 </div>
             </div>
         </main>
-                <footer class="footer-chuyen-nghiep">
+                
+        <footer class="footer-chuyen-nghiep">
             <div class="footer-container">
                 <div class="footer-col">
                     <h3>MOBILE EDUCATION</h3>

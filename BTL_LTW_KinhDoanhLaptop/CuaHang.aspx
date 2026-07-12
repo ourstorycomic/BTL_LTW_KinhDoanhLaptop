@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <title>Cửa hàng</title>
     <link rel="stylesheet" type="text/css" href="assets/css/Styles.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/CuaHang.css" />
     <link rel="stylesheet" href="assets/font/fontawesome-free-6.4.0/css/all.css" />
@@ -36,7 +36,21 @@
                         <i class="fa-solid fa-cart-shopping" ></i> (<asp:Label ID="lblSoLuongGio" runat="server" Text="0"></asp:Label>)
                     </a>
 
-                    <div class="khu-vuc-tai-khoan account-area" id="divTaiKhoan" runat="server"></div>
+                    <div id="divChuaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area">
+                        <a href="DangNhap.aspx" class="login-link"><i class="fa-solid fa-user"></i> Đăng nhập</a>
+                    </div>
+
+                    <div id="divDaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area user-dropdown" visible="false">
+                        <img id="imgAvatar" runat="server" src="assets/img/lenovo.png" class="user-avatar" />
+                        <span id="lblTenTaiKhoan" runat="server"></span>
+                        <i class="fa-solid fa-caret-down"></i>
+                        <div class="dropdown-content">
+                            <a href="HoSo.aspx"><i class="fa-solid fa-address-card"></i> Hồ sơ cá nhân</a>
+                            <a id="linkQuanTri" runat="server" href="QuanTri.aspx" visible="false"><i class="fa-solid fa-gear"></i> Quản trị</a>
+                            <a id="linkThongKe" runat="server" href="BaoCao.aspx" visible="false"><i class="fa-solid fa-chart-pie"></i> Thống kê</a>
+                            <a href="DangNhap.aspx?logout=true" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -82,34 +96,14 @@
                     </div>
                 </div>
 
-                <div class="luoi-san-pham">
-                    <asp:Repeater ID="rptLaptops" runat="server">
-                        <ItemTemplate>
-                            <div class="the-san-pham-chuan">
-                                <div class="khung-anh-sp">
-                                    <img src='<%# ResolveUrl(Eval("HinhAnh").ToString()) %>' alt='<%# Eval("TenSanPham") %>' />
-                                </div>
-                                <div class="thong-tin-sp">
-                                    <div class="loai-sp">LAPTOP CHÍNH HÃNG</div>
-                                    <h4 class="ten-sp"><%# Eval("TenSanPham") %></h4>
-                    
-                                    <div class="gia-sp"><%# String.Format("{0:N0} ₫", Eval("GiaTien")) %></div>
-                    
-                                    <div class="hanh-dong-sp">
-                                        <a href="ChiTietSanPham.aspx?id=<%# Eval("Id") %>" class="btn-xem">Xem</a>
-                                        <asp:LinkButton ID="btnMua" runat="server" CssClass="btn-mua" CommandArgument='<%# Eval("Id") %>' OnClick="btnMua_Click">Thêm giỏ hàng</asp:LinkButton>
-                                    </div>
-                                </div>
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
+                <div class="luoi-san-pham" id="khungDanhSachSP" runat="server">
                 </div>
 
                 <asp:Literal ID="litPhanTrang" runat="server"></asp:Literal>
 
             </section>
         </main>
-    <footer class="footer-chuyen-nghiep">
+        <footer class="footer-chuyen-nghiep">
             <div class="footer-container">
                 <div class="footer-col">
                     <h3>MOBILE EDUCATION</h3>
@@ -149,40 +143,5 @@
 
     <div id="toast"></div>
     <script src="assets/js/main.js"></script>
-    <script>
-        function applyFilters() {
-            var brands = [];
-            var brandInputs = document.querySelectorAll('#cblThuongHieu input[type="checkbox"]:checked');
-            brandInputs.forEach(function(input) {
-                // In CheckBoxList, value is not rendered directly on input in some .NET versions,
-                // but since ASP.NET generates a specific structure, we can grab the value attribute if present,
-                // or we grab the label text. Wait, ASP.NET renders the Value attribute.
-                brands.push(input.value);
-            });
-            
-            var price = "0";
-            var priceInput = document.querySelector('#rblMucGia input[type="radio"]:checked');
-            if (priceInput) price = priceInput.value;
-            
-            var sort = document.getElementById('ddlSapXep').value;
-            var search = new URLSearchParams(window.location.search).get('search') || '';
-            
-            var url = 'CuaHang.aspx?';
-            if (search) url += 'search=' + encodeURIComponent(search) + '&';
-            if (brands.length > 0) url += 'brand=' + brands.join(',') + '&';
-            if (price && price !== "0") url += 'price=' + price + '&';
-            if (sort && sort !== "new") url += 'sort=' + sort;
-            
-            window.location.href = url;
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            var inputs = document.querySelectorAll('#cblThuongHieu input, #rblMucGia input, #ddlSapXep');
-            inputs.forEach(function(input) {
-                input.addEventListener('change', applyFilters);
-            });
-        });
-    </script>
-
 </body>
 </html>

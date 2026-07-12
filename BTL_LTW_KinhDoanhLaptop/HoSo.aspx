@@ -1,4 +1,4 @@
-﻿﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HoSo.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.HoSo" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HoSo.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.HoSo" %>
 
 <!DOCTYPE html>
 
@@ -35,58 +35,72 @@
                         <i class="fa-solid fa-cart-shopping" ></i> (<asp:Label ID="lblSoLuongGio" runat="server" Text="0"></asp:Label>)
                     </a>
 
-                    <div class="khu-vuc-tai-khoan account-area" id="divTaiKhoan" runat="server"></div>
+                    <div id="divChuaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area">
+                        <a href="DangNhap.aspx" class="login-link"><i class="fa-solid fa-user"></i> Đăng nhập</a>
+                    </div>
+
+                    <div id="divDaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area user-dropdown" visible="false">
+                        <img id="imgAvatar" runat="server" src="assets/img/lenovo.png" class="user-avatar" />
+                        <span id="lblTenTaiKhoan" runat="server"></span>
+                        <i class="fa-solid fa-caret-down"></i>
+                        <div class="dropdown-content">
+                            <a href="HoSo.aspx"><i class="fa-solid fa-address-card"></i> Hồ sơ cá nhân</a>
+                            <a id="linkQuanTri" runat="server" href="QuanTri.aspx" visible="false"><i class="fa-solid fa-gear"></i> Quản trị</a>
+                            <a id="linkThongKe" runat="server" href="BaoCao.aspx" visible="false"><i class="fa-solid fa-chart-pie"></i> Thống kê</a>
+                            <a href="DangNhap.aspx?logout=true" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
 
-<main class="flex-1-pad-20">
-    <div class="profile-container">
-        <h2 style="text-align: center; color: #333; margin-bottom: 20px;">HỒ SƠ CÁ NHÂN</h2>
-        <asp:Label ID="lblMessage" runat="server" ForeColor="Green" style="display:block; text-align:center; margin-bottom:15px; font-weight:bold;"></asp:Label>
-        
-        <div style="text-align: center; margin-bottom: 20px;">
-            <asp:Image ID="imgPreview" runat="server" Width="120px" Height="120px" style="border-radius: 50%; object-fit: cover; border: 3px solid #8bc34a; margin-bottom: 10px;" />
-            <br />
-            <asp:FileUpload ID="fileAvatar" runat="server" />
-        </div>
+        <main class="flex-1-pad-20">
+            <div class="profile-container">
+                <h2 style="text-align: center; color: #333; margin-bottom: 20px;">HỒ SƠ CÁ NHÂN</h2>
+                <asp:Label ID="lblMessage" runat="server" ForeColor="Green" style="display:block; text-align:center; margin-bottom:15px; font-weight:bold;"></asp:Label>
+                
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <asp:Image ID="imgPreview" runat="server" Width="120px" Height="120px" style="border-radius: 50%; object-fit: cover; border: 3px solid #8bc34a; margin-bottom: 10px;" />
+                    <br />
+                    <asp:FileUpload ID="fileAvatar" runat="server" />
+                </div>
 
-        <div class="form-group">
-            <label>Tài khoản</label>
-            <asp:TextBox ID="txtTaiKhoan" runat="server" CssClass="form-control" ReadOnly="true" BackColor="#e9ecef"></asp:TextBox>
-        </div>
-        
-        <div class="form-group">
-            <label>Họ tên</label>
-            <asp:TextBox ID="txtHoTen" runat="server" CssClass="form-control"></asp:TextBox>
-        </div>
+                <div class="form-group">
+                    <label>Tài khoản</label>
+                    <asp:TextBox ID="txtTaiKhoan" runat="server" CssClass="form-control" ReadOnly="true" BackColor="#e9ecef"></asp:TextBox>
+                </div>
+                
+                <div class="form-group">
+                    <label>Họ tên</label>
+                    <asp:TextBox ID="txtHoTen" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
 
-        <div class="form-group">
-            <label>Email</label>
-            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email"></asp:TextBox>
-        </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email"></asp:TextBox>
+                </div>
 
-        <div class="form-group">
-            <label>Số điện thoại</label>
-            <asp:TextBox ID="txtSDT" runat="server" CssClass="form-control"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <label>Địa chỉ</label>
-            <asp:TextBox ID="txtDiaChi" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3"></asp:TextBox>
-        </div>
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <asp:TextBox ID="txtSDT" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ</label>
+                    <asp:TextBox ID="txtDiaChi" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                </div>
 
-        <div class="form-group">
-            <label>Mật khẩu mới (Để trống nếu không đổi)</label>
-            <asp:TextBox ID="txtMatKhau" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
-        </div>
+                <div class="form-group">
+                    <label>Mật khẩu mới (Để trống nếu không đổi)</label>
+                    <asp:TextBox ID="txtMatKhau" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
+                </div>
 
-        <div style="text-align: center;">
-            <asp:Button ID="btnSave" runat="server" Text="Lưu thay đổi" CssClass="btn-save" OnClick="btnSave_Click" />
-        </div>
-    </div>
-</main>
+                <div style="text-align: center;">
+                    <asp:Button ID="btnSave" runat="server" Text="Lưu thay đổi" CssClass="btn-save" OnClick="btnSave_Click" />
+                </div>
+            </div>
+        </main>
 
-<footer class="footer-chuyen-nghiep">
+        <footer class="footer-chuyen-nghiep">
             <div class="footer-container">
                 <div class="footer-col">
                     <h3>MOBILE EDUCATION</h3>
@@ -126,6 +140,5 @@
 
     <div id="toast"></div>
     <script src="assets/js/main.js"></script>
-
 </body>
 </html>

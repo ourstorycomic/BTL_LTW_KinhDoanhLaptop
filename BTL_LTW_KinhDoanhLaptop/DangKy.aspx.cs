@@ -1,137 +1,156 @@
-﻿using System;
+﻿using BTL_LTW_KinhDoanhLaptop;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace BTL_LTW_KinhDoanhLaptop
 {
     public partial class DangKy : System.Web.UI.Page
     {
-        
-        
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            HienThiTaiKhoan();
+
+            if (!IsPostBack)
+            {
+                divThongBaoDK.InnerText = "";
+            }
+        }
+
         private void HienThiTaiKhoan()
         {
             if (Session["TaiKhoan"] == null)
             {
-                divTaiKhoan.InnerHtml = "<a href='DangNhap.aspx' class='login-link'><i class='fa-solid fa-user'></i> Đăng nhập</a>";
+                divChuaDangNhap.Visible = true;
+                divDaDangNhap.Visible = false;
             }
             else
             {
-                string avatar = "assets/img/lenovo.png";
+                divChuaDangNhap.Visible = false;
+                divDaDangNhap.Visible = true;
+
+                string tenTaiKhoan = Session["TaiKhoan"].ToString();
+                lblTenTaiKhoan.InnerText = tenTaiKhoan;
+
                 if (Application["DanhSachTaiKhoan"] != null)
                 {
-                    Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung> dict = (Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung>)Application["DanhSachTaiKhoan"];
-                    string tk = Session["TaiKhoan"].ToString();
-                    if (dict.ContainsKey(tk))
+                    Dictionary<string, NguoiDung> tuDienTaiKhoan = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+
+                    if (tuDienTaiKhoan.ContainsKey(tenTaiKhoan))
                     {
-                        if (dict[tk].Avatar != null && dict[tk].Avatar != "")
+                        if (tuDienTaiKhoan[tenTaiKhoan].Avatar != null && tuDienTaiKhoan[tenTaiKhoan].Avatar != "")
                         {
-                            avatar = dict[tk].Avatar;
+                            imgAvatar.Src = tuDienTaiKhoan[tenTaiKhoan].Avatar;
                         }
                     }
                 }
 
-                string adminLinks = "";
-                if (Session["TaiKhoan"].ToString() == "admin")
+                if (tenTaiKhoan == "admin")
                 {
-                    adminLinks = "<a href='QuanTri.aspx'><i class='fa-solid fa-gear'></i> Quản trị</a>" +
-                                 "<a href='BaoCao.aspx'><i class='fa-solid fa-chart-pie'></i> Thống kê</a>";
+                    linkQuanTri.Visible = true;
+                    linkThongKe.Visible = true;
                 }
-
-                string html = "";
-                html += "<div class='user-dropdown'>";
-                html += "<img src='" + avatar + "' class='user-avatar' />";
-                html += "<span>" + Session["TaiKhoan"].ToString() + "</span>";
-                html += "<i class='fa-solid fa-caret-down'></i>";
-                html += "<div class='dropdown-content'>";
-                html += "<a href='HoSo.aspx'><i class='fa-solid fa-address-card'></i> Hồ sơ cá nhân</a>";
-                html += adminLinks;
-                html += "<a href='DangNhap.aspx?logout=true' class='logout-link'><i class='fa-solid fa-right-from-bracket'></i> Đăng xuất</a>";
-                html += "</div>";
-                html += "</div>";
-                
-                divTaiKhoan.InnerHtml = html;
+                else
+                {
+                    linkQuanTri.Visible = false;
+                    linkThongKe.Visible = false;
+                }
             }
-        }
-
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            HienThiTaiKhoan();
-            lblThongBaoDK.Text = "";
         }
 
         protected void btnDangKy_Click(object sender, EventArgs e)
         {
-            string taiKhoan = txtTaiKhoanDK.Text.Trim();
-            string hoTen = txtHoTenDK.Text.Trim();
-            string sdt = txtSDTDK.Text.Trim();
-            string email = txtEmailDK.Text.Trim();
-            string matKhau = txtMatKhauDK.Text.Trim();
-            string xacNhanMK = txtXacNhanMatKhau.Text.Trim();
+            string taiKhoan = Request.Form["txtTaiKhoanDK"];
+            string hoTen = Request.Form["txtHoTenDK"];
+            string sdt = Request.Form["txtSDTDK"];
+            string email = Request.Form["txtEmailDK"];
+            string matKhau = Request.Form["txtMatKhauDK"];
+            string xacNhanMK = Request.Form["txtXacNhanMatKhau"];
 
-            if (string.IsNullOrEmpty(taiKhoan) || string.IsNullOrEmpty(hoTen) || string.IsNullOrEmpty(sdt) ||
-                string.IsNullOrEmpty(email) || string.IsNullOrEmpty(matKhau) || string.IsNullOrEmpty(xacNhanMK))
+            if (taiKhoan == null) taiKhoan = "";
+            if (hoTen == null) hoTen = "";
+            if (sdt == null) sdt = "";
+            if (email == null) email = "";
+            if (matKhau == null) matKhau = "";
+            if (xacNhanMK == null) xacNhanMK = "";
+
+            if (taiKhoan == "" || hoTen == "" || sdt == "" || email == "" || matKhau == "" || xacNhanMK == "")
             {
-                lblThongBaoDK.Text = "Vui lòng nhập đầy đủ thông tin!";
-                lblThongBaoDK.ForeColor = System.Drawing.Color.Red;
+                divThongBaoDK.InnerText = "Vui lòng nhập đầy đủ thông tin!";
                 return;
             }
 
-            string emailPattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
-            if (!Regex.IsMatch(email, emailPattern))
+            string mauTaiKhoan = @"^[a-zA-Z0-9]{4,20}$";
+            if (Regex.IsMatch(taiKhoan, mauTaiKhoan) == false)
             {
-                lblThongBaoDK.Text = "Định dạng Email không hợp lệ! (Ví dụ đúng: abc@gmail.com)";
-                lblThongBaoDK.ForeColor = System.Drawing.Color.Red;
+                divThongBaoDK.InnerText = "Tên tài khoản phải từ 4 đến 20 ký tự, không chứa ký tự đặc biệt hoặc dấu cách!";
                 return;
             }
 
-            
-            if (matKhau.Length < 6 || !Regex.IsMatch(matKhau, @"[A-Z]") || !Regex.IsMatch(matKhau, @"[\W_]"))
+            string mauHoTen = @"^[a-zA-ZÀ-ỹ\s]+$";
+            if (Regex.IsMatch(hoTen, mauHoTen) == false)
             {
-                lblThongBaoDK.Text = "Mật khẩu phải có tối thiểu 6 ký tự, gồm ít nhất 1 chữ in hoa và 1 ký tự đặc biệt!";
-                lblThongBaoDK.ForeColor = System.Drawing.Color.Red;
+                divThongBaoDK.InnerText = "Họ tên chỉ được chứa chữ cái và khoảng trắng!";
+                return;
+            }
+
+            string mauSDT = @"^0[0-9]{9}$";
+            if (Regex.IsMatch(sdt, mauSDT) == false)
+            {
+                divThongBaoDK.InnerText = "Số điện thoại không hợp lệ! Vui lòng nhập đúng 10 số và bắt đầu bằng số 0.";
+                return;
+            }
+
+            string mauEmail = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+            if (Regex.IsMatch(email, mauEmail) == false)
+            {
+                divThongBaoDK.InnerText = "Định dạng Email không hợp lệ! (Ví dụ đúng: abc@gmail.com)";
+                return;
+            }
+
+            if (matKhau.Length < 6 || Regex.IsMatch(matKhau, @"[A-Z]") == false || Regex.IsMatch(matKhau, @"[\W_]") == false)
+            {
+                divThongBaoDK.InnerText = "Mật khẩu phải có tối thiểu 6 ký tự, gồm ít nhất 1 chữ in hoa và 1 ký tự đặc biệt!";
                 return;
             }
 
             if (matKhau != xacNhanMK)
             {
-                lblThongBaoDK.Text = "Mật khẩu xác nhận không trùng khớp!";
-                lblThongBaoDK.ForeColor = System.Drawing.Color.Red;
+                divThongBaoDK.InnerText = "Mật khẩu xác nhận không trùng khớp!";
                 return;
             }
 
-            Dictionary<string, NguoiDung> dsTaiKhoan = Application["DanhSachTaiKhoan"] as Dictionary<string, NguoiDung>;
+            Dictionary<string, NguoiDung> danhSachTaiKhoan;
 
-            if (dsTaiKhoan == null)
+            if (Application["DanhSachTaiKhoan"] == null)
             {
-                dsTaiKhoan = new Dictionary<string, NguoiDung>();
+                danhSachTaiKhoan = new Dictionary<string, NguoiDung>();
+            }
+            else
+            {
+                danhSachTaiKhoan = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
             }
 
-            if (dsTaiKhoan.ContainsKey(taiKhoan))
+            if (danhSachTaiKhoan.ContainsKey(taiKhoan))
             {
-                lblThongBaoDK.Text = "Tên đăng nhập này đã tồn tại. Vui lòng chọn tên khác!";
-                lblThongBaoDK.ForeColor = System.Drawing.Color.Red;
+                divThongBaoDK.InnerText = "Tên đăng nhập này đã tồn tại. Vui lòng chọn tên khác!";
                 return;
             }
 
-            NguoiDung nd = new NguoiDung {
-                TaiKhoan = taiKhoan,
-                MatKhau = matKhau,
-                HoTen = hoTen,
-                SDT = sdt,
-                Email = email,
-                DiaChi = ""
-            };
+            NguoiDung nguoiDungMoi = new NguoiDung();
+            nguoiDungMoi.TaiKhoan = taiKhoan;
+            nguoiDungMoi.MatKhau = matKhau;
+            nguoiDungMoi.HoTen = hoTen;
+            nguoiDungMoi.SDT = sdt;
+            nguoiDungMoi.Email = email;
+            nguoiDungMoi.DiaChi = "";
 
-            dsTaiKhoan.Add(taiKhoan, nd);
-            Application["DanhSachTaiKhoan"] = dsTaiKhoan;
+            danhSachTaiKhoan.Add(taiKhoan, nguoiDungMoi);
+            Application["DanhSachTaiKhoan"] = danhSachTaiKhoan;
 
-            string script = "alert('Đăng ký tài khoản thành công!'); window.location.href='DangNhap.aspx';";
-            ClientScript.RegisterStartupScript(this.GetType(), "RedirectScript", script, true);
+            string chuoiScript = "alert('Đăng ký tài khoản thành công!'); window.location.href='DangNhap.aspx';";
+            ClientScript.RegisterStartupScript(this.GetType(), "RedirectScript", chuoiScript, true);
         }
     }
 }

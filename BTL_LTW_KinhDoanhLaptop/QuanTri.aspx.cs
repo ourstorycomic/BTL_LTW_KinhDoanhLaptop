@@ -1,96 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace BTL_LTW_KinhDoanhLaptop
 {
     public partial class QuanTri : System.Web.UI.Page
     {
-        
-        
         public int TongSoLuongTon = 0;
         public decimal TongGiaTriKho = 0;
         public int TongTaiKhoan = 0;
         public string SanPhamBanChay = "Chưa có dữ liệu";
 
-        
-        
-        private void HienThiTaiKhoan()
-        {
-            if (Session["TaiKhoan"] == null)
-            {
-                divTaiKhoan.InnerHtml = "<a href='DangNhap.aspx' class='login-link'><i class='fa-solid fa-user'></i> Đăng nhập</a>";
-            }
-            else
-            {
-                string avatar = "assets/img/lenovo.png";
-                if (Application["DanhSachTaiKhoan"] != null)
-                {
-                    Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung> dict = (Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung>)Application["DanhSachTaiKhoan"];
-                    string tk = Session["TaiKhoan"].ToString();
-                    if (dict.ContainsKey(tk))
-                    {
-                        if (dict[tk].Avatar != null && dict[tk].Avatar != "")
-                        {
-                            avatar = dict[tk].Avatar;
-                        }
-                    }
-                }
-
-                string adminLinks = "";
-                if (Session["TaiKhoan"].ToString() == "admin")
-                {
-                    adminLinks = "<a href='QuanTri.aspx'><i class='fa-solid fa-gear'></i> Quản trị</a>" +
-                                 "<a href='BaoCao.aspx'><i class='fa-solid fa-chart-pie'></i> Thống kê</a>";
-                }
-
-                string html = "";
-                html += "<div class='user-dropdown'>";
-                html += "<img src='" + avatar + "' class='user-avatar' />";
-                html += "<span>" + Session["TaiKhoan"].ToString() + "</span>";
-                html += "<i class='fa-solid fa-caret-down'></i>";
-                html += "<div class='dropdown-content'>";
-                html += "<a href='HoSo.aspx'><i class='fa-solid fa-address-card'></i> Hồ sơ cá nhân</a>";
-                html += adminLinks;
-                html += "<a href='DangNhap.aspx?logout=true' class='logout-link'><i class='fa-solid fa-right-from-bracket'></i> Đăng xuất</a>";
-                html += "</div>";
-                html += "</div>";
-                
-                divTaiKhoan.InnerHtml = html;
-            }
-        }
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
             HienThiTaiKhoan();
+
             if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() != "admin")
             {
                 Response.Redirect("TrangChu.aspx");
                 return;
             }
 
-            
-            
-
-            
             if (!IsPostBack)
             {
-                if (Request.QueryString["action"] == "delete" && Request.QueryString["id"] != null)
+                string action = Request.QueryString["action"];
+                string idTruyenVao = Request.QueryString["id"];
+
+                if (action == "delete" && idTruyenVao != null)
                 {
-                    int id = int.Parse(Request.QueryString["id"]);
+                    int id = int.Parse(idTruyenVao);
                     List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
                     Laptop spXoa = null;
-                    foreach(Laptop sp in danhSach) {
-                        if(sp.Id == id) {
-                            spXoa = sp;
+
+                    for (int i = 0; i < danhSach.Count; i++)
+                    {
+                        if (danhSach[i].Id == id)
+                        {
+                            spXoa = danhSach[i];
                             break;
                         }
                     }
+
                     if (spXoa != null)
                     {
                         danhSach.Remove(spXoa);
@@ -98,17 +49,21 @@ namespace BTL_LTW_KinhDoanhLaptop
                     }
                     Response.Redirect("QuanTri.aspx");
                 }
-                else if (Request.QueryString["action"] == "edit" && Request.QueryString["id"] != null)
+                else if (action == "edit" && idTruyenVao != null)
                 {
-                    int id = int.Parse(Request.QueryString["id"]);
+                    int id = int.Parse(idTruyenVao);
                     List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
                     Laptop spSua = null;
-                    foreach(Laptop sp in danhSach) {
-                        if(sp.Id == id) {
-                            spSua = sp;
+
+                    for (int i = 0; i < danhSach.Count; i++)
+                    {
+                        if (danhSach[i].Id == id)
+                        {
+                            spSua = danhSach[i];
                             break;
                         }
                     }
+
                     if (spSua != null)
                     {
                         txtId.Value = spSua.Id.ToString();
@@ -123,17 +78,56 @@ namespace BTL_LTW_KinhDoanhLaptop
                 LoadData();
             }
 
-            
-            // Also update cart info in header just like TrangChu
             if (Session["GioHang"] != null)
             {
                 DataTable dt = (DataTable)Session["GioHang"];
-                int tong = 0;
-                foreach (DataRow dr in dt.Rows)
+                int tongGioHang = 0;
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    tong += int.Parse(dr["SoLuong"].ToString());
+                    tongGioHang += Convert.ToInt32(dt.Rows[i]["SoLuong"]);
                 }
-                lblSoLuongGio.Text = tong.ToString();
+                lblSoLuongGio.Text = tongGioHang.ToString();
+            }
+        }
+
+        private void HienThiTaiKhoan()
+        {
+            if (Session["TaiKhoan"] == null)
+            {
+                divChuaDangNhap.Visible = true;
+                divDaDangNhap.Visible = false;
+            }
+            else
+            {
+                divChuaDangNhap.Visible = false;
+                divDaDangNhap.Visible = true;
+
+                string tkDangNhap = Session["TaiKhoan"].ToString();
+                lblTenTaiKhoan.InnerText = tkDangNhap;
+
+                if (Application["DanhSachTaiKhoan"] != null)
+                {
+                    Dictionary<string, NguoiDung> dict = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+
+                    if (dict.ContainsKey(tkDangNhap))
+                    {
+                        if (dict[tkDangNhap].Avatar != null && dict[tkDangNhap].Avatar != "")
+                        {
+                            imgAvatar.Src = dict[tkDangNhap].Avatar;
+                        }
+                    }
+                }
+
+                if (tkDangNhap == "admin")
+                {
+                    linkQuanTri.Visible = true;
+                    linkThongKe.Visible = true;
+                }
+                else
+                {
+                    linkQuanTri.Visible = false;
+                    linkThongKe.Visible = false;
+                }
             }
         }
 
@@ -141,14 +135,15 @@ namespace BTL_LTW_KinhDoanhLaptop
         {
             if (Application["DanhSachLaptop"] != null)
             {
-                var danhSach = (List<Laptop>)Application["DanhSachLaptop"];
+                List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
                 string html = "";
-                foreach (var sp in danhSach)
+                for (int i = 0; i < danhSach.Count; i++)
                 {
+                    Laptop sp = danhSach[i];
                     html += "<tr>";
                     html += "<td>" + sp.Id + "</td>";
                     html += "<td>" + sp.TenSanPham + "</td>";
-                    html += "<td>" + string.Format("{0:N0} ₫", sp.GiaTien) + "</td>";
+                    html += "<td>" + sp.GiaTien.ToString("N0") + " ₫</td>";
                     html += "<td>" + sp.SoLuongTon + "</td>";
                     html += "<td><img src='" + ResolveUrl(sp.HinhAnh) + "' style='width: 50px; height: 50px; object-fit: contain;' /></td>";
                     html += "<td>";
@@ -163,66 +158,79 @@ namespace BTL_LTW_KinhDoanhLaptop
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
-            if (danhSach == null) danhSach = new List<Laptop>();
-
-            int id = string.IsNullOrEmpty(txtId.Value) ? 0 : int.Parse(txtId.Value);
-            
-            string hinhAnh = txtHinhAnhCu.Value;
-            if (fileHinhAnh.HasFile)
+            List<Laptop> danhSach;
+            if (Application["DanhSachLaptop"] != null)
             {
-                string fileName = System.IO.Path.GetFileName(fileHinhAnh.FileName);
-                string filePath = Server.MapPath("~/assets/img/" + fileName);
-                fileHinhAnh.SaveAs(filePath);
-                hinhAnh = "assets/img/" + fileName;
+                danhSach = (List<Laptop>)Application["DanhSachLaptop"];
             }
-            else if (string.IsNullOrEmpty(hinhAnh))
+            else
+            {
+                danhSach = new List<Laptop>();
+            }
+
+            int id = 0;
+            if (txtId.Value != "")
+            {
+                id = int.Parse(txtId.Value);
+            }
+
+            string hinhAnh = txtHinhAnhCu.Value;
+
+            if (fileHinhAnh.HasFile == true)
+            {
+                string tenFile = System.IO.Path.GetFileName(fileHinhAnh.FileName);
+                string duongDan = Server.MapPath("~/assets/img/" + tenFile);
+                fileHinhAnh.SaveAs(duongDan);
+                hinhAnh = "assets/img/" + tenFile;
+            }
+            else if (hinhAnh == "")
             {
                 hinhAnh = "assets/img/lenovo.png";
             }
 
-            if (id == 0) // Add new
+            if (id == 0)
             {
-                int newId = 1;
+                int idMoi = 1;
                 if (danhSach.Count > 0)
                 {
                     int maxId = 0;
-                    foreach (Laptop s in danhSach)
+                    for (int i = 0; i < danhSach.Count; i++)
                     {
-                        if (s.Id > maxId)
+                        if (danhSach[i].Id > maxId)
                         {
-                            maxId = s.Id;
+                            maxId = danhSach[i].Id;
                         }
                     }
-                    newId = maxId + 1;
+                    idMoi = maxId + 1;
                 }
-                Laptop sp = new Laptop
-                {
-                    Id = newId,
-                    TenSanPham = txtTenSanPham.Text,
-                    GiaTien = decimal.Parse(txtGiaTien.Text),
-                    HinhAnh = hinhAnh,
-                    SoLuongTon = int.Parse(txtSoLuongTon.Text)
-                };
-                danhSach.Add(sp);
+
+                Laptop spMoi = new Laptop();
+                spMoi.Id = idMoi;
+                spMoi.TenSanPham = txtTenSanPham.Text;
+                spMoi.GiaTien = decimal.Parse(txtGiaTien.Text);
+                spMoi.HinhAnh = hinhAnh;
+                spMoi.SoLuongTon = int.Parse(txtSoLuongTon.Text);
+
+                danhSach.Add(spMoi);
             }
-            else // Edit
+            else
             {
-                Laptop sp = null;
-                foreach (Laptop s in danhSach)
+                Laptop spSua = null;
+                for (int i = 0; i < danhSach.Count; i++)
                 {
-                    if (s.Id == id)
+                    if (danhSach[i].Id == id)
                     {
-                        sp = s;
+                        spSua = danhSach[i];
                         break;
                     }
                 }
-                if (sp != null)
+
+                if (spSua != null)
                 {
-                    sp.TenSanPham = txtTenSanPham.Text;
-                    sp.GiaTien = decimal.Parse(txtGiaTien.Text);
-                    sp.HinhAnh = hinhAnh;
-                    sp.SoLuongTon = int.Parse(txtSoLuongTon.Text);
+                    spSua.TenSanPham = txtTenSanPham.Text;
+                    spSua.GiaTien = decimal.Parse(txtGiaTien.Text);
+                    spSua.HinhAnh = hinhAnh;
+                    spSua.SoLuongTon = int.Parse(txtSoLuongTon.Text);
                 }
             }
 
@@ -230,8 +238,6 @@ namespace BTL_LTW_KinhDoanhLaptop
             ClearForm();
             LoadData();
         }
-
-        
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {

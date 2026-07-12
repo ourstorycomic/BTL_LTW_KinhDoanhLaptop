@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
@@ -15,44 +14,40 @@ namespace BTL_LTW_KinhDoanhLaptop
         {
             if (Session["TaiKhoan"] == null)
             {
-                divTaiKhoan.InnerHtml = "<a href='DangNhap.aspx' class='login-link'><i class='fa-solid fa-user'></i> Đăng nhập</a>";
+                divChuaDangNhap.Visible = true;
+                divDaDangNhap.Visible = false;
             }
             else
             {
-                string avatar = "assets/img/lenovo.png";
+                divChuaDangNhap.Visible = false;
+                divDaDangNhap.Visible = true;
+
+                string tenTaiKhoan = Session["TaiKhoan"].ToString();
+                lblTenTaiKhoan.InnerText = tenTaiKhoan;
+
                 if (Application["DanhSachTaiKhoan"] != null)
                 {
-                    Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung> dict = (Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung>)Application["DanhSachTaiKhoan"];
-                    string tk = Session["TaiKhoan"].ToString();
-                    if (dict.ContainsKey(tk))
+                    Dictionary<string, NguoiDung> tuDienTaiKhoan = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+
+                    if (tuDienTaiKhoan.ContainsKey(tenTaiKhoan))
                     {
-                        if (dict[tk].Avatar != null && dict[tk].Avatar != "")
+                        if (tuDienTaiKhoan[tenTaiKhoan].Avatar != null && tuDienTaiKhoan[tenTaiKhoan].Avatar != "")
                         {
-                            avatar = dict[tk].Avatar;
+                            imgAvatar.Src = tuDienTaiKhoan[tenTaiKhoan].Avatar;
                         }
                     }
                 }
 
-                string adminLinks = "";
-                if (Session["TaiKhoan"].ToString() == "admin")
+                if (tenTaiKhoan == "admin")
                 {
-                    adminLinks = "<a href='QuanTri.aspx'><i class='fa-solid fa-gear'></i> Quản trị</a>" +
-                                 "<a href='BaoCao.aspx'><i class='fa-solid fa-chart-pie'></i> Thống kê</a>";
+                    linkQuanTri.Visible = true;
+                    linkThongKe.Visible = true;
                 }
-
-                string html = "";
-                html += "<div class='user-dropdown'>";
-                html += "<img src='" + avatar + "' class='user-avatar' />";
-                html += "<span>" + Session["TaiKhoan"].ToString() + "</span>";
-                html += "<i class='fa-solid fa-caret-down'></i>";
-                html += "<div class='dropdown-content'>";
-                html += "<a href='HoSo.aspx'><i class='fa-solid fa-address-card'></i> Hồ sơ cá nhân</a>";
-                html += adminLinks;
-                html += "<a href='DangNhap.aspx?logout=true' class='logout-link'><i class='fa-solid fa-right-from-bracket'></i> Đăng xuất</a>";
-                html += "</div>";
-                html += "</div>";
-
-                divTaiKhoan.InnerHtml = html;
+                else
+                {
+                    linkQuanTri.Visible = false;
+                    linkThongKe.Visible = false;
+                }
             }
         }
 
@@ -62,10 +57,11 @@ namespace BTL_LTW_KinhDoanhLaptop
 
             if (Request.QueryString["action"] == "xoa" && Request.QueryString["id"] != null)
             {
-                XoaSanPham(Convert.ToInt32(Request.QueryString["id"]));
+                int idCanXoa = Convert.ToInt32(Request.QueryString["id"]);
+                XoaSanPham(idCanXoa);
             }
 
-            if (IsPostBack)
+            if (IsPostBack == true)
             {
                 XuLyCapNhatGioHangTuDong();
             }
@@ -76,13 +72,14 @@ namespace BTL_LTW_KinhDoanhLaptop
 
         private void XuLyCapNhatGioHangTuDong()
         {
-            DataTable dt = LayDuLieuThanhToan();
-            if (dt != null)
+            DataTable bangDuLieu = LayDuLieuThanhToan();
+            if (bangDuLieu != null)
             {
-                bool daThayDoi = false;
-                foreach (DataRow dr in dt.Rows)
+                bool coThayDoi = false;
+
+                for (int i = 0; i < bangDuLieu.Rows.Count; i++)
                 {
-                    int maSP = Convert.ToInt32(dr["MaSanPham"]);
+                    int maSP = Convert.ToInt32(bangDuLieu.Rows[i]["MaSanPham"]);
                     string tenTheInput = "sl_" + maSP;
 
                     if (Request.Form[tenTheInput] != null)
@@ -90,73 +87,84 @@ namespace BTL_LTW_KinhDoanhLaptop
                         int soLuongMoi = 0;
                         if (int.TryParse(Request.Form[tenTheInput], out soLuongMoi) && soLuongMoi > 0)
                         {
-                            if (Convert.ToInt32(dr["SoLuong"]) != soLuongMoi)
+                            if (Convert.ToInt32(bangDuLieu.Rows[i]["SoLuong"]) != soLuongMoi)
                             {
-                                dr["SoLuong"] = soLuongMoi;
-                                decimal donGia = Convert.ToDecimal(dr["DonGia"]);
-                                dr["ThanhTien"] = donGia * soLuongMoi;
-                                daThayDoi = true;
+                                bangDuLieu.Rows[i]["SoLuong"] = soLuongMoi;
+                                decimal donGia = Convert.ToDecimal(bangDuLieu.Rows[i]["DonGia"]);
+                                bangDuLieu.Rows[i]["ThanhTien"] = donGia * soLuongMoi;
+                                coThayDoi = true;
                             }
                         }
                     }
                 }
 
-                if (daThayDoi)
+                if (coThayDoi == true)
                 {
-                    LuuDuLieuThanhToan(dt);
+                    LuuDuLieuThanhToan(bangDuLieu);
                 }
             }
         }
 
         private void HienThiGioHang()
         {
-            DataTable dt = LayDuLieuThanhToan();
+            DataTable bangDuLieu = LayDuLieuThanhToan();
 
-            if (dt != null && dt.Rows.Count > 0)
+            if (bangDuLieu != null && bangDuLieu.Rows.Count > 0)
             {
-                string html = "";
-                decimal tong = 0;
-                List<Laptop> kho = Application["DanhSachLaptop"] as List<Laptop>;
+                string chuoiHtml = "";
+                decimal tongTien = 0;
 
-                foreach (DataRow dr in dt.Rows)
+                List<Laptop> danhSachGoc = null;
+                if (Application["DanhSachLaptop"] != null)
                 {
-                    int maSP = Convert.ToInt32(dr["MaSanPham"]);
-                    string tenSP = dr["TenSanPham"].ToString();
-                    decimal donGia = Convert.ToDecimal(dr["DonGia"]);
-                    int soLuong = Convert.ToInt32(dr["SoLuong"]);
-                    decimal thanhTien = Convert.ToDecimal(dr["ThanhTien"]);
+                    danhSachGoc = (List<Laptop>)Application["DanhSachLaptop"];
+                }
+
+                for (int i = 0; i < bangDuLieu.Rows.Count; i++)
+                {
+                    int maSP = Convert.ToInt32(bangDuLieu.Rows[i]["MaSanPham"]);
+                    string tenSP = bangDuLieu.Rows[i]["TenSanPham"].ToString();
+                    decimal donGia = Convert.ToDecimal(bangDuLieu.Rows[i]["DonGia"]);
+                    int soLuong = Convert.ToInt32(bangDuLieu.Rows[i]["SoLuong"]);
+                    decimal thanhTien = Convert.ToDecimal(bangDuLieu.Rows[i]["ThanhTien"]);
 
                     string hinhAnh = "";
-                    if (kho != null)
+                    if (danhSachGoc != null)
                     {
-                        Laptop sp = kho.FirstOrDefault(x => x.Id == maSP);
-                        if (sp != null && !string.IsNullOrEmpty(sp.HinhAnh))
+                        for (int j = 0; j < danhSachGoc.Count; j++)
                         {
-                            hinhAnh = ResolveUrl(sp.HinhAnh);
+                            if (danhSachGoc[j].Id == maSP)
+                            {
+                                if (danhSachGoc[j].HinhAnh != null && danhSachGoc[j].HinhAnh != "")
+                                {
+                                    hinhAnh = ResolveUrl(danhSachGoc[j].HinhAnh);
+                                }
+                                break;
+                            }
                         }
                     }
 
-                    tong += thanhTien;
+                    tongTien = tongTien + thanhTien;
 
-                    html += "<tr>";
-                    html += $"<td><img src='{hinhAnh}' style='width: 100px; height: 100px; object-fit: contain; border-radius: 5px;' alt='{tenSP}' /></td>";
-                    html += $"<td style='font-weight: bold;'>{tenSP}</td>";
-                    html += $"<td class='text-red'>{donGia:N0} ₫</td>";
-                    html += $"<td><input type='number' name='sl_{maSP}' value='{soLuong}' min='1' onchange='this.form.submit();' style='width: 70px; text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px; outline: none;' /></td>";
-                    html += $"<td class='text-red' style='font-weight: bold;'>{thanhTien:N0} ₫</td>";
-                    html += $"<td><a href='ThanhToan.aspx?action=xoa&id={maSP}' style='color: white; background-color: #f44336; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 13px;' onclick=\"showConfirmPopup(this.href); return false;\"><i class='fa-solid fa-trash'></i> Xóa</a></td>";
-                    html += "</tr>";
+                    chuoiHtml += "<tr>";
+                    chuoiHtml += "<td><img src='" + hinhAnh + "' style='width: 100px; height: 100px; object-fit: contain; border-radius: 5px;' alt='" + tenSP + "' /></td>";
+                    chuoiHtml += "<td style='font-weight: bold;'>" + tenSP + "</td>";
+                    chuoiHtml += "<td class='text-red'>" + donGia.ToString("N0") + " ₫</td>";
+                    chuoiHtml += "<td><input type='number' name='sl_" + maSP + "' value='" + soLuong + "' min='1' onchange='this.form.submit();' style='width: 70px; text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px; outline: none;' /></td>";
+                    chuoiHtml += "<td class='text-red' style='font-weight: bold;'>" + thanhTien.ToString("N0") + " ₫</td>";
+                    chuoiHtml += "<td><a href='ThanhToan.aspx?action=xoa&id=" + maSP + "' style='color: white; background-color: #f44336; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 13px;' onclick=\"showConfirmPopup(this.href); return false;\"><i class='fa-solid fa-trash'></i> Xóa</a></td>";
+                    chuoiHtml += "</tr>";
                 }
 
-                litGioHang.Text = html;
-                lblTongTien.Text = "Tổng cộng: " + tong.ToString("N0") + " ₫";
+                litGioHang.Text = chuoiHtml;
+                lblTongTien.Text = "Tổng cộng: " + tongTien.ToString("N0") + " ₫";
 
                 if (Request.QueryString["type"] == "buynow")
                 {
                     TieuDeTrang.InnerText = "Xác nhận mua ngay";
                 }
 
-                if (!IsPostBack)
+                if (IsPostBack == false)
                 {
                     divThongTinKhachHang.Visible = false;
                     btnThanhToan.Visible = false;
@@ -173,48 +181,57 @@ namespace BTL_LTW_KinhDoanhLaptop
                 lblThongBao.Style["color"] = "red";
             }
 
-            if (Session["TaiKhoan"] != null && !IsPostBack)
+            if (Session["TaiKhoan"] != null && IsPostBack == false)
             {
-                string tk = Session["TaiKhoan"].ToString();
-                Dictionary<string, NguoiDung> ds = Application["DanhSachTaiKhoan"] as Dictionary<string, NguoiDung>;
-                if (ds != null && ds.ContainsKey(tk))
+                string tenTaiKhoan = Session["TaiKhoan"].ToString();
+                if (Application["DanhSachTaiKhoan"] != null)
                 {
-                    txtHoTen.Text = ds[tk].HoTen;
-                    txtDienThoai.Text = ds[tk].SDT;
-                    txtDiaChi.Text = ds[tk].DiaChi;
+                    Dictionary<string, NguoiDung> tuDienTaiKhoan = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+                    if (tuDienTaiKhoan.ContainsKey(tenTaiKhoan))
+                    {
+                        txtHoTen.Text = tuDienTaiKhoan[tenTaiKhoan].HoTen;
+                        txtDienThoai.Text = tuDienTaiKhoan[tenTaiKhoan].SDT;
+                        txtDiaChi.Text = tuDienTaiKhoan[tenTaiKhoan].DiaChi;
+                    }
                 }
             }
         }
 
         private void XoaSanPham(int maSP)
         {
-            DataTable dt = LayDuLieuThanhToan();
-            if (dt != null)
+            DataTable bangDuLieu = LayDuLieuThanhToan();
+            if (bangDuLieu != null)
             {
-                for (int i = dt.Rows.Count - 1; i >= 0; i--)
+                for (int i = bangDuLieu.Rows.Count - 1; i >= 0; i--)
                 {
-                    if (Convert.ToInt32(dt.Rows[i]["MaSanPham"]) == maSP)
+                    if (Convert.ToInt32(bangDuLieu.Rows[i]["MaSanPham"]) == maSP)
                     {
-                        dt.Rows.RemoveAt(i);
+                        bangDuLieu.Rows.RemoveAt(i);
                         break;
                     }
                 }
-                LuuDuLieuThanhToan(dt);
 
-                string query = Request.QueryString["type"] == "buynow" ? "?type=buynow" : "";
-                Response.Redirect("ThanhToan.aspx" + query);
+                LuuDuLieuThanhToan(bangDuLieu);
+
+                string chuoiQuery = "";
+                if (Request.QueryString["type"] == "buynow")
+                {
+                    chuoiQuery = "?type=buynow";
+                }
+
+                Response.Redirect("ThanhToan.aspx" + chuoiQuery);
             }
         }
 
-        private void LuuDuLieuThanhToan(DataTable dt)
+        private void LuuDuLieuThanhToan(DataTable bangDuLieu)
         {
             if (Request.QueryString["type"] == "buynow")
             {
-                Session["MuaNgay"] = dt;
+                Session["MuaNgay"] = bangDuLieu;
             }
             else
             {
-                Session["GioHang"] = dt;
+                Session["GioHang"] = bangDuLieu;
             }
         }
 
@@ -224,20 +241,25 @@ namespace BTL_LTW_KinhDoanhLaptop
             {
                 return (DataTable)Session["MuaNgay"];
             }
-            return (DataTable)Session["GioHang"];
+            else
+            {
+                return (DataTable)Session["GioHang"];
+            }
         }
 
         private void CapNhatSoLuongGio()
         {
             if (Session["GioHang"] != null)
             {
-                DataTable dt = (DataTable)Session["GioHang"];
-                int tong = 0;
-                foreach (DataRow dr in dt.Rows)
+                DataTable bangDuLieu = (DataTable)Session["GioHang"];
+                int tongSoLuong = 0;
+
+                for (int i = 0; i < bangDuLieu.Rows.Count; i++)
                 {
-                    tong += int.Parse(dr["SoLuong"].ToString());
+                    tongSoLuong += int.Parse(bangDuLieu.Rows[i]["SoLuong"].ToString());
                 }
-                lblSoLuongGio.Text = tong.ToString();
+
+                lblSoLuongGio.Text = tongSoLuong.ToString();
             }
             else
             {
@@ -247,6 +269,17 @@ namespace BTL_LTW_KinhDoanhLaptop
 
         protected void btnTienHanh_Click(object sender, EventArgs e)
         {
+            if (Session["TaiKhoan"] == null)
+            {
+                string url = "ThanhToan.aspx";
+                if (Request.QueryString["type"] == "buynow")
+                {
+                    url = url + "?type=buynow";
+                }
+                Response.Redirect("DangNhap.aspx?redirect=" + Server.UrlEncode(url));
+                return;
+            }
+
             divThongTinKhachHang.Visible = true;
             btnThanhToan.Visible = true;
             btnTienHanh.Visible = false;
@@ -254,18 +287,24 @@ namespace BTL_LTW_KinhDoanhLaptop
 
         protected void btnThanhToan_Click(object sender, EventArgs e)
         {
-            string hoTen = txtHoTen.Text.Trim();
-            string dienThoai = txtDienThoai.Text.Trim();
-            string diaChi = txtDiaChi.Text.Trim();
+            if (Session["TaiKhoan"] == null)
+            {
+                Response.Redirect("DangNhap.aspx");
+                return;
+            }
 
-            if (hoTen.Length < 2 || !Regex.IsMatch(hoTen, @"^[\p{L}\s]+$"))
+            string hoTen = txtHoTen.Text;
+            string dienThoai = txtDienThoai.Text;
+            string diaChi = txtDiaChi.Text;
+
+            if (hoTen.Length < 2 || Regex.IsMatch(hoTen, @"^[\p{L}\s]+$") == false)
             {
                 lblThongBao.Text = "Họ tên không hợp lệ (phải chứa ít nhất 2 chữ cái và không có số/ký tự đặc biệt)!";
                 lblThongBao.Style["color"] = "red";
                 return;
             }
 
-            if (!Regex.IsMatch(dienThoai, @"^0\d{9}$"))
+            if (Regex.IsMatch(dienThoai, @"^0\d{9}$") == false)
             {
                 lblThongBao.Text = "Số điện thoại phải bao gồm đúng 10 chữ số và bắt đầu bằng số 0!";
                 lblThongBao.Style["color"] = "red";
@@ -282,25 +321,28 @@ namespace BTL_LTW_KinhDoanhLaptop
             string phuongThuc = rblPhuongThuc.SelectedValue;
             if (phuongThuc == "CARD")
             {
-                if (txtTenTrenThe.Text.Trim().Length < 2)
+                if (txtTenTrenThe.Text.Length < 2)
                 {
                     lblThongBao.Text = "Vui lòng nhập tên in trên thẻ!";
                     lblThongBao.Style["color"] = "red";
                     return;
                 }
-                if (!Regex.IsMatch(txtSoThe.Text.Trim(), @"^\d{16,19}$"))
+
+                if (Regex.IsMatch(txtSoThe.Text, @"^\d{16,19}$") == false)
                 {
                     lblThongBao.Text = "Số thẻ không hợp lệ (phải từ 16-19 chữ số)!";
                     lblThongBao.Style["color"] = "red";
                     return;
                 }
-                if (!Regex.IsMatch(txtNgayHetHan.Text.Trim(), @"^(0[1-9]|1[0-2])\/\d{2}$"))
+
+                if (Regex.IsMatch(txtNgayHetHan.Text, @"^(0[1-9]|1[0-2])\/\d{2}$") == false)
                 {
                     lblThongBao.Text = "Ngày hết hạn không hợp lệ (định dạng MM/YY)!";
                     lblThongBao.Style["color"] = "red";
                     return;
                 }
-                if (!Regex.IsMatch(txtCCV.Text.Trim(), @"^\d{3,4}$"))
+
+                if (Regex.IsMatch(txtCCV.Text, @"^\d{3,4}$") == false)
                 {
                     lblThongBao.Text = "Mã CCV/CVV không hợp lệ (phải gồm 3-4 chữ số)!";
                     lblThongBao.Style["color"] = "red";
@@ -308,39 +350,42 @@ namespace BTL_LTW_KinhDoanhLaptop
                 }
             }
 
-            DataTable dtThanhToan = LayDuLieuThanhToan();
+            DataTable bangDuLieu = LayDuLieuThanhToan();
 
-            if (dtThanhToan == null || dtThanhToan.Rows.Count == 0)
+            if (bangDuLieu == null || bangDuLieu.Rows.Count == 0)
             {
                 lblThongBao.Text = "Lỗi dữ liệu đơn hàng!";
                 lblThongBao.Style["color"] = "red";
                 return;
             }
 
-            List<Laptop> kho = (List<Laptop>)Application["DanhSachLaptop"];
+            List<Laptop> danhSachGoc = (List<Laptop>)Application["DanhSachLaptop"];
 
-            foreach (DataRow dr in dtThanhToan.Rows)
+            for (int i = 0; i < bangDuLieu.Rows.Count; i++)
             {
-                int ma = int.Parse(dr["MaSanPham"].ToString());
-                int slMua = int.Parse(dr["SoLuong"].ToString());
+                int ma = int.Parse(bangDuLieu.Rows[i]["MaSanPham"].ToString());
+                int soLuongMua = int.Parse(bangDuLieu.Rows[i]["SoLuong"].ToString());
 
-                Laptop sp = kho.FirstOrDefault(x => x.Id == ma);
-                if (sp != null)
+                for (int j = 0; j < danhSachGoc.Count; j++)
                 {
-                    sp.SoLuongTon -= slMua;
-                    sp.SoLuongBan += slMua;
+                    if (danhSachGoc[j].Id == ma)
+                    {
+                        danhSachGoc[j].SoLuongTon = danhSachGoc[j].SoLuongTon - soLuongMua;
+                        danhSachGoc[j].SoLuongBan = danhSachGoc[j].SoLuongBan + soLuongMua;
+                        break;
+                    }
                 }
             }
 
-            Application["DanhSachLaptop"] = kho;
+            Application["DanhSachLaptop"] = danhSachGoc;
 
             if (Request.QueryString["type"] == "buynow")
             {
-                Session["MuaNgay"] = null;
+                Session.Remove("MuaNgay");
             }
             else
             {
-                Session["GioHang"] = null;
+                Session.Remove("GioHang");
                 lblSoLuongGio.Text = "0";
             }
 
@@ -352,8 +397,8 @@ namespace BTL_LTW_KinhDoanhLaptop
             divThongTinKhachHang.Visible = false;
             btnThanhToan.Visible = false;
 
-            string script = "showToast('Thanh toán thành công! Đơn hàng sẽ được giao đến " + diaChi + "'); setTimeout(function(){ window.location='TrangChu.aspx'; }, 3000);";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopupSuccess", script, true);
+            string maScript = "showToast('Thanh toán thành công! Đơn hàng sẽ được giao đến " + diaChi + "'); setTimeout(function(){ window.location='TrangChu.aspx'; }, 3000);";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopupSuccess", maScript, true);
         }
     }
 }

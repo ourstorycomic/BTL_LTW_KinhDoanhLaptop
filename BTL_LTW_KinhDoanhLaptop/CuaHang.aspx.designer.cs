@@ -33,13 +33,58 @@ namespace BTL_LTW_KinhDoanhLaptop
         protected global::System.Web.UI.WebControls.Label lblSoLuongGio;
 
         /// <summary>
-        /// divTaiKhoan control.
+        /// divChuaDangNhap control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTaiKhoan;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divChuaDangNhap;
+
+        /// <summary>
+        /// divDaDangNhap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDaDangNhap;
+
+        /// <summary>
+        /// imgAvatar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgAvatar;
+
+        /// <summary>
+        /// lblTenTaiKhoan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblTenTaiKhoan;
+
+        /// <summary>
+        /// linkQuanTri control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor linkQuanTri;
+
+        /// <summary>
+        /// linkThongKe control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor linkThongKe;
 
         /// <summary>
         /// cblThuongHieu control.
@@ -68,14 +113,7 @@ namespace BTL_LTW_KinhDoanhLaptop
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSapXep;
 
-        /// <summary>
-        /// rptLaptops control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptLaptops;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl khungDanhSachSP;
 
         /// <summary>
         /// litPhanTrang control.

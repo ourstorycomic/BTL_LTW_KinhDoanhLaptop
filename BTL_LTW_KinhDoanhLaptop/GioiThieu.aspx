@@ -6,14 +6,14 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <title>Giới thiệu</title>
     <link rel="stylesheet" type="text/css" href="assets/css/GioiThieu.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/Styles.css" />
     <link rel="stylesheet" href="assets/font/fontawesome-free-6.4.0/css/all.css" />
 </head>
 <body>
     <form id="form1" runat="server">
-                <header class="phan-dau-trang">
+        <header class="phan-dau-trang">
             <div class="noi-dung-phan-dau">
                 <a href="TrangChu.aspx" class="chu-logo">
                     MOBILE EDUCATION
@@ -36,43 +36,58 @@
                         <i class="fa-solid fa-cart-shopping" ></i> (<asp:Label ID="lblSoLuongGio" runat="server" Text="0"></asp:Label>)
                     </a>
 
-                    <div class="khu-vuc-tai-khoan account-area" id="divTaiKhoan" runat="server"></div>
+                    <div id="divChuaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area">
+                        <a href="DangNhap.aspx" class="login-link"><i class="fa-solid fa-user"></i> Đăng nhập</a>
+                    </div>
+
+                    <div id="divDaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area user-dropdown" visible="false">
+                        <img id="imgAvatar" runat="server" src="assets/img/lenovo.png" class="user-avatar" />
+                        <span id="lblTenTaiKhoan" runat="server"></span>
+                        <i class="fa-solid fa-caret-down"></i>
+                        <div class="dropdown-content">
+                            <a href="HoSo.aspx"><i class="fa-solid fa-address-card"></i> Hồ sơ cá nhân</a>
+                            <a id="linkQuanTri" runat="server" href="QuanTri.aspx" visible="false"><i class="fa-solid fa-gear"></i> Quản trị</a>
+                            <a id="linkThongKe" runat="server" href="BaoCao.aspx" visible="false"><i class="fa-solid fa-chart-pie"></i> Thống kê</a>
+                            <a href="DangNhap.aspx?logout=true" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </header>
 
+        <section class="su-menh-section" style="max-width:1200px; margin: 0 auto 40px auto;">
+            <div class="cot-trai-hinh-anh">
+                <img src="assets/img/Sumenh.png" alt="Sứ mệnh Mobile Education" />
+            </div>
+            <div class="cot-phai-noi-dung">
+                <h2>GIẢI PHÁP CÔNG NGHỆ TOÀN DIỆN CHO BẠN</h2>
+                <p>MOBILE EDUCATION không chỉ bán laptop mà còn cung cấp cho bạn những giải pháp học tập và làm việc tối ưu nhất.</p>
+                <p>Trong bối cảnh công nghệ phát triển như hiện nay, việc sở hữu một chiếc máy tính phù hợp là chìa khóa để thành công. Dù bạn là sinh viên, nhân viên văn phòng hay game thủ, chúng tôi luôn có thiết bị đáp ứng đúng nhu cầu của bạn.</p>
+                <p>Chúng tôi tự hào phân phối các dòng sản phẩm chính hãng từ ASUS, Dell, Lenovo, Macbook... với chế độ hậu mãi chuyên nghiệp.</p>
+            </div>
+        </section>
 
-<section class="su-menh-section" style="max-width:1200px; margin: 0 auto 40px auto;">
-    <div class="cot-trai-hinh-anh">
-        <img src="assets/img/Sumenh.png" alt="Sứ mệnh Mobile Education" />
-    </div>
-    <div class="cot-phai-noi-dung">
-        <h2>GIẢI PHÁP CÔNG NGHỆ TOÀN DIỆN CHO BẠN</h2>
-        <p>MOBILE EDUCATION không chỉ bán laptop mà còn cung cấp cho bạn những giải pháp học tập và làm việc tối ưu nhất.</p>
-        <p>Trong bối cảnh công nghệ phát triển như hiện nay, việc sở hữu một chiếc máy tính phù hợp là chìa khóa để thành công. Dù bạn là sinh viên, nhân viên văn phòng hay game thủ, chúng tôi luôn có thiết bị đáp ứng đúng nhu cầu của bạn.</p>
-        <p>Chúng tôi tự hào phân phối các dòng sản phẩm chính hãng từ ASUS, Dell, Lenovo, Macbook... với chế độ hậu mãi chuyên nghiệp.</p>
-    </div>
-</section>
+        <section class="cam-ket-section" style="max-width:1200px; margin: 0 auto;">
+            <h2 class="tieu-de-do">MOBILE EDUCATION - ĐỐI TÁC ĐÁNG TIN CẬY</h2>
+            <div class="khung-chua-cam-ket">
+                <div class="cam-ket-trai">
+                    <div class="hop-cam-ket">Sản phẩm 100% chính hãng, đầy đủ giấy tờ, nguyên seal từ nhà sản xuất.</div>
+                    <div class="hop-cam-ket">Mức giá cạnh tranh nhất thị trường cùng nhiều chương trình khuyến mãi cho HSSV.</div>
+                </div>
+                
+                <div class="cam-ket-giua">
+                    <img src="assets/img/lenovo.png" alt="Hợp tác tin cậy" />
+                </div>
 
-<section class="cam-ket-section" style="max-width:1200px; margin: 0 auto;">
-    <h2 class="tieu-de-do">MOBILE EDUCATION - ĐỐI TÁC ĐÁNG TIN CẬY</h2>
-    <div class="khung-chua-cam-ket">
-        <div class="cam-ket-trai">
-            <div class="hop-cam-ket">Sản phẩm 100% chính hãng, đầy đủ giấy tờ, nguyên seal từ nhà sản xuất.</div>
-            <div class="hop-cam-ket">Mức giá cạnh tranh nhất thị trường cùng nhiều chương trình khuyến mãi cho HSSV.</div>
-        </div>
+                <div class="cam-ket-phai">
+                    <div class="hop-cam-ket">Chính sách bảo hành tận tâm, hỗ trợ cài đặt phần mềm miễn phí trọn đời.</div>
+                    <div class="hop-cam-ket">Giao hàng tốc hành toàn quốc, kiểm tra hàng trước khi thanh toán.</div>
+                </div>
+            </div>
+        </section>
         
-        <div class="cam-ket-giua">
-            <img src="assets/img/lenovo.png" alt="Hợp tác tin cậy" />
-        </div>
-
-        <div class="cam-ket-phai">
-            <div class="hop-cam-ket">Chính sách bảo hành tận tâm, hỗ trợ cài đặt phần mềm miễn phí trọn đời.</div>
-            <div class="hop-cam-ket">Giao hàng tốc hành toàn quốc, kiểm tra hàng trước khi thanh toán.</div>
-        </div>
-    </div>
-</section>
-    <footer class="footer-chuyen-nghiep">
+        <footer class="footer-chuyen-nghiep">
             <div class="footer-container">
                 <div class="footer-col">
                     <h3>MOBILE EDUCATION</h3>

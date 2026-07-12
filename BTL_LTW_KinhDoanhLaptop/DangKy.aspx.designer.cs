@@ -30,79 +30,70 @@ namespace BTL_LTW_KinhDoanhLaptop
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSoLuongGio;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblSoLuongGio;
 
         /// <summary>
-        /// divTaiKhoan control.
+        /// divChuaDangNhap control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTaiKhoan;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divChuaDangNhap;
 
         /// <summary>
-        /// txtTaiKhoanDK control.
+        /// divDaDangNhap control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTaiKhoanDK;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDaDangNhap;
 
         /// <summary>
-        /// txtHoTenDK control.
+        /// imgAvatar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHoTenDK;
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgAvatar;
 
         /// <summary>
-        /// txtSDTDK control.
+        /// lblTenTaiKhoan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSDTDK;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblTenTaiKhoan;
 
         /// <summary>
-        /// txtEmailDK control.
+        /// linkQuanTri control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmailDK;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor linkQuanTri;
 
         /// <summary>
-        /// txtMatKhauDK control.
+        /// linkThongKe control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMatKhauDK;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor linkThongKe;
 
         /// <summary>
-        /// txtXacNhanMatKhau control.
+        /// divThongBaoDK control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtXacNhanMatKhau;
-
-        /// <summary>
-        /// lblThongBaoDK control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblThongBaoDK;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divThongBaoDK;
 
         /// <summary>
         /// btnDangKy control.
@@ -111,6 +102,6 @@ namespace BTL_LTW_KinhDoanhLaptop
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDangKy;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDangKy;
     }
 }

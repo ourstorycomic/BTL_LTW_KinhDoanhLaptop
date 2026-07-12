@@ -1,64 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace BTL_LTW_KinhDoanhLaptop
 {
     public partial class ChiTietSanPham : System.Web.UI.Page
     {
         public Laptop spHienTai;
-
-        
-        
-        private void HienThiTaiKhoan()
-        {
-            if (Session["TaiKhoan"] == null)
-            {
-                divTaiKhoan.InnerHtml = "<a href='DangNhap.aspx' class='login-link'><i class='fa-solid fa-user'></i> Đăng nhập</a>";
-            }
-            else
-            {
-                string avatar = "assets/img/lenovo.png";
-                if (Application["DanhSachTaiKhoan"] != null)
-                {
-                    Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung> dict = (Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung>)Application["DanhSachTaiKhoan"];
-                    string tk = Session["TaiKhoan"].ToString();
-                    if (dict.ContainsKey(tk))
-                    {
-                        if (dict[tk].Avatar != null && dict[tk].Avatar != "")
-                        {
-                            avatar = dict[tk].Avatar;
-                        }
-                    }
-                }
-
-                string adminLinks = "";
-                if (Session["TaiKhoan"].ToString() == "admin")
-                {
-                    adminLinks = "<a href='QuanTri.aspx'><i class='fa-solid fa-gear'></i> Quản trị</a>" +
-                                 "<a href='BaoCao.aspx'><i class='fa-solid fa-chart-pie'></i> Thống kê</a>";
-                }
-
-                string html = "";
-                html += "<div class='user-dropdown'>";
-                html += "<img src='" + avatar + "' class='user-avatar' />";
-                html += "<span>" + Session["TaiKhoan"].ToString() + "</span>";
-                html += "<i class='fa-solid fa-caret-down'></i>";
-                html += "<div class='dropdown-content'>";
-                html += "<a href='HoSo.aspx'><i class='fa-solid fa-address-card'></i> Hồ sơ cá nhân</a>";
-                html += adminLinks;
-                html += "<a href='DangNhap.aspx?logout=true' class='logout-link'><i class='fa-solid fa-right-from-bracket'></i> Đăng xuất</a>";
-                html += "</div>";
-                html += "</div>";
-                
-                divTaiKhoan.InnerHtml = html;
-            }
-        }
-
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -67,24 +16,87 @@ namespace BTL_LTW_KinhDoanhLaptop
             CapNhatSoLuongGio();
         }
 
+        private void HienThiTaiKhoan()
+        {
+            if (Session["TaiKhoan"] == null)
+            {
+                divChuaDangNhap.Visible = true;
+                divDaDangNhap.Visible = false;
+            }
+            else
+            {
+                divChuaDangNhap.Visible = false;
+                divDaDangNhap.Visible = true;
+
+                string tkDangNhap = Session["TaiKhoan"].ToString();
+                lblTenTaiKhoan.InnerText = tkDangNhap;
+
+                if (Application["DanhSachTaiKhoan"] != null)
+                {
+                    Dictionary<string, NguoiDung> dict = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+
+                    if (dict.ContainsKey(tkDangNhap))
+                    {
+                        if (dict[tkDangNhap].Avatar != null && dict[tkDangNhap].Avatar != "")
+                        {
+                            imgAvatar.Src = dict[tkDangNhap].Avatar;
+                        }
+                    }
+                }
+
+                if (tkDangNhap == "admin")
+                {
+                    linkQuanTri.Visible = true;
+                    linkThongKe.Visible = true;
+                }
+                else
+                {
+                    linkQuanTri.Visible = false;
+                    linkThongKe.Visible = false;
+                }
+            }
+        }
+
         private void LayThongTinSanPham()
         {
             string id = Request.QueryString["id"];
-            if (!string.IsNullOrEmpty(id))
+
+            if (id != null && id != "")
             {
-                List<Laptop> danhSach = Application["DanhSachLaptop"] as List<Laptop>;
-                if (danhSach != null)
+                if (Application["DanhSachLaptop"] != null)
                 {
+                    List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
                     int idHienTai = int.Parse(id);
-                    foreach (Laptop sp in danhSach)
+
+                    for (int i = 0; i < danhSach.Count; i++)
                     {
-                        if (sp.Id == idHienTai)
+                        if (danhSach[i].Id == idHienTai)
                         {
-                            spHienTai = sp;
+                            spHienTai = danhSach[i];
                             break;
                         }
                     }
                 }
+            }
+
+            if (spHienTai != null)
+            {
+                divChiTietSanPham.Visible = true;
+                divKhongTimThay.Visible = false;
+
+                lblBreadcrumbTen.InnerText = spHienTai.TenSanPham;
+                imgAnhLon.Src = ResolveUrl(spHienTai.HinhAnh);
+                imgAnhLon.Alt = spHienTai.TenSanPham;
+                divTenSP.InnerText = spHienTai.TenSanPham;
+                bMaSP.InnerText = spHienTai.Id.ToString();
+                divGiaSP.InnerText = spHienTai.GiaTien.ToString("N0") + " đ";
+                
+                pMoTaChiTiet.InnerText = "Chiếc laptop " + spHienTai.TenSanPham + " là một sản phẩm văn phòng và học tập \"nhẹ ví, nhẹ balo\" dành cho những ai cần một người bạn đồng hành đáng tin cậy. Thiết kế gọn nhẹ và mức giá thân thiện, hiệu suất đỉnh cao giúp bạn có những trải nghiệm tốt nhất!";
+            }
+            else
+            {
+                divChiTietSanPham.Visible = false;
+                divKhongTimThay.Visible = true;
             }
         }
 
@@ -94,19 +106,25 @@ namespace BTL_LTW_KinhDoanhLaptop
             {
                 DataTable dt = (DataTable)Session["GioHang"];
                 int tong = 0;
-                foreach (DataRow dr in dt.Rows)
+
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    tong += int.Parse(dr["SoLuong"].ToString());
+                    tong += Convert.ToInt32(dt.Rows[i]["SoLuong"]);
                 }
+
                 lblSoLuongGio.Text = tong.ToString();
             }
         }
 
         private void ThemVaoGio()
         {
-            if (spHienTai == null) return;
+            if (spHienTai == null)
+            {
+                return;
+            }
 
             DataTable gioHang;
+
             if (Session["GioHang"] == null)
             {
                 gioHang = new DataTable();
@@ -122,18 +140,20 @@ namespace BTL_LTW_KinhDoanhLaptop
             }
 
             bool daCo = false;
-            foreach (DataRow dr in gioHang.Rows)
+
+            for (int i = 0; i < gioHang.Rows.Count; i++)
             {
-                if (int.Parse(dr["MaSanPham"].ToString()) == spHienTai.Id)
+                if (Convert.ToInt32(gioHang.Rows[i]["MaSanPham"]) == spHienTai.Id)
                 {
-                    dr["SoLuong"] = int.Parse(dr["SoLuong"].ToString()) + 1;
-                    dr["ThanhTien"] = int.Parse(dr["SoLuong"].ToString()) * spHienTai.GiaTien;
+                    int soLuongMoi = Convert.ToInt32(gioHang.Rows[i]["SoLuong"]) + 1;
+                    gioHang.Rows[i]["SoLuong"] = soLuongMoi;
+                    gioHang.Rows[i]["ThanhTien"] = soLuongMoi * spHienTai.GiaTien;
                     daCo = true;
                     break;
                 }
             }
 
-            if (!daCo)
+            if (daCo == false)
             {
                 gioHang.Rows.Add(spHienTai.Id, spHienTai.TenSanPham, 1, spHienTai.GiaTien, spHienTai.GiaTien);
             }
@@ -150,7 +170,10 @@ namespace BTL_LTW_KinhDoanhLaptop
 
         protected void btnMuaNgay_Click(object sender, EventArgs e)
         {
-            if (spHienTai == null) return;
+            if (spHienTai == null)
+            {
+                return;
+            }
 
             DataTable dtMuaNgay = new DataTable();
             dtMuaNgay.Columns.Add("MaSanPham", typeof(int));

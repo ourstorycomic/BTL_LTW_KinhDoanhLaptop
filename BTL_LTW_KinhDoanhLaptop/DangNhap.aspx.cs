@@ -1,62 +1,12 @@
+using BTL_LTW_KinhDoanhLaptop;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace BTL_LTW_KinhDoanhLaptop
 {
     public partial class DangNhap : System.Web.UI.Page
     {
-        
-        
-        private void HienThiTaiKhoan()
-        {
-            if (Session["TaiKhoan"] == null)
-            {
-                divTaiKhoan.InnerHtml = "<a href='DangNhap.aspx' class='login-link'><i class='fa-solid fa-user'></i> Đăng nhập</a>";
-            }
-            else
-            {
-                string avatar = "assets/img/lenovo.png";
-                if (Application["DanhSachTaiKhoan"] != null)
-                {
-                    Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung> dict = (Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung>)Application["DanhSachTaiKhoan"];
-                    string tk = Session["TaiKhoan"].ToString();
-                    if (dict.ContainsKey(tk))
-                    {
-                        if (dict[tk].Avatar != null && dict[tk].Avatar != "")
-                        {
-                            avatar = dict[tk].Avatar;
-                        }
-                    }
-                }
-
-                string adminLinks = "";
-                if (Session["TaiKhoan"].ToString() == "admin")
-                {
-                    adminLinks = "<a href='QuanTri.aspx'><i class='fa-solid fa-gear'></i> Quản trị</a>" +
-                                 "<a href='BaoCao.aspx'><i class='fa-solid fa-chart-pie'></i> Thống kê</a>";
-                }
-
-                string html = "";
-                html += "<div class='user-dropdown'>";
-                html += "<img src='" + avatar + "' class='user-avatar' />";
-                html += "<span>" + Session["TaiKhoan"].ToString() + "</span>";
-                html += "<i class='fa-solid fa-caret-down'></i>";
-                html += "<div class='dropdown-content'>";
-                html += "<a href='HoSo.aspx'><i class='fa-solid fa-address-card'></i> Hồ sơ cá nhân</a>";
-                html += adminLinks;
-                html += "<a href='DangNhap.aspx?logout=true' class='logout-link'><i class='fa-solid fa-right-from-bracket'></i> Đăng xuất</a>";
-                html += "</div>";
-                html += "</div>";
-                
-                divTaiKhoan.InnerHtml = html;
-            }
-        }
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["logout"] == "true")
@@ -67,45 +17,116 @@ namespace BTL_LTW_KinhDoanhLaptop
             }
 
             HienThiTaiKhoan();
-            lblThongBaoLoi.Text = "";
 
-            if (Session["SoLanSai"] != null && (int)Session["SoLanSai"] >= 5)
+            if (!IsPostBack)
             {
-                KhoaDangNhap();
+                divThongBaoLoi.InnerText = "";
+            }
+
+            if (Session["SoLanSai"] != null)
+            {
+                int soLanSai = (int)Session["SoLanSai"];
+                if (soLanSai >= 5)
+                {
+                    KhoaDangNhap();
+                }
+            }
+        }
+
+        private void HienThiTaiKhoan()
+        {
+            if (Session["TaiKhoan"] == null)
+            {
+                divChuaDangNhap.Visible = true;
+                divDaDangNhap.Visible = false;
+            }
+            else
+            {
+                divChuaDangNhap.Visible = false;
+                divDaDangNhap.Visible = true;
+
+                string tenTaiKhoan = Session["TaiKhoan"].ToString();
+                lblTenTaiKhoan.InnerText = tenTaiKhoan;
+
+                if (Application["DanhSachTaiKhoan"] != null)
+                {
+                    Dictionary<string, NguoiDung> tuDienTaiKhoan = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+
+                    if (tuDienTaiKhoan.ContainsKey(tenTaiKhoan))
+                    {
+                        if (tuDienTaiKhoan[tenTaiKhoan].Avatar != null && tuDienTaiKhoan[tenTaiKhoan].Avatar != "")
+                        {
+                            imgAvatar.Src = tuDienTaiKhoan[tenTaiKhoan].Avatar;
+                        }
+                    }
+                }
+
+                if (tenTaiKhoan == "admin")
+                {
+                    linkQuanTri.Visible = true;
+                    linkThongKe.Visible = true;
+                }
+                else
+                {
+                    linkQuanTri.Visible = false;
+                    linkThongKe.Visible = false;
+                }
             }
         }
 
         protected void btnDangNhap_Click(object sender, EventArgs e)
         {
-            if (Session["SoLanSai"] != null && (int)Session["SoLanSai"] >= 5)
+            if (Session["SoLanSai"] != null)
             {
-                KhoaDangNhap();
-                return;
+                int soLanSaiKiemTra = (int)Session["SoLanSai"];
+                if (soLanSaiKiemTra >= 5)
+                {
+                    KhoaDangNhap();
+                    return;
+                }
             }
 
-            string taiKhoan = txtTaiKhoan.Text.Trim();
-            string matKhau = txtMatKhau.Text.Trim();
+            string taiKhoan = Request.Form["txtTaiKhoan"];
+            string matKhau = Request.Form["txtMatKhau"];
 
-            if (string.IsNullOrEmpty(taiKhoan) || string.IsNullOrEmpty(matKhau))
+            if (taiKhoan == null) taiKhoan = "";
+            if (matKhau == null) matKhau = "";
+
+            if (taiKhoan == "" || matKhau == "")
             {
-                lblThongBaoLoi.Text = "Vui lòng nhập đầy đủ Tài khoản và Mật khẩu!";
+                divThongBaoLoi.InnerText = "Vui lòng nhập đầy đủ Tài khoản và Mật khẩu!";
                 return;
             }
-
-            Dictionary<string, NguoiDung> dsTaiKhoan = Application["DanhSachTaiKhoan"] as Dictionary<string, NguoiDung>;
 
             bool dangNhapThanhCong = false;
 
-            if (dsTaiKhoan != null && dsTaiKhoan.ContainsKey(taiKhoan) && dsTaiKhoan[taiKhoan].MatKhau == matKhau)
+            if (Application["DanhSachTaiKhoan"] != null)
             {
-                dangNhapThanhCong = true;
+                Dictionary<string, NguoiDung> dsTaiKhoan = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+
+                if (dsTaiKhoan.ContainsKey(taiKhoan))
+                {
+                    if (dsTaiKhoan[taiKhoan].MatKhau == matKhau)
+                    {
+                        dangNhapThanhCong = true;
+                    }
+                }
             }
 
-            if (dangNhapThanhCong)
+            if (dangNhapThanhCong == true)
             {
                 Session["SoLanSai"] = 0;
                 Session["TaiKhoan"] = taiKhoan;
-                Response.Redirect("TrangChu.aspx");
+                
+                string trangChuyenHuong = Request.QueryString["redirect"];
+                if (trangChuyenHuong != null && trangChuyenHuong != "")
+                {
+                    Response.Redirect(trangChuyenHuong);
+                }
+                else
+                {
+                    Response.Redirect("TrangChu.aspx");
+                }
             }
             else
             {
@@ -115,7 +136,7 @@ namespace BTL_LTW_KinhDoanhLaptop
                     soLanSai = (int)Session["SoLanSai"];
                 }
 
-                soLanSai++;
+                soLanSai = soLanSai + 1;
                 Session["SoLanSai"] = soLanSai;
 
                 if (soLanSai >= 5)
@@ -125,20 +146,16 @@ namespace BTL_LTW_KinhDoanhLaptop
                 else
                 {
                     int soLanConLai = 5 - soLanSai;
-                    lblThongBaoLoi.Text = $"Tên đăng nhập hoặc mật khẩu không đúng! Bạn còn {soLanConLai} lần thử.";
+                    divThongBaoLoi.InnerText = "Tên đăng nhập hoặc mật khẩu không đúng! Bạn còn " + soLanConLai + " lần thử.";
                 }
             }
         }
 
         private void KhoaDangNhap()
         {
-            lblThongBaoLoi.Text = "Tài khoản của bạn đã bị cấm đăng nhập do nhập sai quá 5 lần!";
-            lblThongBaoLoi.ForeColor = System.Drawing.Color.Red;
-
-            btnDangNhap.Enabled = false;
-            btnDangNhap.BackColor = System.Drawing.Color.Gray;
-            txtTaiKhoan.Enabled = false;
-            txtMatKhau.Enabled = false;
+            divThongBaoLoi.InnerText = "Tài khoản của bạn đã bị cấm đăng nhập do nhập sai quá 5 lần!";
+            btnDangNhap.Disabled = true;
+            btnDangNhap.Style["background-color"] = "gray";
         }
     }
 }

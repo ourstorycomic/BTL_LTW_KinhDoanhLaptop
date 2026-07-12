@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChiTietSanPham.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.ChiTietSanPham" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChiTietSanPham.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.ChiTietSanPham" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <title>Chi tiết sản phẩm</title>
     <link rel="stylesheet" type="text/css" href="assets/css/Styles.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/ChiTietSanPham.css" />
     <link rel="stylesheet" href="assets/font/fontawesome-free-6.4.0/css/all.css" />  
@@ -36,27 +36,41 @@
                         <i class="fa-solid fa-cart-shopping" ></i> (<asp:Label ID="lblSoLuongGio" runat="server" Text="0"></asp:Label>)
                     </a>
 
-                    <div class="khu-vuc-tai-khoan account-area" id="divTaiKhoan" runat="server"></div>
+                    <div id="divChuaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area">
+                        <a href="DangNhap.aspx" class="login-link"><i class="fa-solid fa-user"></i> Đăng nhập</a>
+                    </div>
+
+                    <div id="divDaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area user-dropdown" visible="false">
+                        <img id="imgAvatar" runat="server" src="assets/img/lenovo.png" class="user-avatar" />
+                        <span id="lblTenTaiKhoan" runat="server"></span>
+                        <i class="fa-solid fa-caret-down"></i>
+                        <div class="dropdown-content">
+                            <a href="HoSo.aspx"><i class="fa-solid fa-address-card"></i> Hồ sơ cá nhân</a>
+                            <a id="linkQuanTri" runat="server" href="QuanTri.aspx" visible="false"><i class="fa-solid fa-gear"></i> Quản trị</a>
+                            <a id="linkThongKe" runat="server" href="BaoCao.aspx" visible="false"><i class="fa-solid fa-chart-pie"></i> Thống kê</a>
+                            <a href="DangNhap.aspx?logout=true" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
 
         <div class="container main-container">
-            <% if (spHienTai != null) { %>
+            <div id="divChiTietSanPham" runat="server">
                 <div style="color: blue; font-size: 14px; margin-bottom: 20px;">
-                    <a href="TrangChu.aspx" style="color: blue; text-decoration: none;">Trang chủ</a> / Laptop / <%= spHienTai.TenSanPham %>
+                    <a href="TrangChu.aspx" style="color: blue; text-decoration: none;">Trang chủ</a> / Laptop / <span id="lblBreadcrumbTen" runat="server"></span>
                 </div>
 
                 <div class="chi-tiet-layout" >
                     <div class="cot-trai flex-1">
-                        <img src="<%= ResolveUrl(spHienTai.HinhAnh) %>" class="anh-lon" alt="<%= spHienTai.TenSanPham %>"  />
+                        <img id="imgAnhLon" runat="server" class="anh-lon" />
                     </div>
 
                     <div class="cot-phai flex-1">
-                        <div class="ten-sp product-title-lg"><%= spHienTai.TenSanPham %></div>
-                        <div class="product-meta-info">Mã SP: <b><%= spHienTai.Id %></b> | Đánh giá: ⭐⭐⭐⭐⭐</div>
+                        <div id="divTenSP" runat="server" class="ten-sp product-title-lg"></div>
+                        <div class="product-meta-info">Mã SP: <b id="bMaSP" runat="server"></b> | Đánh giá: ⭐⭐⭐⭐⭐</div>
                         
-                        <div class="gia-sp product-price-lg"><%= String.Format("{0:N0} đ", spHienTai.GiaTien) %></div>
+                        <div id="divGiaSP" runat="server" class="gia-sp product-price-lg"></div>
 
                         <div class="khung-thong-so product-specs-box">
                             <h3 class="mb-10">Thông số sản phẩm</h3>
@@ -77,7 +91,7 @@
 
                 <div class="mo-ta-sp product-desc-section">
                     <h2 class="mb-15">Đánh giá chi tiết</h2>
-                    <p class="line-height-16">Chiếc laptop <%= spHienTai.TenSanPham %> là một sản phẩm văn phòng và học tập "nhẹ ví, nhẹ balo" dành cho những ai cần một người bạn đồng hành đáng tin cậy. Thiết kế gọn nhẹ và mức giá thân thiện, hiệu suất đỉnh cao giúp bạn có những trải nghiệm tốt nhất!</p>
+                    <p class="line-height-16" id="pMoTaChiTiet" runat="server"></p>
                 </div>
 
                 <div class="khung_thong_so" style="margin-top: 40px;">
@@ -86,7 +100,7 @@
                             <tbody>
                                 <tr class="table-light"><td colspan="2">Bộ vi xử lý</td></tr>
                                 <tr><td style="width: 30%;">Công nghệ CPU</td><td>AMD Ryzen™ 7 7735HS</td></tr>
-            
+                
                                 <tr class="dong_an_di"><td>Số nhân</td><td>8</td></tr>
                                 <tr class="dong_an_di"><td>Số luồng</td><td>16</td></tr>
                                 <tr class="dong_an_di"><td>Tốc độ tối đa</td><td>upto 4.75GHz</td></tr>
@@ -261,13 +275,13 @@
                                 <h4 class="ten_san_pham">Laptop LENOVO LOQ 15ARP10E 83S0004FVN</h4>
                                 <div style="color: red; font-weight: bold; font-size: 16px;">30.990.000 đ</div>
                                 <div style="text-decoration: line-through; color: #888; font-size: 12px;">36.990.000 đ</div>
-            
+                
                                 <ul class="cau_hinh_tom_tat">
                                     <li><i class="fa-solid fa-microchip"></i> Ryzen 7</li>
                                     <li><i class="fa-solid fa-memory"></i> 16GB</li>
                                     <li><i class="fa-solid fa-hard-drive"></i> 512GB</li>
                                 </ul>
-            
+                
                                 <div class="khung_nut_hanh_dong">
                                     <a href="ChiTietSanPham.aspx?id=1" class="nut_chi_tiet">Chi tiết</a>
                                     <a href="ThanhToan.aspx?action=add&id=1" class="nut_gio_hang">Giỏ hàng</a>
@@ -280,13 +294,13 @@
                                 <h4 class="ten_san_pham">Laptop LENOVO LOQ 15IAX9E 83LK0079VN</h4>
                                 <div style="color: red; font-weight: bold; font-size: 16px;">23.990.000 đ</div>
                                 <div style="text-decoration: line-through; color: #888; font-size: 12px;">24.990.000 đ</div>
-            
+                
                                 <ul class="cau_hinh_tom_tat">
                                     <li><i class="fa-solid fa-microchip"></i> Core i5</li>
                                     <li><i class="fa-solid fa-memory"></i> 16GB</li>
                                     <li><i class="fa-solid fa-hard-drive"></i> 512GB</li>
                                 </ul>
-            
+                
                                 <div class="khung_nut_hanh_dong">
                                     <a href="ChiTietSanPham.aspx?id=2" class="nut_chi_tiet">Chi tiết</a>
                                     <a href="ThanhToan.aspx?action=add&id=2" class="nut_gio_hang">Giỏ hàng</a>
@@ -300,13 +314,13 @@
                                 <h4 class="ten_san_pham">Laptop LENOVO LOQ 15IAX9E 83LK0079VN</h4>
                                 <div style="color: red; font-weight: bold; font-size: 16px;">23.990.000 đ</div>
                                 <div style="text-decoration: line-through; color: #888; font-size: 12px;">24.990.000 đ</div>
-            
+                
                                 <ul class="cau_hinh_tom_tat">
                                     <li><i class="fa-solid fa-microchip"></i> Core i5</li>
                                     <li><i class="fa-solid fa-memory"></i> 16GB</li>
                                     <li><i class="fa-solid fa-hard-drive"></i> 512GB</li>
                                 </ul>
-            
+                
                                 <div class="khung_nut_hanh_dong">
                                     <a href="ChiTietSanPham.aspx?id=3" class="nut_chi_tiet">Chi tiết</a>
                                     <a href="ThanhToan.aspx?action=add&id=3" class="nut_gio_hang">Giỏ hàng</a>
@@ -320,13 +334,13 @@
                                 <h4 class="ten_san_pham">Laptop LENOVO LOQ 15IAX9E 83LK0079VN</h4>
                                 <div style="color: red; font-weight: bold; font-size: 16px;">23.990.000 đ</div>
                                 <div style="text-decoration: line-through; color: #888; font-size: 12px;">24.990.000 đ</div>
-            
+                
                                 <ul class="cau_hinh_tom_tat">
                                     <li><i class="fa-solid fa-microchip"></i> Core i5</li>
                                     <li><i class="fa-solid fa-memory"></i> 16GB</li>
                                     <li><i class="fa-solid fa-hard-drive"></i> 512GB</li>
                                 </ul>
-            
+                
                                 <div class="khung_nut_hanh_dong">
                                     <a href="ChiTietSanPham.aspx?id=4" class="nut_chi_tiet">Chi tiết</a>
                                     <a href="ThanhToan.aspx?action=add&id=4" class="nut_gio_hang">Giỏ hàng</a>
@@ -334,12 +348,16 @@
                             </div>
                         </div>
                     </div>
-                <% } else { %>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="divKhongTimThay" runat="server" visible="false">
                 <h2 class="not-found-msg">Không tìm thấy sản phẩm hoặc sản phẩm không tồn tại!</h2>
                 <div class="mt-20-center">
                     <a href="TrangChu.aspx" class="btn-back-home">Quay lại trang chủ</a>
                 </div>
-            <% } %>
+            </div>
         </div>
             </div> <footer class="footer-chuyen-nghiep">
 
@@ -382,38 +400,6 @@
 
     <div id="toast"></div>
     <script src="assets/js/main.js"></script>
-    <script>
-    function batTatThongSo() {
-        var cacDongAn = document.querySelectorAll('.dong_an_di');
-        var nutBam = document.getElementById('btn_hien_thong_so');
-        var dangAn = window.getComputedStyle(cacDongAn[0]).display === 'none';
-        if (dangAn) {
-            cacDongAn.forEach(function(dong) {
-                dong.style.display = 'table-row';
-            });
-            nutBam.innerHTML = 'Thu gọn <i class="fa-solid fa-chevron-up"></i>';
-        } else {
-            cacDongAn.forEach(function(dong) {
-                dong.style.display = 'none';
-            });
-            nutBam.innerHTML = 'Xem thêm cấu hình chi tiết <i class="fa-solid fa-chevron-down"></i>';
-        }
-    }
-        function batTatBaiVietMoTa() {
-            var khungNoiDung = document.getElementById('noi_dung_bai_viet_mo_ta');
-            var lopPhu = document.getElementById('lop_phu_mo_ta');
-            var nutBam = document.getElementById('btn_thu_gon_mo_ta');
-            if (khungNoiDung.classList.contains('mo_rong_mo_ta')) {
-                khungNoiDung.classList.remove('mo_rong_mo_ta');
-                lopPhu.style.display = 'block';
-                nutBam.innerHTML = 'XEM THÊM <i class="fa-solid fa-angles-down"></i>';
-            } else {
-                khungNoiDung.classList.add('mo_rong_mo_ta');
-                lopPhu.style.display = 'none';
-                nutBam.innerHTML = 'THU GỌN <i class="fa-solid fa-angles-up"></i>';
-            }
-        }
-</script>
 
 </body>
 </html>

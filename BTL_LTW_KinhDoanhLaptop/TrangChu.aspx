@@ -1,4 +1,4 @@
-﻿﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TrangChu.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.TrangChu" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TrangChu.aspx.cs" Inherits="BTL_LTW_KinhDoanhLaptop.TrangChu" %>
 
 <!DOCTYPE html>
 
@@ -35,7 +35,21 @@
                         <i class="fa-solid fa-cart-shopping" ></i> (<asp:Label ID="lblSoLuongGio" runat="server" Text="0"></asp:Label>)
                     </a>
 
-                    <div class="khu-vuc-tai-khoan account-area" id="divTaiKhoan" runat="server"></div>
+                    <div id="divChuaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area">
+                        <a href="DangNhap.aspx" class="login-link"><i class="fa-solid fa-user"></i> Đăng nhập</a>
+                    </div>
+
+                    <div id="divDaDangNhap" runat="server" class="khu-vuc-tai-khoan account-area user-dropdown" visible="false">
+                        <img id="imgAvatar" runat="server" src="assets/img/lenovo.png" class="user-avatar" />
+                        <span id="lblTenTaiKhoan" runat="server"></span>
+                        <i class="fa-solid fa-caret-down"></i>
+                        <div class="dropdown-content">
+                            <a href="HoSo.aspx"><i class="fa-solid fa-address-card"></i> Hồ sơ cá nhân</a>
+                            <a id="linkQuanTri" runat="server" href="QuanTri.aspx" visible="false"><i class="fa-solid fa-gear"></i> Quản trị</a>
+                            <a id="linkThongKe" runat="server" href="BaoCao.aspx" visible="false"><i class="fa-solid fa-chart-pie"></i> Thống kê</a>
+                            <a href="DangNhap.aspx?logout=true" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -49,21 +63,7 @@
         <div class="danh-muc-header">
             <h2 class="danh-muc-title">HỌC TẬP - VĂN PHÒNG</h2>
         </div>
-        <div class="khung-chua-cac-san-pham border-none">
-            <asp:Repeater ID="rptVanPhong" runat="server">
-                <ItemTemplate>
-                    <div class="mot-san-pham">
-                        <img src='<%# ResolveUrl(Eval("HinhAnh").ToString()) %>' alt='<%# Eval("TenSanPham") %>' class="hinh-anh-san-pham" />
-                        <div class="loai-san-pham">LAPTOP CHÍNH HÃNG</div>
-                        <div class="ten-san-pham"><%# Eval("TenSanPham") %></div>
-                        <div class="gia-tien"><%# String.Format("{0:N0} ₫", Eval("GiaTien")) %></div>
-                        <div class="hanh-dong-san-pham">
-                            <a href="ChiTietSanPham.aspx?id=<%# Eval("Id") %>" class="btn-chi-tiet">Chi tiết</a>
-                            <asp:LinkButton ID="btnThemGio1" runat="server" CssClass="btn-gio-hang" CommandArgument='<%# Eval("Id") %>' OnClick="btnThemGio_Click">Giỏ hàng</asp:LinkButton>
-                        </div>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
+        <div class="khung-chua-cac-san-pham border-none" id="khungVanPhong" runat="server">
         </div>
     </div>
 
@@ -71,21 +71,7 @@
         <div class="danh-muc-header">
             <h2 class="danh-muc-title">MỎNG NHẸ - CAO CẤP</h2>
         </div>
-        <div class="khung-chua-cac-san-pham border-none">
-            <asp:Repeater ID="rptMongNhe" runat="server">
-                <ItemTemplate>
-                    <div class="mot-san-pham">
-                        <img src='<%# ResolveUrl(Eval("HinhAnh").ToString()) %>' alt='<%# Eval("TenSanPham") %>' class="hinh-anh-san-pham" />
-                        <div class="loai-san-pham">LAPTOP CHÍNH HÃNG</div>
-                        <div class="ten-san-pham"><%# Eval("TenSanPham") %></div>
-                        <div class="gia-tien"><%# String.Format("{0:N0} ₫", Eval("GiaTien")) %></div>
-                        <div class="hanh-dong-san-pham">
-                            <a href="ChiTietSanPham.aspx?id=<%# Eval("Id") %>" class="btn-chi-tiet">Chi tiết</a>
-                            <asp:LinkButton ID="btnThemGio2" runat="server" CssClass="btn-gio-hang" CommandArgument='<%# Eval("Id") %>' OnClick="btnThemGio_Click">Giỏ hàng</asp:LinkButton>
-                        </div>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
+        <div class="khung-chua-cac-san-pham border-none" id="khungMongNhe" runat="server">
         </div>
     </div>
 
@@ -93,21 +79,7 @@
         <div class="danh-muc-header">
             <h2 class="danh-muc-title">LAPTOP GAMING</h2>
         </div>
-        <div class="khung-chua-cac-san-pham border-none">
-            <asp:Repeater ID="rptGaming" runat="server">
-                <ItemTemplate>
-                    <div class="mot-san-pham">
-                        <img src='<%# ResolveUrl(Eval("HinhAnh").ToString()) %>' alt='<%# Eval("TenSanPham") %>' class="hinh-anh-san-pham" />
-                        <div class="loai-san-pham">LAPTOP CHÍNH HÃNG</div>
-                        <div class="ten-san-pham"><%# Eval("TenSanPham") %></div>
-                        <div class="gia-tien"><%# String.Format("{0:N0} ₫", Eval("GiaTien")) %></div>
-                        <div class="hanh-dong-san-pham">
-                            <a href="ChiTietSanPham.aspx?id=<%# Eval("Id") %>" class="btn-chi-tiet">Chi tiết</a>
-                            <asp:LinkButton ID="btnThemGio4" runat="server" CssClass="btn-gio-hang" CommandArgument='<%# Eval("Id") %>' OnClick="btnThemGio_Click">Giỏ hàng</asp:LinkButton>
-                        </div>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
+        <div class="khung-chua-cac-san-pham border-none" id="khungGaming" runat="server">
         </div>
     </div>
 </main>

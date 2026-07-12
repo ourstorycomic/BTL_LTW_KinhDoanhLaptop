@@ -8,95 +8,99 @@ namespace BTL_LTW_KinhDoanhLaptop
 {
     public partial class HoSo : System.Web.UI.Page
     {
-        
-        
-        private void HienThiTaiKhoan()
-        {
-            if (Session["TaiKhoan"] == null)
-            {
-                divTaiKhoan.InnerHtml = "<a href='DangNhap.aspx' class='login-link'><i class='fa-solid fa-user'></i> Đăng nhập</a>";
-            }
-            else
-            {
-                string avatar = "assets/img/lenovo.png";
-                if (Application["DanhSachTaiKhoan"] != null)
-                {
-                    Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung> dict = (Dictionary<string, BTL_LTW_KinhDoanhLaptop.NguoiDung>)Application["DanhSachTaiKhoan"];
-                    string tk = Session["TaiKhoan"].ToString();
-                    if (dict.ContainsKey(tk))
-                    {
-                        if (dict[tk].Avatar != null && dict[tk].Avatar != "")
-                        {
-                            avatar = dict[tk].Avatar;
-                        }
-                    }
-                }
-
-                string adminLinks = "";
-                if (Session["TaiKhoan"].ToString() == "admin")
-                {
-                    adminLinks = "<a href='QuanTri.aspx'><i class='fa-solid fa-gear'></i> Quản trị</a>" +
-                                 "<a href='BaoCao.aspx'><i class='fa-solid fa-chart-pie'></i> Thống kê</a>";
-                }
-
-                string html = "";
-                html += "<div class='user-dropdown'>";
-                html += "<img src='" + avatar + "' class='user-avatar' />";
-                html += "<span>" + Session["TaiKhoan"].ToString() + "</span>";
-                html += "<i class='fa-solid fa-caret-down'></i>";
-                html += "<div class='dropdown-content'>";
-                html += "<a href='HoSo.aspx'><i class='fa-solid fa-address-card'></i> Hồ sơ cá nhân</a>";
-                html += adminLinks;
-                html += "<a href='DangNhap.aspx?logout=true' class='logout-link'><i class='fa-solid fa-right-from-bracket'></i> Đăng xuất</a>";
-                html += "</div>";
-                html += "</div>";
-                
-                divTaiKhoan.InnerHtml = html;
-            }
-        }
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            HienThiTaiKhoan();
             if (Session["TaiKhoan"] == null)
             {
                 Response.Redirect("DangNhap.aspx");
                 return;
             }
 
+            HienThiTaiKhoan();
+
             if (!IsPostBack)
             {
-                LoadData();
+                TaiDuLieuHoSo();
             }
 
             if (Session["GioHang"] != null)
             {
                 DataTable dt = (DataTable)Session["GioHang"];
-                int tong = 0;
-                foreach (DataRow dr in dt.Rows)
+                int tongGioHang = 0;
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    tong += int.Parse(dr["SoLuong"].ToString());
+                    tongGioHang += Convert.ToInt32(dt.Rows[i]["SoLuong"]);
                 }
-                lblSoLuongGio.Text = tong.ToString();
+                lblSoLuongGio.Text = tongGioHang.ToString();
             }
         }
 
-        private void LoadData()
+        private void HienThiTaiKhoan()
+        {
+            if (Session["TaiKhoan"] == null)
+            {
+                divChuaDangNhap.Visible = true;
+                divDaDangNhap.Visible = false;
+            }
+            else
+            {
+                divChuaDangNhap.Visible = false;
+                divDaDangNhap.Visible = true;
+
+                string tenTaiKhoan = Session["TaiKhoan"].ToString();
+                lblTenTaiKhoan.InnerText = tenTaiKhoan;
+
+                if (Application["DanhSachTaiKhoan"] != null)
+                {
+                    Dictionary<string, NguoiDung> tuDienTaiKhoan = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+
+                    if (tuDienTaiKhoan.ContainsKey(tenTaiKhoan))
+                    {
+                        if (tuDienTaiKhoan[tenTaiKhoan].Avatar != null && tuDienTaiKhoan[tenTaiKhoan].Avatar != "")
+                        {
+                            imgAvatar.Src = tuDienTaiKhoan[tenTaiKhoan].Avatar;
+                        }
+                    }
+                }
+
+                if (tenTaiKhoan == "admin")
+                {
+                    linkQuanTri.Visible = true;
+                    linkThongKe.Visible = true;
+                }
+                else
+                {
+                    linkQuanTri.Visible = false;
+                    linkThongKe.Visible = false;
+                }
+            }
+        }
+
+        private void TaiDuLieuHoSo()
         {
             if (Application["DanhSachTaiKhoan"] != null)
             {
-                var dict = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
-                string tk = Session["TaiKhoan"].ToString();
-                if (dict.ContainsKey(tk))
+                Dictionary<string, NguoiDung> tuDienTaiKhoan = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+                string tenTaiKhoan = Session["TaiKhoan"].ToString();
+
+                if (tuDienTaiKhoan.ContainsKey(tenTaiKhoan))
                 {
-                    NguoiDung nd = dict[tk];
-                    txtTaiKhoan.Text = nd.TaiKhoan;
-                    txtHoTen.Text = nd.HoTen;
-                    txtEmail.Text = nd.Email;
-                    txtSDT.Text = nd.SDT;
-                    txtDiaChi.Text = nd.DiaChi;
-                    imgPreview.ImageUrl = string.IsNullOrEmpty(nd.Avatar) ? "assets/img/lenovo.png" : nd.Avatar;
+                    NguoiDung nguoiDungHienTai = tuDienTaiKhoan[tenTaiKhoan];
+
+                    txtTaiKhoan.Text = nguoiDungHienTai.TaiKhoan;
+                    txtHoTen.Text = nguoiDungHienTai.HoTen;
+                    txtEmail.Text = nguoiDungHienTai.Email;
+                    txtSDT.Text = nguoiDungHienTai.SDT;
+                    txtDiaChi.Text = nguoiDungHienTai.DiaChi;
+
+                    if (nguoiDungHienTai.Avatar == null || nguoiDungHienTai.Avatar == "")
+                    {
+                        imgPreview.ImageUrl = "assets/img/lenovo.png";
+                    }
+                    else
+                    {
+                        imgPreview.ImageUrl = nguoiDungHienTai.Avatar;
+                    }
                 }
             }
         }
@@ -105,31 +109,35 @@ namespace BTL_LTW_KinhDoanhLaptop
         {
             if (Application["DanhSachTaiKhoan"] != null)
             {
-                var dict = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
-                string tk = Session["TaiKhoan"].ToString();
-                if (dict.ContainsKey(tk))
+                Dictionary<string, NguoiDung> tuDienTaiKhoan = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+                string tenTaiKhoan = Session["TaiKhoan"].ToString();
+
+                if (tuDienTaiKhoan.ContainsKey(tenTaiKhoan))
                 {
-                    NguoiDung nd = dict[tk];
-                    nd.HoTen = txtHoTen.Text;
-                    nd.Email = txtEmail.Text;
-                    nd.SDT = txtSDT.Text;
-                    nd.DiaChi = txtDiaChi.Text;
-                    
-                    if (!string.IsNullOrEmpty(txtMatKhau.Text))
+                    NguoiDung nguoiDungHienTai = tuDienTaiKhoan[tenTaiKhoan];
+
+                    nguoiDungHienTai.HoTen = txtHoTen.Text;
+                    nguoiDungHienTai.Email = txtEmail.Text;
+                    nguoiDungHienTai.SDT = txtSDT.Text;
+                    nguoiDungHienTai.DiaChi = txtDiaChi.Text;
+
+                    if (txtMatKhau.Text != "")
                     {
-                        nd.MatKhau = txtMatKhau.Text;
+                        nguoiDungHienTai.MatKhau = txtMatKhau.Text;
                     }
 
-                    if (fileAvatar.HasFile)
+                    if (fileAvatar.HasFile == true)
                     {
-                        string fileName = Path.GetFileName(fileAvatar.FileName);
-                        string filePath = Server.MapPath("~/assets/img/" + fileName);
-                        fileAvatar.SaveAs(filePath);
-                        nd.Avatar = "assets/img/" + fileName;
-                        imgPreview.ImageUrl = nd.Avatar;
+                        string tenFile = Path.GetFileName(fileAvatar.FileName);
+                        string duongDanLuuFile = Server.MapPath("~/assets/img/" + tenFile);
+
+                        fileAvatar.SaveAs(duongDanLuuFile);
+
+                        nguoiDungHienTai.Avatar = "assets/img/" + tenFile;
+                        imgPreview.ImageUrl = nguoiDungHienTai.Avatar;
                     }
 
-                    Application["DanhSachTaiKhoan"] = dict;
+                    Application["DanhSachTaiKhoan"] = tuDienTaiKhoan;
                     lblMessage.Text = "Cập nhật hồ sơ thành công!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "toast", "showToast('Cập nhật hồ sơ thành công!');", true);
                 }
