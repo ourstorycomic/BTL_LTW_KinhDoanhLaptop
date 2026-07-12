@@ -2,14 +2,14 @@
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
-    padding: 20px;
+    padding: 0; /* Đổi về 0 để footer full-width */
 }
 
 .container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto; /* Thêm margin để tạo khoảng cách trên dưới cho nội dung */
     background: #fff;
-    padding: 20px;
+    padding: 20px; /* Chuyển padding vào đây */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }

@@ -435,8 +435,6 @@ ul {
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
-
-/* Profile Dropdown */
 .user-dropdown {
     position: relative;
     cursor: pointer;
@@ -486,7 +484,6 @@ ul {
 .btn-save { background: #8bc34a; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; transition: background 0.3s; }
 .btn-save:hover { background: #7cb342; }
 
-/* Extracted from inline styles */
 .login-link {
     color: white;
     text-decoration: none;
@@ -561,8 +558,6 @@ ul {
     flex: 1;
     padding: 20px;
 }
-
-/* Semantic extractions */
 .flex-1 {
     flex: 1;
 }

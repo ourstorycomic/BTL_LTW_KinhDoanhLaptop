@@ -365,8 +365,8 @@
                 </div>
             <% } %>
         </div>
+            </div> <footer class="footer-chuyen-nghiep">
 
-        <footer class="footer-chuyen-nghiep">
             <div class="footer-container">
                 <div class="footer-col">
                     <h3>MOBILE EDUCATION</h3>
@@ -402,7 +402,7 @@
                 <p>© 2026 Mobile Education - Cửa hàng Laptop Chính Hãng. Tất cả các quyền được bảo lưu.</p>
             </div>
         </footer>
-    </form>
+ </form>
 
     <div id="toast"></div>
     <script src="assets/js/main.js"></script>
