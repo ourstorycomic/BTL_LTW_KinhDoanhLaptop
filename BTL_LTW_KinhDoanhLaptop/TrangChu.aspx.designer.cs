@@ -42,12 +42,57 @@ namespace BTL_LTW_KinhDoanhLaptop
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTaiKhoan;
 
         /// <summary>
-        /// rptLaptops control.
+        /// divVanPhong control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptLaptops;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divVanPhong;
+
+        /// <summary>
+        /// rptVanPhong control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptVanPhong;
+
+        /// <summary>
+        /// divMongNhe control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMongNhe;
+
+        /// <summary>
+        /// rptMongNhe control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptMongNhe;
+
+        /// <summary>
+        /// divGaming control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGaming;
+
+        /// <summary>
+        /// rptGaming control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptGaming;
     }
 }

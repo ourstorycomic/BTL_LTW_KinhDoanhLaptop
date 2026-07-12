@@ -92,22 +92,17 @@ namespace BTL_LTW_KinhDoanhLaptop
                 return;
             }
 
-            // ================= ĐỌC TỪ GLOBAL =================
-            // Kéo danh sách tài khoản từ bộ nhớ Global ra
             Dictionary<string, NguoiDung> dsTaiKhoan = Application["DanhSachTaiKhoan"] as Dictionary<string, NguoiDung>;
 
-            // Kiểm tra xem ds có tồn tại không, có chứa tài khoản này không, và mật khẩu có khớp không
             bool dangNhapThanhCong = false;
 
             if (dsTaiKhoan != null && dsTaiKhoan.ContainsKey(taiKhoan) && dsTaiKhoan[taiKhoan].MatKhau == matKhau)
             {
                 dangNhapThanhCong = true;
             }
-            // =================================================
 
             if (dangNhapThanhCong)
             {
-                // Reset số lần đếm về 0
                 Session["SoLanSai"] = 0;
                 Session["TaiKhoan"] = taiKhoan;
                 Response.Redirect("TrangChu.aspx");
