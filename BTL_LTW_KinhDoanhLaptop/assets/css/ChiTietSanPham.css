@@ -228,3 +228,41 @@
     .nut_thu_gon_btn:hover {
         background-color: #eff6ff;
     }
+
+.khung_nut_hanh_dong {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+.nut_chi_tiet, .nut_gio_hang {
+    flex: 1;
+    text-align: center;
+    padding: 8px 5px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.nut_chi_tiet {
+    border: 1px solid #dcdcdc;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+    .nut_chi_tiet:hover {
+        background-color: #e2e6ea;
+        color: #0d6efd;
+    }
+
+.nut_gio_hang {
+    border: 1px solid #63b841;
+    color: #63b841;
+    background-color: transparent;
+}
+    .nut_gio_hang:hover {
+        background-color: #63b841;
+        color: #fff;
+    }

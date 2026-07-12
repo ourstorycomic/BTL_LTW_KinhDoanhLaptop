@@ -279,22 +279,41 @@
                 <div class="phan_san_pham_tuong_tu" style="margin-top: 40px; margin-bottom: 50px;">
                     <h2 style="border-bottom: 2px solid #0d6efd; display: inline-block; padding-bottom: 5px; color: #0d6efd;">SẢN PHẨM TƯƠNG TỰ</h2>
                     <div class="danh_sach_sp">
-                        
                         <div class="the_san_pham">
                             <img src="assets/img/lenovo.png" class="anh_san_pham" alt="Laptop LENOVO LOQ">
                             <div class="thong_tin_san_pham">
                                 <h4 class="ten_san_pham">Laptop LENOVO LOQ 15ARP10E 83S0004FVN</h4>
                                 <div style="color: red; font-weight: bold; font-size: 16px;">30.990.000 đ</div>
                                 <div style="text-decoration: line-through; color: #888; font-size: 12px;">36.990.000 đ</div>
-                                
+            
                                 <ul class="cau_hinh_tom_tat">
                                     <li><i class="fa-solid fa-microchip"></i> Ryzen 7</li>
                                     <li><i class="fa-solid fa-memory"></i> 16GB</li>
                                     <li><i class="fa-solid fa-hard-drive"></i> 512GB</li>
                                 </ul>
-                                
-                                <div style="margin-top: 15px; text-align: center;">
-                                    <a href="#" style="color: #fff; background: #28a745; padding: 8px 15px; text-decoration: none; border-radius: 4px; display: block; font-weight: bold;">MUA NGAY</a>
+            
+                                <div class="khung_nut_hanh_dong">
+                                    <a href="ChiTietSanPham.aspx?id=1" class="nut_chi_tiet">Chi tiết</a>
+                                    <a href="ThanhToan.aspx?action=add&id=1" class="nut_gio_hang">Giỏ hàng</a>
+                                </div>
+                            </div> </div>
+
+                        <div class="the_san_pham">
+                            <img src="assets/img/dell2.png" class="anh_san_pham" alt="Laptop LENOVO LOQ">
+                            <div class="thong_tin_san_pham">
+                                <h4 class="ten_san_pham">Laptop LENOVO LOQ 15IAX9E 83LK0079VN</h4>
+                                <div style="color: red; font-weight: bold; font-size: 16px;">23.990.000 đ</div>
+                                <div style="text-decoration: line-through; color: #888; font-size: 12px;">24.990.000 đ</div>
+            
+                                <ul class="cau_hinh_tom_tat">
+                                    <li><i class="fa-solid fa-microchip"></i> Core i5</li>
+                                    <li><i class="fa-solid fa-memory"></i> 16GB</li>
+                                    <li><i class="fa-solid fa-hard-drive"></i> 512GB</li>
+                                </ul>
+            
+                                <div class="khung_nut_hanh_dong">
+                                    <a href="ChiTietSanPham.aspx?id=2" class="nut_chi_tiet">Chi tiết</a>
+                                    <a href="ThanhToan.aspx?action=add&id=2" class="nut_gio_hang">Giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -305,74 +324,40 @@
                                 <h4 class="ten_san_pham">Laptop LENOVO LOQ 15IAX9E 83LK0079VN</h4>
                                 <div style="color: red; font-weight: bold; font-size: 16px;">23.990.000 đ</div>
                                 <div style="text-decoration: line-through; color: #888; font-size: 12px;">24.990.000 đ</div>
-                                
+            
                                 <ul class="cau_hinh_tom_tat">
                                     <li><i class="fa-solid fa-microchip"></i> Core i5</li>
                                     <li><i class="fa-solid fa-memory"></i> 16GB</li>
                                     <li><i class="fa-solid fa-hard-drive"></i> 512GB</li>
                                 </ul>
-                                
-                                <div style="margin-top: 15px; text-align: center;">
-                                    <a href="#" style="color: #fff; background: #28a745; padding: 8px 15px; text-decoration: none; border-radius: 4px; display: block; font-weight: bold;">MUA NGAY</a>
+            
+                                <div class="khung_nut_hanh_dong">
+                                    <a href="ChiTietSanPham.aspx?id=3" class="nut_chi_tiet">Chi tiết</a>
+                                    <a href="ThanhToan.aspx?action=add&id=3" class="nut_gio_hang">Giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
+
                         <div class="the_san_pham">
                             <img src="assets/img/dell2.png" class="anh_san_pham" alt="Laptop LENOVO LOQ">
                             <div class="thong_tin_san_pham">
                                 <h4 class="ten_san_pham">Laptop LENOVO LOQ 15IAX9E 83LK0079VN</h4>
                                 <div style="color: red; font-weight: bold; font-size: 16px;">23.990.000 đ</div>
                                 <div style="text-decoration: line-through; color: #888; font-size: 12px;">24.990.000 đ</div>
-        
+            
                                 <ul class="cau_hinh_tom_tat">
                                     <li><i class="fa-solid fa-microchip"></i> Core i5</li>
                                     <li><i class="fa-solid fa-memory"></i> 16GB</li>
                                     <li><i class="fa-solid fa-hard-drive"></i> 512GB</li>
                                 </ul>
-        
-                                <div style="margin-top: 15px; text-align: center;">
-                                    <a href="#" style="color: #fff; background: #28a745; padding: 8px 15px; text-decoration: none; border-radius: 4px; display: block; font-weight: bold;">MUA NGAY</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="the_san_pham">
-                            <img src="assets/img/dell2.png" class="anh_san_pham" alt="Laptop LENOVO LOQ">
-                            <div class="thong_tin_san_pham">
-                                <h4 class="ten_san_pham">Laptop LENOVO LOQ 15IAX9E 83LK0079VN</h4>
-                                <div style="color: red; font-weight: bold; font-size: 16px;">23.990.000 đ</div>
-                                <div style="text-decoration: line-through; color: #888; font-size: 12px;">24.990.000 đ</div>
-        
-                                <ul class="cau_hinh_tom_tat">
-                                    <li><i class="fa-solid fa-microchip"></i> Core i5</li>
-                                    <li><i class="fa-solid fa-memory"></i> 16GB</li>
-                                    <li><i class="fa-solid fa-hard-drive"></i> 512GB</li>
-                                </ul>
-        
-                                <div style="margin-top: 15px; text-align: center;">
-                                    <a href="#" style="color: #fff; background: #28a745; padding: 8px 15px; text-decoration: none; border-radius: 4px; display: block; font-weight: bold;">MUA NGAY</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="the_san_pham">
-                            <img src="assets/img/dell2.png" class="anh_san_pham" alt="Laptop LENOVO LOQ">
-                            <div class="thong_tin_san_pham">
-                                <h4 class="ten_san_pham">Laptop LENOVO LOQ 15IAX9E 83LK0079VN</h4>
-                                <div style="color: red; font-weight: bold; font-size: 16px;">23.990.000 đ</div>
-                                <div style="text-decoration: line-through; color: #888; font-size: 12px;">24.990.000 đ</div>
-        
-                                <ul class="cau_hinh_tom_tat">
-                                    <li><i class="fa-solid fa-microchip"></i> Core i5</li>
-                                    <li><i class="fa-solid fa-memory"></i> 16GB</li>
-                                    <li><i class="fa-solid fa-hard-drive"></i> 512GB</li>
-                                </ul>
-        
-                                <div style="margin-top: 15px; text-align: center;">
-                                    <a href="#" style="color: #fff; background: #28a745; padding: 8px 15px; text-decoration: none; border-radius: 4px; display: block; font-weight: bold;">MUA NGAY</a>
+            
+                                <div class="khung_nut_hanh_dong">
+                                    <a href="ChiTietSanPham.aspx?id=4" class="nut_chi_tiet">Chi tiết</a>
+                                    <a href="ThanhToan.aspx?action=add&id=4" class="nut_gio_hang">Giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <% } else { %>
                 <h2 class="not-found-msg">Không tìm thấy sản phẩm hoặc sản phẩm không tồn tại!</h2>
                 <div class="mt-20-center">
