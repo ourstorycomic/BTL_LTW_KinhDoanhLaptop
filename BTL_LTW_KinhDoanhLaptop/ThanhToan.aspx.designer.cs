@@ -104,10 +104,49 @@ namespace BTL_LTW_KinhDoanhLaptop
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDiaChi;
 
+        /// <summary>
+        /// rblPhuongThuc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList rblPhuongThuc;
+
+        /// <summary>
+        /// txtTenTrenThe control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTenTrenThe;
+
+        /// <summary>
+        /// txtSoThe control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSoThe;
+
+        /// <summary>
+        /// txtNgayHetHan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNgayHetHan;
+
+        /// <summary>
+        /// txtCCV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCCV;
 
         /// <summary>

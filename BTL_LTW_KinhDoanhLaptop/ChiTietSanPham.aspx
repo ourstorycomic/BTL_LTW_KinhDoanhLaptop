@@ -5,35 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
     <link rel="stylesheet" type="text/css" href="assets/css/Styles.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/ChiTietSanPham.css" />
-    <link rel="stylesheet" href="assets/font/fontawesome-free-6.4.0/css/all.css" />
-    
-    <style>
-        .bang_thong_so { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .bang_thong_so th, .bang_thong_so td { padding: 10px; border: 1px solid #ddd; vertical-align: middle; }
-        .bang_thong_so tr.table-light td { background-color: #f8f9fa; font-weight: bold; font-size: 16px; }
-        
-        .ten_sp_mo_ta, .tieu_de_nho { color: #0d6efd; font-weight: 600; margin-top: 15px; text-align: center; }
-        .phan_anh_mo_ta { text-align: center; margin: 20px 0; }
-        .phan_anh_mo_ta img { max-width: 80%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .khung_mo_ta { border: 1px solid #ddd; padding: 20px; border-radius: 8px; background: #fff; }
-        
-        .khung_nhap_binh_luan { display: flex; gap: 15px; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; }
-        .anh_dai_dien img { border-radius: 50%; object-fit: cover; }
-        .form_nhap_lieu { flex: 1; }
-        
-        .danh_sach_sp { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
-        .the_san_pham { width: calc(25% - 15px); background: #fff; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .the_san_pham:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.12); }
-        .anh_san_pham { width: 100%; height: 180px; object-fit: contain; }
-        .ten_san_pham { font-size: 14px; margin-bottom: 10px; font-weight: 600; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .ten_san_pham:hover { color: #0d6efd; }
-        .cau_hinh_tom_tat { list-style: none; padding: 10px; background: #f4f4f4; margin-top: 10px; font-size: 12px; border-radius: 4px; }
-        .cau_hinh_tom_tat li { margin-bottom: 5px; border-bottom: 1px dashed #ddd; padding-bottom: 3px; }
-        .cau_hinh_tom_tat li:last-child { border-bottom: none; }
-    </style>
+    <link rel="stylesheet" href="assets/font/fontawesome-free-6.4.0/css/all.css" />  
 </head>
 <body>
     <form id="form1" runat="server" style="display: flex; flex-direction: column; flex: 1; margin: 0; padding: 0;">
@@ -71,9 +47,9 @@
                     <a href="TrangChu.aspx" style="color: blue; text-decoration: none;">Trang chủ</a> / Laptop / <%= spHienTai.TenSanPham %>
                 </div>
 
-                <div class="chi-tiet-layout" style="display: flex; gap: 30px;">
+                <div class="chi-tiet-layout" >
                     <div class="cot-trai flex-1">
-                        <img src="<%= ResolveUrl(spHienTai.HinhAnh) %>" class="anh-lon" alt="<%= spHienTai.TenSanPham %>" style="width: 100%; object-fit: contain;" />
+                        <img src="<%= ResolveUrl(spHienTai.HinhAnh) %>" class="anh-lon" alt="<%= spHienTai.TenSanPham %>"  />
                     </div>
 
                     <div class="cot-phai flex-1">

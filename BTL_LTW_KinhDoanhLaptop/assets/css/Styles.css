@@ -803,3 +803,128 @@ ul {
     from {transform: scale(0.8); opacity: 0;}
     to {transform: scale(1); opacity: 1;}
 }
+
+/*Phần Reponsive*/
+@media (max-width: 992px) {
+    .khung-chinh {
+        flex-direction: column;
+    }
+
+    .menu-trai {
+        width: 100%;
+    }
+    .mot-san-pham {
+        width: 50%;
+    }
+    .footer-col {
+        width: 48%;
+    }
+}
+@media (max-width: 768px) {
+    .noi-dung-phan-dau {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .menu-ngang {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+        .menu-ngang a {
+            margin-right: 0;
+            font-size: 13px;
+        }
+
+    .cum-phai-header {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .search-bar-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .banner-quang-cao {
+        height: auto;
+        min-height: 150px;
+    }
+    .khung-chua-cac-san-pham {
+        border-left: none;
+    }
+
+    .mot-san-pham {
+        width: 50%;
+        padding: 10px; 
+        border-right: none;
+    }
+
+    .hinh-anh-san-pham {
+        height: 120px;
+        margin-bottom: 10px;
+    }
+
+    .ten-san-pham {
+        font-size: 13px;
+        height: 36px;
+        margin-bottom: 5px;
+    }
+
+    .gia-tien {
+        font-size: 15px;
+    }
+
+    .danh-gia, .loai-san-pham {
+        font-size: 11px;
+    }
+
+    .hanh-dong-san-pham {
+        flex-direction: column; 
+        gap: 6px;
+    }
+
+    .btn-chi-tiet, .btn-gio-hang {
+        width: 100%;
+        padding: 8px 0;
+        font-size: 12px;
+    }
+    .khung-thanh-toan {
+        padding: 15px;
+    }
+
+    .bang-gio-hang {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+        .cart-actions .btn-update,
+        .btn-thanh-toan {
+            width: 100%;
+            text-align: center;
+        }
+
+    .footer-col {
+        width: 100%;
+        text-align: center;
+    }
+
+    .social-links a {
+        margin: 0 10px;
+    }
+
+    .khung-dang-nhap, .profile-container {
+        padding: 25px 15px;
+    }
+}}

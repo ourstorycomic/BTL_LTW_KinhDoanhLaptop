@@ -7,6 +7,7 @@
 
     <head runat="server">
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Thanh Toán - Mobile Education</title>
         <link rel="stylesheet" type="text/css" href="assets/css/Styles.css?v=1" />
         <link rel="stylesheet" href="assets/font/fontawesome-free-6.4.0/css/all.css" />

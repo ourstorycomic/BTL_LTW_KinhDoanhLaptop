@@ -6,6 +6,7 @@
 
     <head runat="server">
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title></title>
         <link href="assets/css/Styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="assets/font/fontawesome-free-6.4.0/css/all.css" />
