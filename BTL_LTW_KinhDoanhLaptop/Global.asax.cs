@@ -28,8 +28,29 @@ namespace BTL_LTW_KinhDoanhLaptop
 
             Dictionary<string, NguoiDung> danhSachTaiKhoan = new Dictionary<string, NguoiDung>();
             danhSachTaiKhoan.Add("admin", new NguoiDung { TaiKhoan = "admin", MatKhau = "123456", HoTen = "Admin", Email = "admin@example.com", SDT = "0123456789", DiaChi = "Hà Nội" });
-
             Application["DanhSachTaiKhoan"] = danhSachTaiKhoan;
+            List<DonHang> danhSachDonHang = new List<DonHang>();
+            DonHang donMau = new DonHang
+            {
+                MaDon = "ORD-10589",
+                TaiKhoan = "admin",
+                NgayDat = DateTime.Now.AddDays(-2),
+                TongTien = 19490000,
+                TrangThai = "Đã giao hàng",
+                DanhSachChiTiet = new List<ChiTietDonHang>
+                {
+                    new ChiTietDonHang {
+                        IdLaptop = 1,
+                        TenSanPham = "Laptop Lenovo IdeaPad Slim 3",
+                        HinhAnh = "assets/img/lenovo.png",
+                        SoLuong = 1,
+                        DonGia = 19490000
+                    }
+                }
+            };
+            danhSachDonHang.Add(donMau);
+
+            Application["DanhSachDonHang"] = danhSachDonHang;
         }
 
         protected void Session_Start(object sender, EventArgs e)

@@ -113,6 +113,13 @@ namespace BTL_LTW_KinhDoanhLaptop
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSapXep;
 
+        /// <summary>
+        /// khungDanhSachSP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl khungDanhSachSP;
 
         /// <summary>

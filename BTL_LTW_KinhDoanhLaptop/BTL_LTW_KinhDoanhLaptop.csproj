@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\ChiTietSanPham.css" />
+    <Content Include="assets\css\LichSuMuaHang.css" />
     <Content Include="assets\img\acer.png" />
     <Content Include="assets\img\dell.png" />
     <Content Include="assets\img\dell2.png" />
@@ -77,6 +78,7 @@
     <Content Include="DangKy.aspx" />
     <Content Include="DangNhap.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="LichSuMuaHang.aspx" />
     <Content Include="ThanhToan.aspx" />
     <Content Include="TrangChu.aspx" />
     <Content Include="HoSo.aspx" />
@@ -114,6 +116,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Laptop.cs" />
+    <Compile Include="LichSuMuaHang.aspx.cs">
+      <DependentUpon>LichSuMuaHang.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LichSuMuaHang.aspx.designer.cs">
+      <DependentUpon>LichSuMuaHang.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThanhToan.aspx.cs">
       <DependentUpon>ThanhToan.aspx</DependentUpon>

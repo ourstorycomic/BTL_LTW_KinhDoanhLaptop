@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,7 +9,6 @@ namespace BTL_LTW_KinhDoanhLaptop
 {
     public partial class TrangChu : System.Web.UI.Page
     {
-        
         private void HienThiTaiKhoan()
         {
             if (Session["TaiKhoan"] == null)
@@ -22,7 +20,7 @@ namespace BTL_LTW_KinhDoanhLaptop
             {
                 divChuaDangNhap.Visible = false;
                 divDaDangNhap.Visible = true;
-                
+
                 string tk = Session["TaiKhoan"].ToString();
                 lblTenTaiKhoan.InnerText = tk;
 
@@ -59,7 +57,7 @@ namespace BTL_LTW_KinhDoanhLaptop
                 {
                     int idSP = int.Parse(addcart);
                     ThemVaoGioHang(idSP);
-                    
+
                     string urlTemplate = Request.Url.AbsolutePath + "?";
                     for (int i = 0; i < Request.QueryString.Count; i++)
                     {
@@ -190,26 +188,28 @@ namespace BTL_LTW_KinhDoanhLaptop
                 }
             }
         }
-
         private void CapNhatSoLuongGio()
         {
             if (Session["GioHang"] != null)
             {
-                DataTable dt = (DataTable)Session["GioHang"];
+                List<Laptop> gioHang = (List<Laptop>)Session["GioHang"];
                 int tong = 0;
-                for (int i = 0; i < dt.Rows.Count; i++)
+                for (int i = 0; i < gioHang.Count; i++)
                 {
-                    tong = tong + int.Parse(dt.Rows[i]["SoLuong"].ToString());
+                    tong += gioHang[i].SoLuongTrongGio;
                 }
                 lblSoLuongGio.Text = tong.ToString();
             }
+            else
+            {
+                lblSoLuongGio.Text = "0";
+            }
         }
-
         private void ThemVaoGioHang(int maSP)
         {
             List<Laptop> danhSach = (List<Laptop>)Application["DanhSachLaptop"];
             if (danhSach == null) return;
-            
+
             Laptop spChon = null;
             for (int i = 0; i < danhSach.Count; i++)
             {
@@ -219,41 +219,40 @@ namespace BTL_LTW_KinhDoanhLaptop
                     break;
                 }
             }
-            
-            if (spChon == null) return;
 
-            DataTable gioHang;
+            if (spChon == null) return;
+            List<Laptop> gioHang;
             if (Session["GioHang"] == null)
             {
-                gioHang = new DataTable();
-                gioHang.Columns.Add("MaSanPham", typeof(int));
-                gioHang.Columns.Add("TenSanPham", typeof(string));
-                gioHang.Columns.Add("SoLuong", typeof(int));
-                gioHang.Columns.Add("DonGia", typeof(decimal));
-                gioHang.Columns.Add("ThanhTien", typeof(decimal));
+                gioHang = new List<Laptop>();
             }
             else
             {
-                gioHang = (DataTable)Session["GioHang"];
+                gioHang = (List<Laptop>)Session["GioHang"];
             }
-
             bool daCo = false;
-            for (int i = 0; i < gioHang.Rows.Count; i++)
+            for (int i = 0; i < gioHang.Count; i++)
             {
-                if (int.Parse(gioHang.Rows[i]["MaSanPham"].ToString()) == maSP)
+                if (gioHang[i].Id == maSP)
                 {
-                    gioHang.Rows[i]["SoLuong"] = int.Parse(gioHang.Rows[i]["SoLuong"].ToString()) + 1;
-                    gioHang.Rows[i]["ThanhTien"] = int.Parse(gioHang.Rows[i]["SoLuong"].ToString()) * spChon.GiaTien;
+                    gioHang[i].SoLuongTrongGio += 1;
                     daCo = true;
                     break;
                 }
             }
-
             if (daCo == false)
             {
-                gioHang.Rows.Add(maSP, spChon.TenSanPham, 1, spChon.GiaTien, spChon.GiaTien);
+                Laptop spMua = new Laptop();
+                spMua.Id = spChon.Id;
+                spMua.TenSanPham = spChon.TenSanPham;
+                spMua.GiaTien = spChon.GiaTien;
+                spMua.HinhAnh = spChon.HinhAnh;
+                spMua.SoLuongTrongGio = 1;
+
+                gioHang.Add(spMua);
             }
 
+            // Cất lại vào Session
             Session["GioHang"] = gioHang;
         }
     }

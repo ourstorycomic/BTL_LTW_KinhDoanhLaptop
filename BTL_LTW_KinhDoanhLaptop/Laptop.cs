@@ -13,6 +13,7 @@ namespace BTL_LTW_KinhDoanhLaptop
         public string HinhAnh { get; set; }
         public int SoLuongTon { get; set; }
         public int SoLuongBan { get; set; }
+        public int SoLuongTrongGio { get; set; }
     }
     
     public class NguoiDung
@@ -24,5 +25,23 @@ namespace BTL_LTW_KinhDoanhLaptop
         public string Email { get; set; }
         public string DiaChi { get; set; }
         public string Avatar { get; set; }
+    }
+    public class DonHang
+    {
+        public string MaDon { get; set; }
+        public string TaiKhoan { get; set; } 
+        public DateTime NgayDat { get; set; }
+        public decimal TongTien { get; set; }
+        public string TrangThai { get; set; } 
+        public List<ChiTietDonHang> DanhSachChiTiet { get; set; }
+    }
+
+    public class ChiTietDonHang
+    {
+        public int IdLaptop { get; set; }
+        public string TenSanPham { get; set; }
+        public string HinhAnh { get; set; }
+        public int SoLuong { get; set; }
+        public decimal DonGia { get; set; }
     }
 }

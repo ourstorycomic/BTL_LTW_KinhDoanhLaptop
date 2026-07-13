@@ -45,6 +45,7 @@
                         <i class="fa-solid fa-caret-down"></i>
                         <div class="dropdown-content">
                             <a href="HoSo.aspx"><i class="fa-solid fa-address-card"></i> Hồ sơ cá nhân</a>
+                            <a href="LichSuMuaHang.aspx"><i class="fa-solid fa-box"></i> Lịch sử mua hàng</a>
                             <a id="linkQuanTri" runat="server" href="QuanTri.aspx" visible="false"><i class="fa-solid fa-gear"></i> Quản trị</a>
                             <a id="linkThongKe" runat="server" href="BaoCao.aspx" visible="false"><i class="fa-solid fa-chart-pie"></i> Thống kê</a>
                             <a href="DangNhap.aspx?logout=true" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
@@ -120,11 +121,10 @@
             </div>
         </footer>
     </form>
-
-    <div id="toast"></div>
     <script src="assets/js/main.js"></script>
     <button id="nut-cuon-len" onclick="cuonLenDauTrang()" title="Lên đầu trang">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
+       <div id="toast"></div>
 </body>
 </html>

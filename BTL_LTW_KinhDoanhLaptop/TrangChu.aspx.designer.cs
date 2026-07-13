@@ -86,24 +86,58 @@ namespace BTL_LTW_KinhDoanhLaptop
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor linkThongKe;
 
+        /// <summary>
+        /// divVanPhong control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divVanPhong;
+
+        /// <summary>
+        /// khungVanPhong control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl khungVanPhong;
 
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGaming;
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl khungGaming;
-
+        /// <summary>
+        /// divMongNhe control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMongNhe;
+
+        /// <summary>
+        /// khungMongNhe control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl khungMongNhe;
 
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSinhVien;
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl khungSinhVien;
+        /// <summary>
+        /// divGaming control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGaming;
 
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDoHoa;
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl khungDoHoa;
-
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCaoCap;
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl khungCaoCap;
-
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divKhongCoSP;
+        /// <summary>
+        /// khungGaming control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl khungGaming;
     }
 }
