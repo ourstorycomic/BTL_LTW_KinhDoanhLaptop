@@ -335,29 +335,22 @@ namespace BTL_LTW_KinhDoanhLaptop
 
             if (spChon == null) return;
 
-            DataTable gioHang;
+            List<Laptop> gioHang;
             if (Session["GioHang"] == null)
             {
-                gioHang = new DataTable();
-                gioHang.Columns.Add("MaSanPham", typeof(int));
-                gioHang.Columns.Add("TenSanPham", typeof(string));
-                gioHang.Columns.Add("SoLuong", typeof(int));
-                gioHang.Columns.Add("DonGia", typeof(decimal));
-                gioHang.Columns.Add("ThanhTien", typeof(decimal));
+                gioHang = new List<Laptop>();
             }
             else
             {
-                gioHang = (DataTable)Session["GioHang"];
+                gioHang = (List<Laptop>)Session["GioHang"];
             }
 
             bool daCo = false;
-            for (int i = 0; i < gioHang.Rows.Count; i++)
+            foreach (Laptop sp in gioHang)
             {
-                if (int.Parse(gioHang.Rows[i]["MaSanPham"].ToString()) == maSP)
+                if (sp.Id == maSP)
                 {
-                    int slMoi = int.Parse(gioHang.Rows[i]["SoLuong"].ToString()) + 1;
-                    gioHang.Rows[i]["SoLuong"] = slMoi;
-                    gioHang.Rows[i]["ThanhTien"] = slMoi * spChon.GiaTien;
+                    sp.SoLuongTrongGio++;
                     daCo = true;
                     break;
                 }
@@ -365,7 +358,15 @@ namespace BTL_LTW_KinhDoanhLaptop
 
             if (daCo == false)
             {
-                gioHang.Rows.Add(maSP, spChon.TenSanPham, 1, spChon.GiaTien, spChon.GiaTien);
+                Laptop spMoi = new Laptop
+                {
+                    Id = spChon.Id,
+                    TenSanPham = spChon.TenSanPham,
+                    GiaTien = spChon.GiaTien,
+                    HinhAnh = spChon.HinhAnh,
+                    SoLuongTrongGio = 1
+                };
+                gioHang.Add(spMoi);
             }
 
             Session["GioHang"] = gioHang;

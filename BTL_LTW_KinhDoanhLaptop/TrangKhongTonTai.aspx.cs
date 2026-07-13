@@ -23,11 +23,11 @@ namespace BTL_LTW_KinhDoanhLaptop
         {
             if (Session["GioHang"] != null)
             {
-                DataTable dtGioHang = (DataTable)Session["GioHang"];
+                List<Laptop> gioHang = (List<Laptop>)Session["GioHang"];
                 int tongSoLuong = 0;
-                foreach (DataRow row in dtGioHang.Rows)
+                foreach (Laptop item in gioHang)
                 {
-                    tongSoLuong += Convert.ToInt32(row["SoLuong"]);
+                    tongSoLuong += item.SoLuongTrongGio;
                 }
                 lblSoLuongGio.InnerText = tongSoLuong.ToString();
             }

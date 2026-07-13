@@ -104,12 +104,12 @@ namespace BTL_LTW_KinhDoanhLaptop
         {
             if (Session["GioHang"] != null)
             {
-                DataTable dt = (DataTable)Session["GioHang"];
+                List<Laptop> gioHang = (List<Laptop>)Session["GioHang"];
                 int tong = 0;
 
-                for (int i = 0; i < dt.Rows.Count; i++)
+                foreach (Laptop item in gioHang)
                 {
-                    tong += Convert.ToInt32(dt.Rows[i]["SoLuong"]);
+                    tong += item.SoLuongTrongGio;
                 }
 
                 lblSoLuongGio.Text = tong.ToString();
@@ -123,31 +123,24 @@ namespace BTL_LTW_KinhDoanhLaptop
                 return;
             }
 
-            DataTable gioHang;
+            List<Laptop> gioHang;
 
             if (Session["GioHang"] == null)
             {
-                gioHang = new DataTable();
-                gioHang.Columns.Add("MaSanPham", typeof(int));
-                gioHang.Columns.Add("TenSanPham", typeof(string));
-                gioHang.Columns.Add("SoLuong", typeof(int));
-                gioHang.Columns.Add("DonGia", typeof(decimal));
-                gioHang.Columns.Add("ThanhTien", typeof(decimal));
+                gioHang = new List<Laptop>();
             }
             else
             {
-                gioHang = (DataTable)Session["GioHang"];
+                gioHang = (List<Laptop>)Session["GioHang"];
             }
 
             bool daCo = false;
 
-            for (int i = 0; i < gioHang.Rows.Count; i++)
+            foreach (Laptop sp in gioHang)
             {
-                if (Convert.ToInt32(gioHang.Rows[i]["MaSanPham"]) == spHienTai.Id)
+                if (sp.Id == spHienTai.Id)
                 {
-                    int soLuongMoi = Convert.ToInt32(gioHang.Rows[i]["SoLuong"]) + 1;
-                    gioHang.Rows[i]["SoLuong"] = soLuongMoi;
-                    gioHang.Rows[i]["ThanhTien"] = soLuongMoi * spHienTai.GiaTien;
+                    sp.SoLuongTrongGio++;
                     daCo = true;
                     break;
                 }
@@ -155,7 +148,15 @@ namespace BTL_LTW_KinhDoanhLaptop
 
             if (daCo == false)
             {
-                gioHang.Rows.Add(spHienTai.Id, spHienTai.TenSanPham, 1, spHienTai.GiaTien, spHienTai.GiaTien);
+                Laptop spMoi = new Laptop
+                {
+                    Id = spHienTai.Id,
+                    TenSanPham = spHienTai.TenSanPham,
+                    GiaTien = spHienTai.GiaTien,
+                    HinhAnh = spHienTai.HinhAnh,
+                    SoLuongTrongGio = 1
+                };
+                gioHang.Add(spMoi);
             }
 
             Session["GioHang"] = gioHang;
@@ -175,15 +176,18 @@ namespace BTL_LTW_KinhDoanhLaptop
                 return;
             }
 
-            DataTable dtMuaNgay = new DataTable();
-            dtMuaNgay.Columns.Add("MaSanPham", typeof(int));
-            dtMuaNgay.Columns.Add("TenSanPham", typeof(string));
-            dtMuaNgay.Columns.Add("SoLuong", typeof(int));
-            dtMuaNgay.Columns.Add("DonGia", typeof(decimal));
-            dtMuaNgay.Columns.Add("ThanhTien", typeof(decimal));
+            List<Laptop> dsMuaNgay = new List<Laptop>();
+            Laptop spMuaNgay = new Laptop
+            {
+                Id = spHienTai.Id,
+                TenSanPham = spHienTai.TenSanPham,
+                GiaTien = spHienTai.GiaTien,
+                HinhAnh = spHienTai.HinhAnh,
+                SoLuongTrongGio = 1
+            };
 
-            dtMuaNgay.Rows.Add(spHienTai.Id, spHienTai.TenSanPham, 1, spHienTai.GiaTien, spHienTai.GiaTien);
-            Session["MuaNgay"] = dtMuaNgay;
+            dsMuaNgay.Add(spMuaNgay);
+            Session["MuaNgay"] = dsMuaNgay;
 
             Response.Redirect("ThanhToan.aspx?type=buynow");
         }

@@ -80,11 +80,11 @@ namespace BTL_LTW_KinhDoanhLaptop
 
             if (Session["GioHang"] != null)
             {
-                DataTable dt = (DataTable)Session["GioHang"];
+                List<Laptop> gioHang = (List<Laptop>)Session["GioHang"];
                 int tongGioHang = 0;
-                for (int i = 0; i < dt.Rows.Count; i++)
+                foreach (Laptop item in gioHang)
                 {
-                    tongGioHang += Convert.ToInt32(dt.Rows[i]["SoLuong"]);
+                    tongGioHang += item.SoLuongTrongGio;
                 }
                 lblSoLuongGio.Text = tongGioHang.ToString();
             }
