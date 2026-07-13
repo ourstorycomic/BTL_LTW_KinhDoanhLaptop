@@ -1,10 +1,9 @@
 ﻿body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4; 
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
 }
-
 #vung-chua-noi-dung {
     width: 1200px;
     margin: 30px auto; 
@@ -62,10 +61,9 @@
             }
 
 
-.noi-dung-phai-newbie {
-    float: left;
-    width: 910px; 
-    margin-left: 30px;
+.noi-dung-phai {
+    width: 910px;
+    margin: 0 auto;
     background-color: #fff;
     padding: 25px 30px;
     border-radius: 8px;
@@ -73,7 +71,7 @@
     box-sizing: border-box;
 }
 
-    .noi-dung-phai-newbie h2 {
+    .noi-dung-phai h2 {
         margin-top: 0;
         color: #333;
         font-size: 24px;
