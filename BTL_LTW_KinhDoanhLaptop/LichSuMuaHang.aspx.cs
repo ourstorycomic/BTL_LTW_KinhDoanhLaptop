@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.HtmlControls;
@@ -15,9 +15,70 @@ namespace BTL_LTW_KinhDoanhLaptop
                 Response.Redirect("DangNhap.aspx");
                 return;
             }
+
+            HienThiTaiKhoan();
+            CapNhatSoLuongGio();
+
             if (!IsPostBack)
             {
                 HienThiDanhSachDonHang();
+            }
+        }
+
+        private void HienThiTaiKhoan()
+        {
+            if (Session["TaiKhoan"] == null)
+            {
+                divChuaDangNhap.Visible = true;
+                divDaDangNhap.Visible = false;
+            }
+            else
+            {
+                divChuaDangNhap.Visible = false;
+                divDaDangNhap.Visible = true;
+
+                string tenTaiKhoan = Session["TaiKhoan"].ToString();
+                lblTenTaiKhoan.InnerText = tenTaiKhoan;
+
+                if (Application["DanhSachTaiKhoan"] != null)
+                {
+                    Dictionary<string, NguoiDung> tuDienTaiKhoan = (Dictionary<string, NguoiDung>)Application["DanhSachTaiKhoan"];
+
+                    if (tuDienTaiKhoan.ContainsKey(tenTaiKhoan))
+                    {
+                        if (tuDienTaiKhoan[tenTaiKhoan].Avatar != null && tuDienTaiKhoan[tenTaiKhoan].Avatar != "")
+                        {
+                            imgAvatar.Src = tuDienTaiKhoan[tenTaiKhoan].Avatar;
+                        }
+                    }
+                }
+
+                if (tenTaiKhoan == "admin")
+                {
+                    linkQuanTri.Visible = true;
+                    linkThongKe.Visible = true;
+                }
+                else
+                {
+                    linkQuanTri.Visible = false;
+                    linkThongKe.Visible = false;
+                }
+            }
+        }
+
+        private void CapNhatSoLuongGio()
+        {
+            if (Session["GioHang"] != null)
+            {
+                List<Laptop> gioHang = (List<Laptop>)Session["GioHang"];
+                int tongSoLuong = 0;
+
+                foreach (Laptop item in gioHang)
+                {
+                    tongSoLuong += item.SoLuongTrongGio;
+                }
+
+                lblSoLuongGio.Text = tongSoLuong.ToString();
             }
         }
 
