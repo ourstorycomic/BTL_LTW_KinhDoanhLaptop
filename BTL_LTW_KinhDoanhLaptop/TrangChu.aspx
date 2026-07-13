@@ -9,24 +9,6 @@
     <title></title>
     <link href="assets/css/Styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/font/fontawesome-free-6.4.0/css/all.css" />
-    <script>
-        window.onscroll = function () {
-            kiemTraCuonTrang();
-        };
-
-        function kiemTraCuonTrang() {
-            var nut = document.getElementById("nut-cuon-len");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                nut.style.display = "block";
-            } else {
-                nut.style.display = "none";
-            }
-        }
-        function cuonLenDauTrang() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0; 
-        }
-    </script>
 </head>
 <body>
     <form id="form1" runat="server" method="post">

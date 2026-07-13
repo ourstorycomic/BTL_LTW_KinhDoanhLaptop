@@ -163,3 +163,23 @@ function hienThiKhungThe() {
         }
     }
 }
+
+window.onscroll = function () {
+    kiemTraCuonTrang();
+};
+
+function kiemTraCuonTrang() {
+    var nut = document.getElementById("nut-cuon-len");
+    if (nut) {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            nut.style.display = "block";
+        } else {
+            nut.style.display = "none";
+        }
+    }
+}
+
+function cuonLenDauTrang() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0; 
+}
