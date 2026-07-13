@@ -63,9 +63,8 @@
 
 
 .noi-dung-phai-newbie {
-    float: left;
-    width: 910px; 
-    margin-left: 30px;
+    width: 910px;
+    margin: 0 auto;
     background-color: #fff;
     padding: 25px 30px;
     border-radius: 8px;

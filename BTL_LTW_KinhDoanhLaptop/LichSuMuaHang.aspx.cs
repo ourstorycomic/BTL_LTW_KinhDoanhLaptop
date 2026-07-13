@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BTL_LTW_KinhDoanhLaptop
 {
@@ -29,68 +31,73 @@ namespace BTL_LTW_KinhDoanhLaptop
             {
                 donHangCuaToi = tatCaDonHang.Where(d => d.TaiKhoan == tenTaiKhoan).OrderByDescending(d => d.NgayDat).ToList();
             }
-            string chuoiHTML = "";
 
             if (donHangCuaToi.Count == 0)
             {
-                chuoiHTML = "<p style='text-align:center; color:#888; font-size: 16px; padding: 50px;'>Bạn chưa mua đơn hàng nào.</p>";
+                lblKhongCoDon.Visible = true;
+                rptDonHang.Visible = false;
             }
             else
             {
-                foreach (DonHang don in donHangCuaToi)
+                lblKhongCoDon.Visible = false;
+                rptDonHang.Visible = true;
+                rptDonHang.DataSource = donHangCuaToi;
+                rptDonHang.DataBind();
+            }
+        }
+        protected void rptDonHang_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                DonHang don = (DonHang)e.Item.DataItem;
+                Label lblMaDon = (Label)e.Item.FindControl("lblMaDon");
+                Label lblNgayDat = (Label)e.Item.FindControl("lblNgayDat");
+                Label lblTongTien = (Label)e.Item.FindControl("lblTongTien");
+                HtmlGenericControl lblTrangThai = (HtmlGenericControl)e.Item.FindControl("lblTrangThai");
+                HtmlButton btnHanhDong = (HtmlButton)e.Item.FindControl("btnHanhDong");
+                Repeater rptChiTiet = (Repeater)e.Item.FindControl("rptChiTiet");
+                lblMaDon.Text = don.MaDon;
+                lblNgayDat.Text = don.NgayDat.ToString("dd/MM/yyyy HH:mm");
+                lblTongTien.Text = don.TongTien.ToString("N0");
+                lblTrangThai.InnerText = don.TrangThai;
+                if (don.TrangThai == "Đang vận chuyển" || don.TrangThai == "Chờ xác nhận")
                 {
-                    string mauTrangThai = "mau-xanh";
-                    if (don.TrangThai == "Đang vận chuyển" || don.TrangThai == "Chờ xác nhận")
-                    {
-                        mauTrangThai = "mau-cam";
-                    }
-                    chuoiHTML += "<div class='the-don-hang'>";
-                    chuoiHTML += "   <div class='phan-dau-don'>";
-                    chuoiHTML += "       <span class='ma-don'>Order <b>#" + don.MaDon + "</b></span>";
-                    chuoiHTML += "       <span class='nhan-trang-thai " + mauTrangThai + "'>" + don.TrangThai + "</span>";
-                    chuoiHTML += "       <div class='clear-float'></div>";
-                    chuoiHTML += "   </div>";
-                    chuoiHTML += "   <p class='ngay-dat'>Ngày đặt: " + don.NgayDat.ToString("dd/MM/yyyy HH:mm") + "</p>";
-                    foreach (ChiTietDonHang sp in don.DanhSachChiTiet)
-                    {
-                        chuoiHTML += "   <div class='san-pham-trong-don'>";
-                        chuoiHTML += "       <img src='" + ResolveUrl(sp.HinhAnh) + "' class='anh-sp-don' />";
-                        chuoiHTML += "       <div class='thong-tin-sp-don'>";
-                        chuoiHTML += "           <p class='ten-sp-don'>" + sp.TenSanPham + "</p>";
-                        chuoiHTML += "           <p class='gia-sp-don'>" + sp.DonGia.ToString("N0") + "đ</p>";
-                        chuoiHTML += "       </div>";
-                        chuoiHTML += "       <div class='so-luong-don'>x" + sp.SoLuong + "</div>";
-                        chuoiHTML += "       <div class='clear-float'></div>";
-                        chuoiHTML += "   </div>";
-                    }
+                    lblTrangThai.Attributes["class"] = "nhan-trang-thai mau-cam";
+                }
+                else
+                {
+                    lblTrangThai.Attributes["class"] = "nhan-trang-thai mau-xanh";
+                }
 
-                    chuoiHTML += "   <div class='duong-ke-ngang'></div>";
-
-                    chuoiHTML += "   <div class='tong-tien-don'>";
-                    chuoiHTML += "       <span class='chu-tong'>Tổng chi tiết:</span>";
-                    chuoiHTML += "       <span class='so-tien-tong'>" + don.TongTien.ToString("N0") + "đ</span>";
-                    chuoiHTML += "       <div class='clear-float'></div>";
-                    chuoiHTML += "   </div>";
-
-                    chuoiHTML += "   <div class='vung-nut-hanh-dong'>";
-                    chuoiHTML += "       <button class='nut-trang'>Xem chi tiết</button>";
-
-                    if (don.TrangThai == "Đã giao hàng")
-                    {
-                        chuoiHTML += "       <button class='nut-den'>Mua lại</button>";
-                    }
-                    else
-                    {
-                        chuoiHTML += "       <button class='nut-den'>Theo dõi</button>";
-                    }
-
-                    chuoiHTML += "   </div>";
-                    chuoiHTML += "</div>";
+                if (don.TrangThai == "Đã giao hàng")
+                {
+                    btnHanhDong.InnerText = "Mua lại";
+                }
+                else
+                {
+                    btnHanhDong.InnerText = "Theo dõi";
+                }
+                if (rptChiTiet != null)
+                {
+                    rptChiTiet.DataSource = don.DanhSachChiTiet;
+                    rptChiTiet.DataBind();
                 }
             }
-
-            // Đẩy toàn bộ HTML vừa tạo ra giao diện
-            khungChuaDonHang.InnerHtml = chuoiHTML;
+        }
+        protected void rptChiTiet_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                ChiTietDonHang sp = (ChiTietDonHang)e.Item.DataItem;
+                Image imgSp = (Image)e.Item.FindControl("imgSp");
+                Label lblTenSp = (Label)e.Item.FindControl("lblTenSp");
+                Label lblGiaSp = (Label)e.Item.FindControl("lblGiaSp");
+                Label lblSoLuong = (Label)e.Item.FindControl("lblSoLuong");
+                imgSp.ImageUrl = ResolveUrl(sp.HinhAnh);
+                lblTenSp.Text = sp.TenSanPham;
+                lblGiaSp.Text = sp.DonGia.ToString("N0");
+                lblSoLuong.Text = sp.SoLuong.ToString();
+            }
         }
     }
 }
