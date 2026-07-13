@@ -68,8 +68,7 @@
 
             <main class="khu-vuc-404">
                 <h1>404</h1>
-                <h3>Ôi hỏng! Trang bạn tìm không tồn tại.</h3>
-                <p>Có thể đường dẫn đã bị thay đổi, bị xóa, hoặc bạn đã nhập sai địa chỉ.</p>
+                <h3>Trang bạn tìm không tồn tại.</h3>
                 <a href="TrangChu.aspx" class="nut-ve-trang-chu">QUAY VỀ TRANG CHỦ</a>
             </main>
 
