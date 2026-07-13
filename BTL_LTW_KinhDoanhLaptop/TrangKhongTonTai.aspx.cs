@@ -8,8 +8,15 @@ namespace BTL_LTW_KinhDoanhLaptop
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            HienThiSoLuongGioHang();
-            HienThiTaiKhoan();
+            try
+            {
+                HienThiSoLuongGioHang();
+                HienThiTaiKhoan();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<!-- Error in Page_Load: " + ex.Message + " \n " + ex.StackTrace + " -->");
+            }
         }
 
         private void HienThiSoLuongGioHang()

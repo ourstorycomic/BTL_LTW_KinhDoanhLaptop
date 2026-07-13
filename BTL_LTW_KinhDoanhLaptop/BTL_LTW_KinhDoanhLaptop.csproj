@@ -81,6 +81,7 @@
     <Content Include="LichSuMuaHang.aspx" />
     <Content Include="ThanhToan.aspx" />
     <Content Include="TrangChu.aspx" />
+    <Content Include="TrangKhongTonTai.aspx" />
     <Content Include="HoSo.aspx" />
     <Content Include="assets\css\Styles.css" />
     <Content Include="Web.config" />
@@ -144,6 +145,13 @@
     </Compile>
     <Compile Include="TrangChu.aspx.designer.cs">
       <DependentUpon>TrangChu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TrangKhongTonTai.aspx.cs">
+      <DependentUpon>TrangKhongTonTai.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TrangKhongTonTai.aspx.designer.cs">
+      <DependentUpon>TrangKhongTonTai.aspx</DependentUpon>
     </Compile>
     <Compile Include="GioiThieu.aspx.cs">
       <DependentUpon>GioiThieu.aspx</DependentUpon>
