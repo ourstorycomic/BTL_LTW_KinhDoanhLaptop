@@ -48,7 +48,7 @@
         </header>
 
         <div id="vung-chua-noi-dung"> 
-           <div class="noi-dung-phai-newbie">
+           <div class="noi-dung-phai">
                 <h2 style="margin-top: 0;">Lịch sử mua hàng</h2>
 
                 <div class="vung-loc-don-hang">
