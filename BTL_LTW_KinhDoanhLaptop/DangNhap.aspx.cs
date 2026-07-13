@@ -123,7 +123,7 @@ namespace BTL_LTW_KinhDoanhLaptop
                         if (user.Email == taiKhoan && user.MatKhau == matKhau)
                         {
                             dangNhapThanhCong = true;
-                            taiKhoan = user.TaiKhoan; // Update to actual username for Session
+                            taiKhoan = user.TaiKhoan;
                             break;
                         }
                     }

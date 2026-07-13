@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Web.UI;
@@ -63,12 +63,12 @@ namespace BTL_LTW_KinhDoanhLaptop
         {
             if (Session["GioHang"] != null)
             {
-                DataTable dt = (DataTable)Session["GioHang"];
+                List<Laptop> gioHang = (List<Laptop>)Session["GioHang"];
                 int tongSoLuong = 0;
 
-                for (int i = 0; i < dt.Rows.Count; i++)
+                foreach (Laptop item in gioHang)
                 {
-                    tongSoLuong += Convert.ToInt32(dt.Rows[i]["SoLuong"]);
+                    tongSoLuong += item.SoLuongTrongGio;
                 }
 
                 lblSoLuongGio.Text = tongSoLuong.ToString();

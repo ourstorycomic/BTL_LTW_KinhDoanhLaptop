@@ -57,11 +57,11 @@ namespace BTL_LTW_KinhDoanhLaptop
         {
             if (Session["GioHang"] != null)
             {
-                System.Data.DataTable dt = (System.Data.DataTable)Session["GioHang"];
+                List<Laptop> gioHang = (List<Laptop>)Session["GioHang"];
                 int tong = 0;
-                for (int i = 0; i < dt.Rows.Count; i++)
+                foreach (Laptop item in gioHang)
                 {
-                    tong = tong + int.Parse(dt.Rows[i]["SoLuong"].ToString());
+                    tong += item.SoLuongTrongGio;
                 }
                 lblSoLuongGio.Text = tong.ToString();
             }
