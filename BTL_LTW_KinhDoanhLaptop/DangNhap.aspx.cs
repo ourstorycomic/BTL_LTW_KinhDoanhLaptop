@@ -92,9 +92,14 @@ namespace BTL_LTW_KinhDoanhLaptop
             if (taiKhoan == null) taiKhoan = "";
             if (matKhau == null) matKhau = "";
 
-            if (taiKhoan == "" || matKhau == "")
+            if (matKhau == "")
             {
-                divThongBaoLoi.InnerText = "Vui lòng nhập đầy đủ Tài khoản và Mật khẩu!";
+                divThongBaoLoi.InnerText = "Vui lòng nhập Mật khẩu!";
+                return;
+            }
+            if (taiKhoan == "")
+            {
+                divThongBaoLoi.InnerText = "Vui lòng nhập đầy đủ Tài khoản!";
                 return;
             }
 
@@ -109,6 +114,18 @@ namespace BTL_LTW_KinhDoanhLaptop
                     if (dsTaiKhoan[taiKhoan].MatKhau == matKhau)
                     {
                         dangNhapThanhCong = true;
+                    }
+                }
+                else
+                {
+                    foreach (var user in dsTaiKhoan.Values)
+                    {
+                        if (user.Email == taiKhoan && user.MatKhau == matKhau)
+                        {
+                            dangNhapThanhCong = true;
+                            taiKhoan = user.TaiKhoan; // Update to actual username for Session
+                            break;
+                        }
                     }
                 }
             }

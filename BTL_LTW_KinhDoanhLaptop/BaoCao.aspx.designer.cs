@@ -87,51 +87,6 @@ namespace BTL_LTW_KinhDoanhLaptop
         protected global::System.Web.UI.HtmlControls.HtmlAnchor linkThongKe;
 
         /// <summary>
-        /// pTongSanPham control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pTongSanPham;
-
-        /// <summary>
-        /// pTongSoLuongTon control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pTongSoLuongTon;
-
-        /// <summary>
-        /// pTongGiaTriKho control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pTongGiaTriKho;
-
-        /// <summary>
-        /// pTongTaiKhoan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pTongTaiKhoan;
-
-        /// <summary>
-        /// pSanPhamBanChay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pSanPhamBanChay;
-
-        /// <summary>
         /// tbodyThongKe control.
         /// </summary>
         /// <remarks>
@@ -139,5 +94,11 @@ namespace BTL_LTW_KinhDoanhLaptop
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl tbodyThongKe;
+        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pTongSanPham;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pTongSoLuongTon;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pTongGiaTriKho;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pTongTaiKhoan;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pSanPhamBanChay;
     }
 }

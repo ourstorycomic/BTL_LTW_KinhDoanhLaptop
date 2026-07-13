@@ -74,10 +74,34 @@ namespace BTL_LTW_KinhDoanhLaptop
             if (email == null) email = "";
             if (matKhau == null) matKhau = "";
             if (xacNhanMK == null) xacNhanMK = "";
-
-            if (taiKhoan == "" || hoTen == "" || sdt == "" || email == "" || matKhau == "" || xacNhanMK == "")
+            if (taiKhoan == "")
             {
-                divThongBaoDK.InnerText = "Vui lòng nhập đầy đủ thông tin!";
+                divThongBaoDK.InnerText = "Vui lòng nhập tên đăng nhập!";
+                return;
+            }
+            if (hoTen == "")
+            {
+                divThongBaoDK.InnerText = "Vui lòng nhập Họ tên!";
+                return;
+            }
+            if (sdt == "")
+            {
+                divThongBaoDK.InnerText = "Vui lòng nhập số điện thoại!";
+                return;
+            }
+            if (email == "")
+            {
+                divThongBaoDK.InnerText = "Vui lòng nhập Email!";
+                return;
+            }
+            if (matKhau == "")
+            {
+                divThongBaoDK.InnerText = "Vui lòng nhập mật khẩu!";
+                return;
+            }
+            if (xacNhanMK == "")
+            {
+                divThongBaoDK.InnerText = "Vui lòng nhập xác nhận mật khẩu!";
                 return;
             }
 

@@ -59,26 +59,32 @@
                 <h2 class="tieu-de-dang-nhap">ĐĂNG KÝ TÀI KHOẢN</h2>
                 
                 <div class="nhom-nhap-lieu">
+                    Tên đăng nhập:
                     <input type="text" name="txtTaiKhoanDK" class="o-nhap-lieu" placeholder="Tên đăng nhập" />
                 </div>
 
                 <div class="nhom-nhap-lieu">
+                    Họ và tên:
                     <input type="text" name="txtHoTenDK" class="o-nhap-lieu" placeholder="Họ và tên" />
                 </div>
 
                 <div class="nhom-nhap-lieu">
+                    Số điện thoại:
                     <input type="text" name="txtSDTDK" class="o-nhap-lieu" placeholder="Số điện thoại" />
                 </div>
                 
                 <div class="nhom-nhap-lieu">
+                    Email:
                     <input type="text" name="txtEmailDK" class="o-nhap-lieu" placeholder="Email (Ví dụ: abc@gmail.com)" />
                 </div>
                 
                 <div class="nhom-nhap-lieu">
+                    Mật khẩu:
                     <input type="password" name="txtMatKhauDK" class="o-nhap-lieu" placeholder="Mật khẩu" />
                 </div>
 
                 <div class="nhom-nhap-lieu">
+                    Xác nhận mật khẩu:
                     <input type="password" name="txtXacNhanMatKhau" class="o-nhap-lieu" placeholder="Nhập lại mật khẩu" />
                 </div>
 

@@ -87,60 +87,6 @@ namespace BTL_LTW_KinhDoanhLaptop
         protected global::System.Web.UI.HtmlControls.HtmlAnchor linkThongKe;
 
         /// <summary>
-        /// divChiTietSanPham control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divChiTietSanPham;
-
-        /// <summary>
-        /// lblBreadcrumbTen control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblBreadcrumbTen;
-
-        /// <summary>
-        /// imgAnhLon control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgAnhLon;
-
-        /// <summary>
-        /// divTenSP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTenSP;
-
-        /// <summary>
-        /// bMaSP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bMaSP;
-
-        /// <summary>
-        /// divGiaSP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGiaSP;
-
-        /// <summary>
         /// btnMuaNgay control.
         /// </summary>
         /// <remarks>
@@ -158,22 +104,13 @@ namespace BTL_LTW_KinhDoanhLaptop
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnThemVaoGio;
 
-        /// <summary>
-        /// pMoTaChiTiet control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divChiTietSanPham;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblBreadcrumbTen;
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgAnhLon;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTenSP;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bMaSP;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGiaSP;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl pMoTaChiTiet;
-
-        /// <summary>
-        /// divKhongTimThay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divKhongTimThay;
     }
 }

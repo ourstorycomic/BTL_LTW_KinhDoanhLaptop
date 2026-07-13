@@ -59,10 +59,12 @@
                 <h2 class="tieu-de-dang-nhap">ĐĂNG NHẬP</h2>
                 
                 <div class="nhom-nhap-lieu">
+                    Tên đăng nhập hoặc Email:
                     <input type="text" name="txtTaiKhoan" class="o-nhap-lieu" placeholder="Tên đăng nhập hoặc Email" />
                 </div>
                 
                 <div class="nhom-nhap-lieu">
+                    Mật khẩu:
                     <input type="password" name="txtMatKhau" class="o-nhap-lieu" placeholder="Mật khẩu" />
                 </div>
 
